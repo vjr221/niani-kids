@@ -11,7 +11,7 @@ const Tab = createBottomTabNavigator();
 const YOUTUBE = 'https://www.youtube.com/@NianiKids';
 const TIKTOK = 'https://www.tiktok.com/@niani.kids';
 const C = { ink:'#432B20', cream:'#FFF9E8', yellow:'#FFD52A', orange:'#FF8A16', green:'#27B84A', blue:'#168BE8', red:'#F04444', muted:'#806B5D', lilac:'#EEE9FF', pink:'#FFE5E8' };
-const openExternal = (url:string) => Linking.openURL(url).catch(()=>Alert.alert('Lien indisponible','Réessaie dans un instant.'));
+const openExternal = (url:string) => Alert.alert('Espace Parents','Tu vas ouvrir une application externe. Demande à un adulte de continuer.',[{text:'Rester ici',style:'cancel'},{text:'Continuer',onPress:()=>Linking.openURL(url).catch(()=>Alert.alert('Lien indisponible','Réessaie dans un instant.'))}]);
 
 function Header({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
   return <View style={s.header}>
