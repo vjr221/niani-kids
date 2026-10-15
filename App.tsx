@@ -69,7 +69,7 @@ function GamesScreen({lang,setLang,stars,setStars}:{lang:Language;setLang:(l:Lan
     {q:'De quelle couleur est la tomate ?',emoji:'🍅',options:[['🟡','Jaune'],['🔴','Rouge'],['🟣','Violet']],correct:'Rouge'}
   ];
   const counts=[{q:'Combien de mangues ?',emoji:'🥭 🥭',n:2,opts:[1,2,3]},{q:'Combien d’étoiles ?',emoji:'⭐ ⭐ ⭐',n:3,opts:[2,3,4]},{q:'Combien de fleurs ?',emoji:'🌼 🌼 🌼 🌼',n:4,opts:[3,4,5]}];
-  const win=(ok:boolean)=>{if(ok){setFeedback('Bravo ! Tu as gagné une étoile ⭐');setStars(stars+1)}else setFeedback('Essaie encore, tu vas y arriver ! 💚');};
+  const win=(ok:boolean)=>{if(feedback)return;if(ok){setFeedback('Bravo ! Tu as gagné une étoile ⭐');setStars(stars+1)}else setFeedback('Essaie encore, tu vas y arriver ! 💚');};
   const reset=()=>{setRound(0);setFeedback('');setGame('menu')};
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}>
     <View style={s.pageIntro}><Text style={{fontSize:34}}>🎮</Text><View style={{flex:1}}><Text style={s.pageTitle}>La forêt des jeux</Text><Text style={s.cardSubtitle}>Des petits défis pour les grandes découvertes !</Text></View><View style={s.starPill}><Text style={{fontWeight:'900'}}>⭐ {stars}</Text></View></View>
