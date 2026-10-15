@@ -86,6 +86,8 @@ function GamesScreen({lang,setLang,stars,setStars}:{lang:Language;setLang:(l:Lan
 }
 function WorkshopsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
   const [done,setDone]=useState<string[]>([]);
+  useEffect(()=>{AsyncStorage.getItem('niani-workshops-done').then(v=>{if(v)setDone(JSON.parse(v))}).catch(()=>{});},[]);
+  const toggleDone=(id:string)=>setDone(old=>{const next=old.includes(id)?old.filter(x=>x!==id):[...old,id];AsyncStorage.setItem('niani-workshops-done',JSON.stringify(next)).catch(()=>{});return next});
   const workshops=[
     {id:'colors',emoji:'🎨',title:'Mon arc-en-ciel',age:'2–5 ans · 15 min',desc:'Dessiner un arc-en-ciel puis nommer les couleurs en français et en wolof.',materials:'Papier, crayons ou peinture lavable',steps:['Tracer un grand arc avec un adulte.','Colorier chaque bande.','Nommer les couleurs ensemble.']},
     {id:'drum',emoji:'🥁',title:'Mon petit orchestre',age:'1–6 ans · 10 min',desc:'Découvrir le rythme avec les mains et des objets du quotidien.',materials:'Deux gobelets ou une boîte vide',steps:['Écouter un rythme lent.','Taper doucement : boum, tak, boum.','Laisser l’enfant inventer son rythme.']},
@@ -96,7 +98,7 @@ function WorkshopsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>voi
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}>
     <View style={s.pageIntro}><Text style={{fontSize:35}}>🎨</Text><View style={{flex:1}}><Text style={s.pageTitle}>Mon atelier créatif</Text><Text style={s.cardSubtitle}>Créer, écouter, imaginer ensemble.</Text></View></View>
     <View style={s.parentHint}>À faire avec un parent ou un éducateur. Utiliser du matériel adapté à l’âge, éviter les petites pièces et ne jamais laisser un tout-petit sans surveillance.</View>
-    {workshops.map(w=><View key={w.id} style={s.workshop}><View style={s.workshopHead}><Text style={{fontSize:38}}>{w.emoji}</Text><View style={{flex:1}}><Text style={s.cardTitle}>{w.title}</Text><Text style={s.workshopAge}>{w.age}</Text></View><Pressable onPress={()=>setDone(done.includes(w.id)?done.filter(x=>x!==w.id):[...done,w.id])}><Text style={{fontSize:24}}>{done.includes(w.id)?'✅':'⭕'}</Text></Pressable></View><Text style={s.cardSubtitle}>{w.desc}</Text><Text style={s.materials}>🧺 Matériel : {w.materials}</Text><Text style={s.stepsTitle}>On essaie ensemble</Text>{w.steps.map((x,i)=><Text key={x} style={s.stepText}>{i+1}. {x}</Text>)}</View>)}
+    {workshops.map(w=><View key={w.id} style={s.workshop}><View style={s.workshopHead}><Text style={{fontSize:38}}>{w.emoji}</Text><View style={{flex:1}}><Text style={s.cardTitle}>{w.title}</Text><Text style={s.workshopAge}>{w.age}</Text></View><Pressable onPress={()=>toggleDone(w.id)}><Text style={{fontSize:24}}>{done.includes(w.id)?'✅':'⭕'}</Text></Pressable></View><Text style={s.cardSubtitle}>{w.desc}</Text><Text style={s.materials}>🧺 Matériel : {w.materials}</Text><Text style={s.stepsTitle}>On essaie ensemble</Text>{w.steps.map((x,i)=><Text key={x} style={s.stepText}>{i+1}. {x}</Text>)}</View>)}
     <Text style={s.footer}>Chaque enfant crée à son rythme. Le plaisir compte plus que le résultat. 💛</Text>
   </ScrollView></SafeAreaView>;
 }
