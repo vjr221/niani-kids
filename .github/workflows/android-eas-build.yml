@@ -10,24 +10,34 @@ on:
           - preview
           - production
         default: preview
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Récupérer le dépôt
         uses: actions/checkout@v4
+
       - name: Installer Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
       - name: Installer les dépendances
         run: npm install
+
       - name: Vérifier TypeScript
         run: npx tsc --noEmit
-      - name: Configurer EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EAS_TOKEN }}
+
+      - name: Installer EAS CLI avec npm
+        run: npm install --global eas-cli
+
+      - name: Vérifier la connexion Expo
+        env:
+          EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
+        run: eas whoami
+
       - name: Construire l’application Android
+        env:
+          EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
         run: eas build --platform android --profile "${{ inputs.profile }}" --non-interactive --wait
