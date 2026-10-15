@@ -1,0 +1,36 @@
+export type AgeBand='0–2 ans'|'3–4 ans'|'5–6 ans';
+export type LearningTheme={id:string;title:string;icon:string;age:AgeBand[];skills:string[];activities:string[]};
+export const learningThemes:LearningTheme[]=[
+{id:'emotions',title:'Mes émotions',icon:'💛',age:['0–2 ans','3–4 ans','5–6 ans'],skills:['Reconnaître la joie, la tristesse et la colère','Nommer ses émotions','Demander de l’aide'],activities:['Le miroir des émotions','La météo du cœur','Respirer comme une fleur']},
+{id:'colors',title:'Couleurs et formes',icon:'🌈',age:['0–2 ans','3–4 ans','5–6 ans'],skills:['Observer','Associer','Nommer les formes'],activities:['La chasse au rouge','Le train des formes','L’arc-en-ciel de papier']},
+{id:'numbers',title:'Les nombres',icon:'🔢',age:['3–4 ans','5–6 ans'],skills:['Dénombrer 1 à 5 puis 1 à 10','Associer chiffre et quantité','Comparer petit et grand'],activities:['Compter les mangues','Les pas de Samba','Le marché de Bobo']},
+{id:'language',title:'Les mots et les langues',icon:'🗣️',age:['0–2 ans','3–4 ans','5–6 ans'],skills:['Écouter les sons','Développer le vocabulaire','Découvrir le français et le wolof'],activities:['Le mot du jour','Bonjour en plusieurs langues','Rime avec Awa']},
+{id:'music',title:'Musique et rythme',icon:'🥁',age:['0–2 ans','3–4 ans','5–6 ans'],skills:['Écoute active','Imitation des rythmes','Coordination motrice'],activities:['Écho de percussions','Danse stop et go','Mon orchestre maison']},
+{id:'nature',title:'La nature et le vivant',icon:'🌿',age:['0–2 ans','3–4 ans','5–6 ans'],skills:['Observer plantes et animaux','Respecter le vivant','Adopter de petits gestes écologiques'],activities:['Le baobab grandit','Trier avec les amis','J’arrose ma plante']},
+{id:'senegal',title:'Le Sénégal, notre maison',icon:'🇸🇳',age:['3–4 ans','5–6 ans'],skills:['Découvrir les paysages','Valoriser les cultures locales','Respecter la diversité'],activities:['Voyage en pirogue imaginaire','Les couleurs du Sénégal','Les instruments de musique']},
+{id:'friendship',title:'Amitié et partage',icon:'🤝',age:['0–2 ans','3–4 ans','5–6 ans'],skills:['Attendre son tour','Partager','Résoudre un petit conflit'],activities:['La mangue à partager','Le cercle des amis','Le baobab des gentillesses']},
+{id:'body',title:'Mon corps et mes sens',icon:'👐🏿',age:['0–2 ans','3–4 ans','5–6 ans'],skills:['Nommer les parties du corps','Coordination','Découvrir les cinq sens'],activities:['Tête, épaules, mains et pieds','Le sac des textures','Danse comme Bobo']},
+{id:'stories',title:'Contes et imagination',icon:'📚',age:['0–2 ans','3–4 ans','5–6 ans'],skills:['Écoute et attention','Raconter dans l’ordre','Imaginer une solution'],activities:['Le conte en trois images','Que se passe-t-il ensuite ?','Le théâtre des marionnettes']},
+{id:'daily',title:'Les gestes du quotidien',icon:'🪥',age:['0–2 ans','3–4 ans','5–6 ans'],skills:['Autonomie progressive','Hygiène','Routines rassurantes'],activities:['Je me lave les mains','Range avec Samba','La chanson du coucher']},
+{id:'thinking',title:'Observer et résoudre',icon:'🧩',age:['3–4 ans','5–6 ans'],skills:['Trier et classer','Repérer des différences','Résoudre de petits problèmes'],activities:['Qui va ensemble ?','Trouve l’intrus','Le puzzle du village']}
+];
+export const workshopLibrary=[
+{ id:'rainbow',title:'Mon arc-en-ciel',icon:'🎨',age:'2–5 ans',duration:'15 min',materials:['Papier','Crayons ou peinture lavable'],steps:['Tracer un grand arc avec un adulte.','Colorier chaque bande.','Nommer les couleurs en français; ajouter le mot wolof après validation.'],goal:'Motricité fine et reconnaissance des couleurs',safety:'Surveillance adulte; utiliser du matériel non toxique.'},
+{ id:'rhythm',title:'Mon petit orchestre',icon:'🥁',age:'1–6 ans',duration:'10 min',materials:['Deux gobelets ou une boîte vide'],steps:['Écouter un rythme lent.','Taper doucement boum-tak-boum.','Laisser l’enfant inventer son rythme.'],goal:'Écoute, rythme et coordination',safety:'Ne pas utiliser d’objets lourds ou cassables.'},
+{ id:'baobab',title:'Le baobab des gentillesses',icon:'🌳',age:'3–6 ans',duration:'20 min',materials:['Papier','Crayons','Colle adaptée'],steps:['Dessiner un tronc de baobab.','Ajouter des feuilles en papier.','Dessiner sur chaque feuille un geste gentil.'],goal:'Empathie et expression orale',safety:'L’adulte manipule les ciseaux et supervise la colle.'},
+{ id:'story',title:'Mon conte en images',icon:'📚',age:'3–6 ans',duration:'15 min',materials:['Trois feuilles','Crayons'],steps:['Dessiner un personnage.','Dessiner un lieu au Sénégal.','Raconter comment les amis s’entraident.'],goal:'Narration et imagination',safety:'Aucune consigne de performance; valoriser l’invention.'},
+{ id:'dance',title:'Danse et bouge',icon:'💃🏿',age:'0–6 ans',duration:'5 min',materials:['Espace dégagé','Une chanson douce ou rythmée'],steps:['Écouter la musique.','Bouger les mains et les épaules.','Faire une pause et respirer doucement.'],goal:'Motricité globale et écoute',safety:'Adapter les mouvements et garder le bébé dans les bras si besoin.'},
+{ id:'garden',title:'Ma petite graine',icon:'🌱',age:'3–6 ans',duration:'10 min par jour',materials:['Pot stable','Terreau','Graine adaptée'],steps:['Remplir le pot avec un adulte.','Planter et arroser doucement.','Observer les changements chaque jour.'],goal:'Patience et découverte du vivant',safety:'Éviter les graines toxiques; lavage des mains après l’activité.'},
+{ id:'texture',title:'Le sac des textures',icon:'🧺',age:'2–5 ans',duration:'10 min',materials:['Tissu doux','Éponge propre','Gros objet lisse adapté'],steps:['Présenter un objet à la fois.','Décrire doux, lisse ou rugueux.','Laisser l’enfant choisir son mot.'],goal:'Sens et vocabulaire',safety:'Pas de petites pièces ni d’objets pouvant être avalés.'},
+{ id:'recycle',title:'Le tri des couleurs',icon:'♻️',age:'3–6 ans',duration:'10 min',materials:['Trois boîtes','Objets propres et sûrs'],steps:['Choisir trois boîtes de couleurs.','Trier de gros objets propres par catégorie.','Parler de ce qu’on peut réutiliser.'],goal:'Classement et écocitoyenneté',safety:'Ne jamais utiliser de déchets coupants, sales ou dangereux.'}
+];
+export const eightWeekPath=[
+{week:1,theme:'Bonjour et émotions',song:'Bonjour les amis',activity:'Le miroir des émotions',goal:'Créer un rituel chaleureux'},
+{week:2,theme:'Couleurs et formes',song:'Les couleurs dansent',activity:'Mon arc-en-ciel',goal:'Nommer et associer'},
+{week:3,theme:'Compter en jouant',song:'Un, deux, trois, on y va !',activity:'Compter les mangues',goal:'Dénombrer de 1 à 5'},
+{week:4,theme:'Sons et rythmes',song:'Bouge, bouge, petit cœur',activity:'Mon petit orchestre',goal:'Imiter un rythme simple'},
+{week:5,theme:'Le Sénégal et ses paysages',song:'À inventer : voyage au Sénégal',activity:'Ma carte imaginaire',goal:'Découvrir la diversité locale'},
+{week:6,theme:'Nature et baobab',song:'Dors, petit baobab',activity:'Ma petite graine',goal:'Prendre soin du vivant'},
+{week:7,theme:'Amitié et partage',song:'À inventer : la mangue partagée',activity:'Le baobab des gentillesses',goal:'Pratiquer la coopération'},
+{week:8,theme:'Histoires et imagination',song:'À inventer : la petite kora',activity:'Mon conte en images',goal:'Inventer et raconter'}
+];
