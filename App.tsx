@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Alert, Linking, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Linking, Modal, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -115,7 +115,7 @@ function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}><Text style={s.pageTitle}>👨‍👩‍👧 Espace Parents</Text><View style={s.parentCard}><Text style={{fontSize:42}}>💚</Text><Text style={s.heroTitle}>Grandir ensemble</Text><Text style={s.cardSubtitle}>Niani Kids accompagne les tout-petits avec des chansons, des histoires et des découvertes adaptées à leur âge.</Text></View><Section title="Retrouver Niani Kids"/><Pressable style={s.externalLink} onPress={()=>openExternal(YOUTUBE)}><Text style={{fontSize:26}}>▶️</Text><View style={{flex:1}}><Text style={s.cardTitle}>Notre chaîne YouTube</Text><Text style={s.cardSubtitle}>Comptines, chansons et aventures</Text></View><Text style={s.sectionAction}>Ouvrir ↗</Text></Pressable><Pressable style={s.externalLink} onPress={()=>openExternal(TIKTOK)}><Text style={{fontSize:26}}>🎬</Text><View style={{flex:1}}><Text style={s.cardTitle}>Niani Kids sur TikTok</Text><Text style={s.cardSubtitle}>Extraits et nouveautés</Text></View><Text style={s.sectionAction}>Ouvrir ↗</Text></Pressable><View style={s.safety}><Text style={s.cardTitle}>Un espace adapté aux enfants</Text><Text style={s.cardSubtitle}>Les liens externes ouvrent des plateformes tierces. Un adulte doit accompagner l’enfant. Cette version ne propose ni publicité intégrée, ni messagerie, ni achat. Les contenus de démonstration doivent être reliés aux vidéos officielles avant publication.</Text></View><Text style={s.footer}>Avant publication : ajouter politique de confidentialité, contact et conformité Google Play Famille.</Text></ScrollView></SafeAreaView>;
 }
 export default function App() {
-  const [lang,setLang]=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [stars,setStarsState]=useState(0);
+  const [lang,setLang]=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [stars,setStarsState]=useState(0); const [selectedItem,setSelectedItem]=useState<ContentItem|null>(null);
   useEffect(()=>{AsyncStorage.multiGet(['niani-favorites','niani-stars']).then(values=>{const f=values[0][1],st=values[1][1];if(f)setFavorites(JSON.parse(f));if(st)setStarsState(Number(st)||0)}).catch(()=>{});},[]);
   const toggleFavorite=(id:string)=>setFavorites(old=>{const next=old.includes(id)?old.filter(x=>x!==id):[...old,id];AsyncStorage.setItem('niani-favorites',JSON.stringify(next)).catch(()=>{});return next});
   const setStars=(n:number)=>{setStarsState(n);AsyncStorage.setItem('niani-stars',String(n)).catch(()=>{})};
@@ -126,10 +126,42 @@ export default function App() {
     <Tab.Screen name="Jouer" options={{tabBarIcon:()=> <Text style={{fontSize:19}}>🎮</Text>}}>{()=> <GamesScreen lang={lang} setLang={setLang} stars={stars} setStars={setStars}/>}</Tab.Screen>
     <Tab.Screen name="Atelier" options={{tabBarIcon:()=> <Text style={{fontSize:19}}>🎨</Text>}}>{()=> <WorkshopsScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
     <Tab.Screen name="Parents" options={{tabBarIcon:()=> <Text style={{fontSize:19}}>👨‍👩‍👧</Text>}}>{()=> <ParentsScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
-  </Tab.Navigator></NavigationContainer>;
+  </Tab.Navigator>
+    <Modal visible={!!selectedItem} animationType="slide" onRequestClose={()=>setSelectedItem(null)}>
+      <SafeAreaView style={s.readerSafe} edges={['top','bottom']}>
+        <View style={s.readerHeader}>
+          <Pressable onPress={()=>setSelectedItem(null)} style={s.readerClose}><Text style={s.readerCloseText}>✕ Fermer</Text></Pressable>
+          <Text style={s.readerBrand}>Niani Kids 🌳</Text>
+        </View>
+        {selectedItem&&<ScrollView contentContainerStyle={s.readerScroll}>
+          <View style={[s.readerArt,{backgroundColor:selectedItem.category==='Berceuses'?'#E9E9FF':selectedItem.category==='Histoires'?'#FFF0D7':'#DDF4FF'}]}>
+            <Text style={{fontSize:58}}>{selectedItem.emoji}</Text>
+            <Text style={s.readerMeta}>{selectedItem.category} · {selectedItem.duration} · {selectedItem.language}</Text>
+          </View>
+          <Text style={s.readerTitle}>{selectedItem.title}</Text>
+          <Text style={s.readerSubtitle}>{selectedItem.subtitle}</Text>
+          {selectedItem.lyrics?<View style={s.readerTextCard}>
+            <Text style={s.readerSection}>Chantons ensemble 🎵</Text>
+            <Text style={s.readerBody}>{selectedItem.lyrics.replace(/^.*Note : paroles wolof de travail.*$/m,'').trim()}</Text>
+            {selectedItem.language==='WO'&&<Text style={s.readerNotice}>Paroles wolof provisoires : validation par un locuteur natif nécessaire avant diffusion.</Text>}
+          </View>:null}
+          {selectedItem.storyText?<View style={s.readerTextCard}>
+            <Text style={s.readerSection}>L’histoire 📖</Text>
+            <Text style={s.readerBody}>{selectedItem.storyText}</Text>
+            <Text style={s.readerQuestion}>💬 Petite question : {selectedItem.id==='story-mango'?'Comment peut-on partager avec un ami ?':selectedItem.id==='story-river'?'Quel geste aide à garder la nature propre ?':selectedItem.id==='story-griot'?'Qu’est-ce qui t’aide à être courageux ?':'Comment les amis peuvent-ils s’entraider ?'}</Text>
+          </View>:null}
+          {!selectedItem.lyrics&&!selectedItem.storyText?<View style={s.readerTextCard}>
+            <Text style={s.readerSection}>Bientôt dans la bibliothèque ✨</Text>
+            <Text style={s.readerBody}>Le texte complet ou la vidéo officielle de ce contenu reste à produire. Nous ne lançons pas de média fictif : cette fiche sera complétée lors de la production.</Text>
+          </View>:null}
+          <Pressable style={s.readerExternal} onPress={()=>openExternal(YOUTUBE)}><Text style={s.readerExternalText}>Voir la chaîne officielle sur YouTube ↗</Text></Pressable>
+          <Text style={s.readerFooter}>À partager avec un parent ou un éducateur. ❤️</Text>
+        </ScrollView>}
+      </SafeAreaView>
+    </Modal></NavigationContainer>;
 }
 const s=StyleSheet.create({
-safe:{flex:1,backgroundColor:C.cream},scroll:{padding:16,paddingBottom:34,gap:14},header:{flexDirection:'row',alignItems:'center',gap:10,paddingHorizontal:17,paddingTop:8,paddingBottom:12,backgroundColor:C.cream},brandMark:{width:43,height:43,borderRadius:22,backgroundColor:C.yellow,alignItems:'center',justifyContent:'center'},brand:{fontSize:24,fontWeight:'900',color:C.orange,letterSpacing:-1},tagline:{fontSize:9,fontWeight:'700',color:C.muted},langButton:{backgroundColor:'#fff',borderWidth:1,borderColor:'#F0DCA8',borderRadius:16,paddingHorizontal:11,paddingVertical:8},langText:{fontWeight:'900',color:C.ink,fontSize:11},
+safe:{flex:1,backgroundColor:C.cream},readerSafe:{flex:1,backgroundColor:C.cream},readerHeader:{flexDirection:'row',alignItems:'center',justifyContent:'space-between',paddingHorizontal:18,paddingVertical:12,borderBottomWidth:1,borderBottomColor:'#F1E5D1'},readerClose:{backgroundColor:'#fff',paddingHorizontal:12,paddingVertical:9,borderRadius:14},readerCloseText:{fontWeight:'900',fontSize:12,color:C.ink},readerBrand:{fontSize:15,fontWeight:'900',color:C.orange},readerScroll:{padding:18,paddingBottom:32,gap:13},readerArt:{minHeight:150,borderRadius:24,alignItems:'center',justifyContent:'center',gap:10},readerMeta:{fontSize:10,fontWeight:'900',color:C.ink},readerTitle:{fontSize:27,fontWeight:'900',color:C.ink,marginTop:5},readerSubtitle:{fontSize:14,color:C.muted,lineHeight:20},readerTextCard:{backgroundColor:'#fff',borderRadius:20,padding:18,gap:12,borderWidth:1,borderColor:'#F5EBDD'},readerSection:{fontSize:17,fontWeight:'900',color:C.ink},readerBody:{fontSize:16,lineHeight:27,color:'#594536'},readerNotice:{fontSize:11,lineHeight:17,color:'#775A3B',backgroundColor:'#FFF0D9',padding:10,borderRadius:10},readerQuestion:{fontSize:13,lineHeight:20,fontWeight:'800',color:'#226D3C',backgroundColor:'#DDF8E6',padding:12,borderRadius:12},readerExternal:{backgroundColor:C.orange,padding:14,borderRadius:16,alignItems:'center'},readerExternalText:{color:'#fff',fontWeight:'900',fontSize:13},readerFooter:{textAlign:'center',fontSize:11,color:C.muted},scroll:{padding:16,paddingBottom:34,gap:14},header:{flexDirection:'row',alignItems:'center',gap:10,paddingHorizontal:17,paddingTop:8,paddingBottom:12,backgroundColor:C.cream},brandMark:{width:43,height:43,borderRadius:22,backgroundColor:C.yellow,alignItems:'center',justifyContent:'center'},brand:{fontSize:24,fontWeight:'900',color:C.orange,letterSpacing:-1},tagline:{fontSize:9,fontWeight:'700',color:C.muted},langButton:{backgroundColor:'#fff',borderWidth:1,borderColor:'#F0DCA8',borderRadius:16,paddingHorizontal:11,paddingVertical:8},langText:{fontWeight:'900',color:C.ink,fontSize:11},
 hero:{backgroundColor:'#FFF0A8',borderRadius:25,padding:17,flexDirection:'row',alignItems:'center',gap:8,overflow:'hidden'},heroEyebrow:{color:'#86600A',fontSize:9,fontWeight:'900',marginBottom:8},heroTitle:{color:C.ink,fontSize:22,fontWeight:'900',lineHeight:27},heroCopy:{color:'#6C5440',fontSize:12,lineHeight:18,marginTop:7,marginBottom:5},heroButton:{backgroundColor:C.orange,borderRadius:16,paddingHorizontal:12,paddingVertical:9,marginTop:8},heroButtonText:{color:'#fff',fontWeight:'900',fontSize:11},heroButtonSecondary:{backgroundColor:'#fff',borderRadius:16,paddingHorizontal:12,paddingVertical:9,marginTop:8},heroButtonSecondaryText:{color:C.ink,fontWeight:'900',fontSize:11},heroFriends:{width:64,alignItems:'center',justifyContent:'center',gap:1},
 quickGrid:{flexDirection:'row',gap:8},quickCard:{flex:1,borderRadius:18,padding:11,minHeight:108,justifyContent:'center'},quickEmoji:{fontSize:25,marginBottom:5},quickTitle:{fontSize:12,fontWeight:'900',color:C.ink},quickSub:{fontSize:9,color:C.muted,marginTop:3},search:{backgroundColor:'#fff',borderWidth:1,borderColor:'#F1E5D1',borderRadius:15,paddingHorizontal:14,paddingVertical:12,fontSize:12,color:C.ink},
 sectionRow:{flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginTop:2},sectionTitle:{fontSize:18,fontWeight:'900',color:C.ink},sectionAction:{fontSize:11,fontWeight:'900',color:C.orange},contentCard:{backgroundColor:'#fff',borderRadius:20,padding:10,flexDirection:'row',gap:11,borderWidth:1,borderColor:'#F5EBDD'},art:{width:91,minHeight:113,borderRadius:15,alignItems:'center',justifyContent:'center'},duration:{position:'absolute',bottom:6,right:5,fontSize:9,fontWeight:'900',color:C.ink,backgroundColor:'#FFFFFFE8',paddingHorizontal:5,paddingVertical:3,borderRadius:8},cardInfo:{flex:1,justifyContent:'center',gap:4},cardCategory:{color:C.green,fontSize:9,fontWeight:'900',letterSpacing:.4},cardTitle:{color:C.ink,fontSize:14,fontWeight:'900'},cardSubtitle:{color:C.muted,fontSize:11,lineHeight:16},cardActions:{flexDirection:'row',alignItems:'center',gap:12,marginTop:4},playButton:{backgroundColor:'#FFF0C7',paddingHorizontal:10,paddingVertical:7,borderRadius:11},playText:{color:'#81500B',fontWeight:'900',fontSize:10},
