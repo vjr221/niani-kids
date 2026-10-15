@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Niani Kids",
+    "slug": "niani-kids",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "nianikids",
+    "splash": {
+      "backgroundColor": "#FFF7D6"
+    },
+    "android": {
+      "package": "sn.nianikids.app",
+      "versionCode": 1
+    },
+    "ios": {
+      "bundleIdentifier": "sn.nianikids.app"
+    },
+    "plugins": [
+      "expo-status-bar"
+    ]
+  }
+}
