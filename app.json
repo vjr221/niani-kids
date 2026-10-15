@@ -15,9 +15,6 @@
     },
     "ios": {
       "bundleIdentifier": "sn.nianikids.app"
-    },
-    "plugins": [
-      "expo-status-bar"
-    ]
+    }
   }
 }
