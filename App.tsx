@@ -36,7 +36,7 @@ function ContentCard({item,favorite,onFavorite,onOpen}:{item:ContentItem;favorit
     </View>
   </View>;
 }
-function Hero({onVideos,onPlay}:{onVideos:()=>void;onPlay:()=>void}) {
+function Hero({lang,onVideos,onPlay}:{lang:Language;onVideos:()=>void;onPlay:()=>void}) {
   return <View style={s.hero}><View style={{flex:1}}><Text style={s.heroEyebrow}>🌍 LES PETITES MÉLODIES D’AFRIQUE</Text><Text style={s.heroTitle}>{translations[lang].greeting}</Text><Text style={s.heroCopy}>Chantons, jouons et découvrons le monde avec Samba, Awa, Bobo et le Baobab.</Text><View style={{flexDirection:'row',gap:8,flexWrap:'wrap'}}><Pressable style={s.heroButton} onPress={onVideos}><Text style={s.heroButtonText}>▶ Les vidéos</Text></Pressable><Pressable style={s.heroButtonSecondary} onPress={onPlay}><Text style={s.heroButtonSecondaryText}>🎮 Jouer</Text></Pressable></View></View><View style={s.heroFriends}><Text style={{fontSize:29}}>👦🏿</Text><Text style={{fontSize:29}}>👧🏿</Text><Text style={{fontSize:29}}>👦🏿</Text><Text style={{fontSize:32}}>🌳</Text></View></View>;
 }
 function HomeScreen({lang,setLang,favorites,toggleFavorite,onOpen,onGames,onWorkshops}:{lang:Language;setLang:(l:Language)=>void;favorites:string[];toggleFavorite:(id:string)=>void;onOpen:(item:ContentItem)=>void;onGames:()=>void;onWorkshops:()=>void}) {
@@ -44,7 +44,7 @@ function HomeScreen({lang,setLang,favorites,toggleFavorite,onOpen,onGames,onWork
   const featured=contents.filter(x=>x.featured).slice(0,3);
   const filtered=useMemo(()=>contents.filter(x=>(x.title+x.subtitle+x.category).toLowerCase().includes(query.toLowerCase())),[query]);
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
-    <Hero onVideos={()=>openExternal(YOUTUBE)} onPlay={onGames}/>
+    <Hero lang={lang} onVideos={()=>openExternal(YOUTUBE)} onPlay={onGames}/>
     <View style={s.quickGrid}>
       <Pressable onPress={onGames} style={[s.quickCard,{backgroundColor:'#E5F6E9'}]}><Text style={s.quickEmoji}>🎮</Text><Text style={s.quickTitle}>Jeux malins</Text><Text style={s.quickSub}>Jouer et apprendre</Text></Pressable>
       <Pressable onPress={onWorkshops} style={[s.quickCard,{backgroundColor:'#FFE9ED'}]}><Text style={s.quickEmoji}>🎨</Text><Text style={s.quickTitle}>Mon atelier</Text><Text style={s.quickSub}>Créer avec les parents</Text></Pressable>
