@@ -117,9 +117,9 @@ function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}><Text style={s.pageTitle}>👨‍👩‍👧 {translations[lang].parentTitle}</Text><View style={s.parentCard}><Text style={{fontSize:42}}>💚</Text><Text style={s.heroTitle}>Grandir ensemble</Text><Text style={s.cardSubtitle}>{translations[lang].parentBody}</Text></View><Section title="Retrouver Niani Kids"/><Pressable style={s.externalLink} onPress={()=>openExternal(YOUTUBE)}><Text style={{fontSize:26}}>▶️</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].youtube}</Text><Text style={s.cardSubtitle}>Comptines, chansons et aventures</Text></View><Text style={s.sectionAction}>Ouvrir ↗</Text></Pressable><Pressable style={s.externalLink} onPress={()=>openExternal(TIKTOK)}><Text style={{fontSize:26}}>🎬</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].tiktok}</Text><Text style={s.cardSubtitle}>Extraits et nouveautés</Text></View><Text style={s.sectionAction}>Ouvrir ↗</Text></Pressable><View style={s.safety}><Text style={s.cardTitle}>Un espace adapté aux enfants</Text><Text style={s.cardSubtitle}>Les liens externes ouvrent des plateformes tierces. Un adulte doit accompagner l’enfant. Cette version ne propose ni publicité intégrée, ni messagerie, ni achat. Les contenus de démonstration doivent être reliés aux vidéos officielles avant publication.</Text></View><Text style={s.footer}>Avant publication : ajouter politique de confidentialité, contact et conformité Google Play Famille.</Text></ScrollView></SafeAreaView>;
 }
 export default function App() {
-  const [lang,setLangState]=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [stars,setStarsState]=useState(0); const [selectedItem,setSelectedItem]=useState<ContentItem|null>(null);
+  const [lang,setLangState]=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [stars,setStarsState]=useState(0); const [selectedItem,setSelectedItem]=useState<ContentItem|null>(null); const [isSpeaking,setIsSpeaking]=useState(false);
   const setLang=(next:Language)=>{setLangState(next);AsyncStorage.setItem('niani-language',next).catch(()=>{});};
-  useEffect(()=>{if(!selectedItem) Speech.stop(); return ()=>{Speech.stop();};},[selectedItem]);
+  useEffect(()=>{if(!selectedItem){Speech.stop();setIsSpeaking(false);} return ()=>{Speech.stop();};},[selectedItem]);
   useEffect(()=>{AsyncStorage.multiGet(['niani-favorites','niani-stars','niani-language']).then(values=>{const f=values[0][1],st=values[1][1],l=values[2][1];if(f)setFavorites(JSON.parse(f));if(st)setStarsState(Number(st)||0);if(l==='fr'||l==='wo')setLangState(l)}).catch(()=>{});},[]);
   const toggleFavorite=(id:string)=>setFavorites(old=>{const next=old.includes(id)?old.filter(x=>x!==id):[...old,id];AsyncStorage.setItem('niani-favorites',JSON.stringify(next)).catch(()=>{});return next});
   const setStars=(n:number)=>{setStarsState(n);AsyncStorage.setItem('niani-stars',String(n)).catch(()=>{})};
@@ -145,10 +145,10 @@ export default function App() {
           <Text style={s.readerTitle}>{selectedItem.title}</Text>
           <Text style={s.readerSubtitle}>{selectedItem.subtitle}</Text>
           {(selectedItem.lyrics||selectedItem.storyText)&&<View style={s.readerAudioRow}>
-            <Pressable style={s.readerListenButton} onPress={()=>{const spokenText=[selectedItem.lyrics,selectedItem.storyText].filter(Boolean).join('\n\n').replace(/^.*Note : paroles wolof de travail.*$/m,'').trim();Speech.stop();Speech.speak(spokenText,{language:selectedItem.language==='WO'?'wo-SN':'fr-FR',rate:0.82,pitch:1.05});}}>
-              <Text style={s.readerListenText}>🔊 Écouter le texte</Text>
+            <Pressable style={s.readerListenButton} onPress={()=>{const spokenText=[selectedItem.lyrics,selectedItem.storyText].filter(Boolean).join('\n\n').replace(/^.*Note : paroles wolof de travail.*$/m,'').trim();Speech.stop();setIsSpeaking(true);Speech.speak(spokenText,{language:selectedItem.language==='WO'?'wo-SN':'fr-FR',rate:0.82,pitch:1.05,onDone:()=>setIsSpeaking(false),onStopped:()=>setIsSpeaking(false),onError:()=>setIsSpeaking(false)});}}>
+              <Text style={s.readerListenText}>{isSpeaking?'🔊 Lecture en cours…':'🔊 Écouter le texte'}</Text>
             </Pressable>
-            <Pressable style={s.readerStopButton} onPress={()=>Speech.stop()}>
+            <Pressable style={s.readerStopButton} onPress={()=>{Speech.stop();setIsSpeaking(false);}}>
               <Text style={s.readerStopText}>■ Arrêter</Text>
             </Pressable>
           </View>}
