@@ -1,5 +1,9 @@
 name: Niani Kids - Android APK (EAS)
 on:
+  push:
+    branches:
+      - main
+      - feat/quality-visual-audio-safe-area
   workflow_dispatch:
     inputs:
       profile:
