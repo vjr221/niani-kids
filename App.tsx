@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Alert, Image, Linking, Modal, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Speech from 'expo-speech';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { contents, activities, songs, stories, ContentItem } from './src/content';
@@ -41,6 +41,7 @@ function Hero({lang,onVideos,onPlay}:{lang:Language;onVideos:()=>void;onPlay:()=
   return <View style={s.hero}><View style={{flex:1}}><Text style={s.heroEyebrow}>🌍 LES PETITES MÉLODIES D’AFRIQUE</Text><Text style={s.heroTitle}>{translations[lang].greeting}</Text><Text style={s.heroCopy}>Chantons, jouons et découvrons le monde avec Samba, Awa, Bobo et le Baobab.</Text><View style={{flexDirection:'row',gap:8,flexWrap:'wrap'}}><Pressable style={s.heroButton} onPress={onVideos}><Text style={s.heroButtonText}>▶ Les vidéos</Text></Pressable><Pressable style={s.heroButtonSecondary} onPress={onPlay}><Text style={s.heroButtonSecondaryText}>🎮 Jouer</Text></Pressable></View></View><View style={s.heroFriends}><Image source={require("./assets/characters/samba.png")} style={s.heroCharacter} resizeMode="contain" /><Image source={require("./assets/characters/awa.png")} style={s.heroCharacter} resizeMode="contain" /><Image source={require("./assets/characters/bobo.png")} style={s.heroCharacter} resizeMode="contain" /><Image source={require("./assets/characters/baobab.png")} style={s.heroTree} resizeMode="contain" /></View></View>;
 }
 function HomeScreen({lang,setLang,favorites,toggleFavorite,onOpen,onGames,onWorkshops}:{lang:Language;setLang:(l:Language)=>void;favorites:string[];toggleFavorite:(id:string)=>void;onOpen:(item:ContentItem)=>void;onGames:()=>void;onWorkshops:()=>void}) {
+  const navigation = useNavigation<any>();
   const [query,setQuery]=useState('');
   const featured=contents.filter(x=>x.featured).slice(0,3);
   const filtered=useMemo(()=>contents.filter(x=>(x.title+x.subtitle+x.category).toLowerCase().includes(query.toLowerCase())),[query]);
@@ -81,7 +82,7 @@ function GamesScreen({lang,setLang,stars,setStars}:{lang:Language;setLang:(l:Lan
       {game==='colors'?<><Text style={s.quizTitle}>Les couleurs magiques</Text><Text style={s.quizPrompt}>{questions[round%questions.length].q}</Text><Text style={{fontSize:68,textAlign:'center',marginVertical:12}}>{questions[round%questions.length].emoji}</Text><View style={s.options}>{questions[round%questions.length].options.map(([emoji,label])=><Pressable key={label} style={s.option} onPress={()=>win(label===questions[round%questions.length].correct)}><Text style={{fontSize:34}}>{emoji}</Text><Text style={s.optionText}>{label}</Text></Pressable>)}</View></>:null}
       {game==='count'?<><Text style={s.quizTitle}>Comptons ensemble</Text><Text style={s.quizPrompt}>{counts[round%counts.length].q}</Text><Text style={{fontSize:42,textAlign:'center',marginVertical:16}}>{counts[round%counts.length].emoji}</Text><View style={s.options}>{counts[round%counts.length].opts.map(n=><Pressable key={n} style={s.numberOption} onPress={()=>win(n===counts[round%counts.length].n)}><Text style={s.numberText}>{n}</Text></Pressable>)}</View></>:null}
       {game==='nature'?<><Text style={s.quizTitle}>Les amis de la nature</Text><Text style={s.quizPrompt}>{['Que fait-on des déchets ?','Comment aider une plante ?','Comment économiser l’eau ?'][round%3]}</Text><Text style={{fontSize:62,textAlign:'center',marginVertical:12}}>{['🗑️','🌱','💧'][round%3]}</Text>{[['Les jeter dans la poubelle','Les laisser par terre','Les jeter dans la rivière'],['L’arroser doucement','Arracher ses feuilles','L’oublier au soleil'],['Fermer le robinet','Laisser couler','Jouer avec l’eau longtemps']][round%3].map((x,i)=><Pressable key={x} style={s.answerRow} onPress={()=>win(i===0)}><Text style={s.optionText}>{x}</Text></Pressable>)}</>:null}
-      {!!feedback&&<View style={s.feedback}><Text style={s.feedbackText}>{feedback}</Text><Pressable onPress={()=>{setRound(round+1);setFeedback('')}} style={s.nextButton}><Text style={s.nextText}>Continuer →</Text></Pressable></View>}
+      {!!feedback&&<View style={s.feedback}><Text style={s.feedbackText}>{feedback}</Text><Pressable onPress={()=>{if(feedback.startsWith('Bravo'))setRound(round+1);setFeedback('')}} style={s.nextButton}><Text style={s.nextText}>{feedback.startsWith('Bravo')?'Continuer →':'Réessayer ↻'}</Text></Pressable></View>}
     </View>}
     <Text style={s.parentHint}>👨‍👩‍👧 Les jeux sont pensés pour être partagés avec un adulte, surtout chez les plus petits.</Text>
   </ScrollView></SafeAreaView>;
