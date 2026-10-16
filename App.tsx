@@ -32,7 +32,7 @@ function Section({title,action,onAction}:{title:string;action?:string;onAction?:
 function ContentCard({item,favorite,onFavorite,onOpen}:{item:ContentItem;favorite:boolean;onFavorite:()=>void;onOpen:()=>void}) {
   const bg = item.category==='Berceuses'?'#E9E9FF':item.category==='J’apprends'?'#DDF8E6':item.category==='Histoires'?'#FFF0D7':'#DDF4FF';
   return <View style={s.contentCard}>
-    <Pressable accessibilityRole="button" accessibilityLabel={`Découvrir ${item.title}, ${item.category}, ${item.duration}`} onPress={onOpen} style={[s.art,{backgroundColor:bg]}><Text style={{fontSize:42}}>{item.emoji}</Text><Text style={s.duration}>{item.duration}</Text></Pressable>
+    <Pressable accessibilityRole="button" accessibilityLabel={`Découvrir ${item.title}, ${item.category}, ${item.duration}`} onPress={onOpen} style={[s.art,{backgroundColor:bg}]}><Text style={{fontSize:42}}>{item.emoji}</Text><Text style={s.duration}>{item.duration}</Text></Pressable>
     <View style={s.cardInfo}><Text style={s.cardCategory}>{item.category.toUpperCase()} · {item.language}</Text><Text style={s.cardTitle}>{item.title}</Text><Text style={s.cardSubtitle}>{item.subtitle}</Text>
       <View style={s.cardActions}><Pressable accessibilityRole="button" accessibilityLabel={`Découvrir ${item.title}`} onPress={onOpen} style={s.playButton}><Text style={s.playText}>▶ Découvrir</Text></Pressable><Pressable accessibilityRole="button" accessibilityLabel={favorite?`Retirer ${item.title} des favoris`:`Ajouter ${item.title} aux favoris`} accessibilityState={{selected:favorite}} hitSlop={8} onPress={onFavorite}><Text style={{fontSize:22}}>{favorite?'❤️':'🤍'}</Text></Pressable></View>
     </View>
