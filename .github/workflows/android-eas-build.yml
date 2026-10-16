@@ -1,5 +1,9 @@
 name: Niani Kids - Android APK (EAS)
 on:
+  push:
+    branches:
+      - main
+      - feat/quality-visual-audio-safe-area
   workflow_dispatch:
     inputs:
       profile:
@@ -26,6 +30,9 @@ jobs:
       - name: Installer les dépendances
         run: npm install
 
+      - name: Générer les icônes et illustrations PNG
+        run: npm run assets
+
       - name: Vérifier TypeScript
         run: npx tsc --noEmit
 
@@ -45,4 +52,4 @@ jobs:
       - name: Construire l’application Android
         env:
           EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
-        run: eas build --platform android --profile "${{ inputs.profile }}" --non-interactive --wait
+        run: eas build --platform android --profile "${{ inputs.profile || 'preview' }}" --non-interactive --wait
