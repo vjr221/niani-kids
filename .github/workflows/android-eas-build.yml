@@ -1,5 +1,9 @@
 name: Niani Kids - Android APK (EAS)
 on:
+  workflow_run:
+    workflows: ["Niani Kids - Quality Check"]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
     inputs:
       profile:
@@ -13,6 +17,7 @@ on:
 
 jobs:
   build:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Récupérer le dépôt
@@ -42,7 +47,17 @@ jobs:
           EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
         run: eas init --account vjr221s-team --non-interactive
 
+      - name: Déterminer le profil de build
+        id: profile
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.profile }}" == "production" ]]; then
+            echo "name=production" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=preview" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Construire l’application Android
         env:
           EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
-        run: eas build --platform android --profile "${{ inputs.profile }}" --non-interactive --wait
+        run: eas build --platform android --profile "${{ steps.profile.outputs.name }}" --non-interactive --wait
