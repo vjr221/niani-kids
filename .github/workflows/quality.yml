@@ -15,5 +15,6 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npx tsc --noEmit
+      - run: node scripts/validate-translations.mjs
       - run: node scripts/validate-content.mjs
       - run: npx expo export --platform android
