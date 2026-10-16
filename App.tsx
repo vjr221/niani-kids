@@ -23,7 +23,7 @@ function Header({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
     <Pressable accessibilityRole="button" accessibilityLabel={lang==='fr'?'Passer au wolof':'Changer en français'} style={s.langButton} onPress={()=>setLang(lang==='fr'?'wo':'fr')}><Text style={s.langText}>{lang.toUpperCase()} ▾</Text></Pressable>
   </View>;
 }
-function Pill({children,active,onPress}:{children:string;active?:boolean;onPress:()=>void}) {
+function Pill({children,active,onPress}:{children:React.ReactNode;active?:boolean;onPress:()=>void}) {
   return <Pressable onPress={onPress} style={[s.pill,active&&s.pillActive]}><Text style={[s.pillText,active&&{color:'#fff'}]}>{children}</Text></Pressable>;
 }
 function Section({title,action,onAction}:{title:string;action?:string;onAction?:()=>void}) {
