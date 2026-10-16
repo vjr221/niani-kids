@@ -9,7 +9,7 @@ import { contents, ContentItem } from './src/content';
 import { Language, translations } from './src/i18n';
 
 const Tab = createBottomTabNavigator();
-const YOUTUBE = 'https://www.youtube.com/@NianiKids';
+const YOUTUBE = 'https://youtube.com/@nianikids';
 const TIKTOK = 'https://www.tiktok.com/@niani.kids';
 const C = { ink:'#432B20', cream:'#FFF9E8', yellow:'#FFD52A', orange:'#FF8A16', green:'#27B84A', blue:'#168BE8', red:'#F04444', muted:'#806B5D', lilac:'#EEE9FF', pink:'#FFE5E8' };
 const normalizeText = (value:string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase().trim();
