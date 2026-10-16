@@ -157,12 +157,12 @@ export default function App() {
           {selectedItem.lyrics?<View style={s.readerTextCard}>
             <Text style={s.readerSection}>{translations[lang].singTogether} 🎵</Text>
             <Text style={s.readerBody}>{selectedItem.lyrics.replace(/^.*Note : paroles wolof de travail.*$/m,'').trim()}</Text>
-            {selectedItem.language==='WO'&&<Text style={s.readerNotice}>Paroles wolof provisoires : validation par un locuteur natif nécessaire avant diffusion.</Text>}
+            {selectedItem.language==='WO'&&<Text style={s.readerNotice}>{translations[lang].wolofReviewNotice}</Text>}
           </View>:null}
           {selectedItem.storyText?<View style={s.readerTextCard}>
             <Text style={s.readerSection}>{translations[lang].storyLabel} 📖</Text>
             <Text style={s.readerBody}>{selectedItem.storyText}</Text>
-            <Text style={s.readerQuestion}>💬 {translations[lang].questionLabel} : {selectedItem.id==='story-mango'?'Comment peut-on partager avec un ami ?':selectedItem.id==='story-river'?'Quel geste aide à garder la nature propre ?':selectedItem.id==='story-griot'?'Qu’est-ce qui t’aide à être courageux ?':'Comment les amis peuvent-ils s’entraider ?'}</Text>
+            <Text style={s.readerQuestion}>💬 {translations[lang].questionLabel} : {selectedItem.id==='story-mango'?translations[lang].storyMangoQuestion:selectedItem.id==='story-river'?translations[lang].storyRiverQuestion:selectedItem.id==='story-griot'?translations[lang].storyGriotQuestion:translations[lang].storyFriendsQuestion}</Text>
           </View>:null}
           {!selectedItem.lyrics&&!selectedItem.storyText?<View style={s.readerTextCard}>
             <Text style={s.readerSection}>{translations[lang].contentComing} ✨</Text>
