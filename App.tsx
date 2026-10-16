@@ -116,7 +116,7 @@ function FavoritesScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:La
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}><Text style={s.pageTitle}>❤️ {translations[lang].favorites}</Text>{contents.filter(x=>favorites.includes(x.id)).map(item=><ContentCard key={item.id} item={item} favorite onFavorite={()=>toggleFavorite(item.id)} onOpen={()=>onOpen(item)}/>)}{!favorites.length&&<View style={s.empty}><Text style={{fontSize:45}}>⭐</Text><Text style={s.cardTitle}>Tes trésors seront ici</Text><Text style={s.cardSubtitle}>Appuie sur le cœur d’une chanson ou d’une histoire.</Text></View>}</ScrollView></SafeAreaView>;
 }
 function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
-  return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}><Text style={s.pageTitle}>👨‍👩‍👧 {translations[lang].parentTitle}</Text><View style={s.parentCard}><Text style={{fontSize:42}}>💚</Text><Text style={s.heroTitle}>Grandir ensemble</Text><Text style={s.cardSubtitle}>{translations[lang].parentBody}</Text></View><Section title="Retrouver Niani Kids"/><Pressable style={s.externalLink} onPress={()=>openExternal(YOUTUBE)}><Text style={{fontSize:26}}>▶️</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].youtube}</Text><Text style={s.cardSubtitle}>Comptines, chansons et aventures</Text></View><Text style={s.sectionAction}>Ouvrir ↗</Text></Pressable><Pressable style={s.externalLink} onPress={()=>openExternal(TIKTOK)}><Text style={{fontSize:26}}>🎬</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].tiktok}</Text><Text style={s.cardSubtitle}>Extraits et nouveautés</Text></View><Text style={s.sectionAction}>Ouvrir ↗</Text></Pressable><View style={s.safety}><Text style={s.cardTitle}>Un espace adapté aux enfants</Text><Text style={s.cardSubtitle}>Les liens externes ouvrent des plateformes tierces. Un adulte doit accompagner l’enfant. Cette version ne propose ni publicité intégrée, ni messagerie, ni achat. Les contenus de démonstration doivent être reliés aux vidéos officielles avant publication.</Text></View><Text style={s.footer}>Avant publication : ajouter politique de confidentialité, contact et conformité Google Play Famille.</Text></ScrollView></SafeAreaView>;
+  return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}><Text style={s.pageTitle}>👨‍👩‍👧 {translations[lang].parentTitle}</Text><View style={s.parentCard}><Text style={{fontSize:42}}>💚</Text><Text style={s.heroTitle}>Grandir ensemble</Text><Text style={s.cardSubtitle}>{translations[lang].parentBody}</Text></View><Section title={translations[lang].parentSpaceTitle}/><Pressable style={s.externalLink} onPress={()=>openExternal(YOUTUBE)}><Text style={{fontSize:26}}>▶️</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].youtube}</Text><Text style={s.cardSubtitle}>Comptines, chansons et aventures</Text></View><Text style={s.sectionAction}>{translations[lang].opening} ↗</Text></Pressable><Pressable style={s.externalLink} onPress={()=>openExternal(TIKTOK)}><Text style={{fontSize:26}}>🎬</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].tiktok}</Text><Text style={s.cardSubtitle}>Extraits et nouveautés</Text></View><Text style={s.sectionAction}>Ouvrir ↗</Text></Pressable><View style={s.safety}><Text style={s.cardTitle}>{translations[lang].parentSafetyTitle}</Text><Text style={s.cardSubtitle}>{translations[lang].parentSafetyBody} {lang==='fr'?'Les contenus de démonstration doivent être reliés aux vidéos officielles avant publication.':'Dafay soxla ñu boole ay contenu yu dëgg-dëgg ak wideyo yi bala génn.'}</Text></View><Text style={s.footer}>Avant publication : ajouter politique de confidentialité, contact et conformité Google Play Famille.</Text></ScrollView></SafeAreaView>;
 }
 export default function App() {
   const [lang,setLangState]=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [stars,setStarsState]=useState(0); const [selectedItem,setSelectedItem]=useState<ContentItem|null>(null); const [isSpeaking,setIsSpeaking]=useState(false);
@@ -136,7 +136,7 @@ export default function App() {
     <Modal visible={!!selectedItem} animationType="slide" onRequestClose={()=>setSelectedItem(null)}>
       <SafeAreaView style={s.readerSafe} edges={['top','bottom']}>
         <View style={s.readerHeader}>
-          <Pressable onPress={()=>setSelectedItem(null)} style={s.readerClose}><Text style={s.readerCloseText}>✕ Fermer</Text></Pressable>
+          <Pressable onPress={()=>setSelectedItem(null)} style={s.readerClose}><Text style={s.readerCloseText}>✕ {translations[lang].close}</Text></Pressable>
           <Text style={s.readerBrand}>Niani Kids 🌳</Text>
         </View>
         {selectedItem&&<ScrollView contentContainerStyle={s.readerScroll}>
@@ -148,28 +148,28 @@ export default function App() {
           <Text style={s.readerSubtitle}>{selectedItem.subtitle}</Text>
           {(selectedItem.lyrics||selectedItem.storyText)&&<View style={s.readerAudioRow}>
             <Pressable style={s.readerListenButton} onPress={()=>{const spokenText=[selectedItem.lyrics,selectedItem.storyText].filter(Boolean).join('\n\n').replace(/^.*Note : paroles wolof de travail.*$/m,'').trim();Speech.stop();setIsSpeaking(true);Speech.speak(spokenText,{language:selectedItem.language==='WO'?'wo-SN':'fr-FR',rate:0.82,pitch:1.05,onDone:()=>setIsSpeaking(false),onStopped:()=>setIsSpeaking(false),onError:()=>setIsSpeaking(false)});}}>
-              <Text style={s.readerListenText}>{isSpeaking?'🔊 Lecture en cours…':'🔊 Écouter le texte'}</Text>
+              <Text style={s.readerListenText}>{isSpeaking?'🔊 '+translations[lang].playText:'🔊 '+translations[lang].listen}</Text>
             </Pressable>
             <Pressable style={s.readerStopButton} onPress={()=>{Speech.stop();setIsSpeaking(false);}}>
-              <Text style={s.readerStopText}>■ Arrêter</Text>
+              <Text style={s.readerStopText}>■ {translations[lang].stop}</Text>
             </Pressable>
           </View>}
           {selectedItem.lyrics?<View style={s.readerTextCard}>
-            <Text style={s.readerSection}>Chantons ensemble 🎵</Text>
+            <Text style={s.readerSection}>{translations[lang].singTogether} 🎵</Text>
             <Text style={s.readerBody}>{selectedItem.lyrics.replace(/^.*Note : paroles wolof de travail.*$/m,'').trim()}</Text>
             {selectedItem.language==='WO'&&<Text style={s.readerNotice}>Paroles wolof provisoires : validation par un locuteur natif nécessaire avant diffusion.</Text>}
           </View>:null}
           {selectedItem.storyText?<View style={s.readerTextCard}>
-            <Text style={s.readerSection}>L’histoire 📖</Text>
+            <Text style={s.readerSection}>{translations[lang].storyLabel} 📖</Text>
             <Text style={s.readerBody}>{selectedItem.storyText}</Text>
-            <Text style={s.readerQuestion}>💬 Petite question : {selectedItem.id==='story-mango'?'Comment peut-on partager avec un ami ?':selectedItem.id==='story-river'?'Quel geste aide à garder la nature propre ?':selectedItem.id==='story-griot'?'Qu’est-ce qui t’aide à être courageux ?':'Comment les amis peuvent-ils s’entraider ?'}</Text>
+            <Text style={s.readerQuestion}>💬 {translations[lang].questionLabel} : {selectedItem.id==='story-mango'?'Comment peut-on partager avec un ami ?':selectedItem.id==='story-river'?'Quel geste aide à garder la nature propre ?':selectedItem.id==='story-griot'?'Qu’est-ce qui t’aide à être courageux ?':'Comment les amis peuvent-ils s’entraider ?'}</Text>
           </View>:null}
           {!selectedItem.lyrics&&!selectedItem.storyText?<View style={s.readerTextCard}>
-            <Text style={s.readerSection}>Bientôt dans la bibliothèque ✨</Text>
-            <Text style={s.readerBody}>Le texte complet ou la vidéo officielle de ce contenu reste à produire. Nous ne lançons pas de média fictif : cette fiche sera complétée lors de la production.</Text>
+            <Text style={s.readerSection}>{translations[lang].contentComing} ✨</Text>
+            <Text style={s.readerBody}>{translations[lang].contentComingBody}</Text>
           </View>:null}
-          <Pressable style={s.readerExternal} onPress={()=>openExternal(YOUTUBE)}><Text style={s.readerExternalText}>Voir la chaîne officielle sur YouTube ↗</Text></Pressable>
-          <Text style={s.readerFooter}>À partager avec un parent ou un éducateur. ❤️</Text>
+          <Pressable style={s.readerExternal} onPress={()=>openExternal(YOUTUBE)}><Text style={s.readerExternalText}>{translations[lang].officialYoutube} ↗</Text></Pressable>
+          <Text style={s.readerFooter}>{translations[lang].sharedWithAdult} ❤️</Text>
         </ScrollView>}
       </SafeAreaView>
     </Modal></NavigationContainer>;
