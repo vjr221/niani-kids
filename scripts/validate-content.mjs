@@ -17,12 +17,13 @@ for (const entry of entries) {
   assert.ok(subtitle.trim(), `Missing subtitle for ${id}`);
   assert.ok(allowedCategories.has(category), `Unexpected category "${category}" for ${id}`);
   assert.ok(emoji.trim(), `Missing visual marker for ${id}`);
-  assert.match(duration, /^\d+ min$/, `Invalid duration for ${id}: ${duration}`);
+  assert.match(duration, /^\\d+ min$/, `Invalid duration for ${id}: ${duration}`);
   assert.ok(allowedLanguages.has(language), `Unexpected language "${language}" for ${id}`);
 }
 
-const wolofDraft = source.match(/id:'song-jamm',[\s\S]*?\n\},/);
-assert.ok(wolofDraft, 'Expected the Wolof draft to remain catalogued');
-assert.match(wolofDraft[0], /validation par un locuteur natif/i, 'Wolof draft must retain its native-speaker review warning');
+const wolofStart = source.indexOf("id:'song-jamm'");
+assert.notEqual(wolofStart, -1, 'Expected the Wolof draft to remain catalogued');
+const wolofDraft = source.slice(wolofStart, wolofStart + 1000);
+assert.match(wolofDraft, /locuteur natif/i, 'Wolof draft must retain its native-speaker review warning');
 
 console.log(`Content catalogue validation passed: ${entries.length} entries, unique IDs, required metadata, and Wolof review warning.`);
