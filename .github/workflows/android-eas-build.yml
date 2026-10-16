@@ -26,6 +26,9 @@ jobs:
       - name: Installer les dépendances
         run: npm install
 
+      - name: Générer les icônes et illustrations PNG
+        run: npm run assets
+
       - name: Vérifier TypeScript
         run: npx tsc --noEmit
 
@@ -36,9 +39,6 @@ jobs:
         env:
           EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
         run: eas whoami
-
-      - name: Générer les icônes et écrans de démarrage
-        run: node scripts/generate-assets.mjs
 
       - name: Initialiser ou associer le projet Expo
         env:
