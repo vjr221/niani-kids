@@ -46,11 +46,11 @@ function HomeScreen({lang,setLang,favorites,toggleFavorite,onOpen,onGames,onWork
   const featured=contents.filter(x=>x.featured).slice(0,3);
   const filtered=useMemo(()=>contents.filter(x=>(x.title+x.subtitle+x.category).toLowerCase().includes(query.toLowerCase())),[query]);
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
-    <Hero lang={lang} onVideos={()=>openExternal(YOUTUBE)} onPlay={onGames}/>
+    <Hero lang={lang} onVideos={()=>openExternal(YOUTUBE)} onPlay={()=>navigation.navigate('Jouer')}/>
     <View style={s.quickGrid}>
-      <Pressable onPress={onGames} style={[s.quickCard,{backgroundColor:'#E5F6E9'}]}><Text style={s.quickEmoji}>🎮</Text><Text style={s.quickTitle}>Jeux malins</Text><Text style={s.quickSub}>Jouer et apprendre</Text></Pressable>
-      <Pressable onPress={onWorkshops} style={[s.quickCard,{backgroundColor:'#FFE9ED'}]}><Text style={s.quickEmoji}>🎨</Text><Text style={s.quickTitle}>Mon atelier</Text><Text style={s.quickSub}>Créer avec les parents</Text></Pressable>
-      <Pressable onPress={()=>openExternal(YOUTUBE)} style={[s.quickCard,{backgroundColor:'#E1F3FF'}]}><Text style={s.quickEmoji}>🎵</Text><Text style={s.quickTitle}>Comptines</Text><Text style={s.quickSub}>Chanter ensemble</Text></Pressable>
+      <Pressable onPress={()=>navigation.navigate('Jouer')} style={[s.quickCard,{backgroundColor:'#E5F6E9'}]}><Text style={s.quickEmoji}>🎮</Text><Text style={s.quickTitle}>Jeux malins</Text><Text style={s.quickSub}>Jouer et apprendre</Text></Pressable>
+      <Pressable onPress={()=>navigation.navigate('Atelier')} style={[s.quickCard,{backgroundColor:'#FFE9ED'}]}><Text style={s.quickEmoji}>🎨</Text><Text style={s.quickTitle}>Mon atelier</Text><Text style={s.quickSub}>Créer avec les parents</Text></Pressable>
+      <Pressable onPress={()=>navigation.navigate('Bibliothèque')} style={[s.quickCard,{backgroundColor:'#E1F3FF'}]}><Text style={s.quickEmoji}>🎵</Text><Text style={s.quickTitle}>Comptines</Text><Text style={s.quickSub}>Chanter ensemble</Text></Pressable>
     </View>
     <TextInput value={query} onChangeText={setQuery} placeholder={'🔎 '+translations[lang].search+'…'} placeholderTextColor="#947F70" style={s.search}/>
     <Section title={query?(lang==='fr'?'Résultats':'Li ci gën a méngoo'):translations[lang].featured} action={query?(lang==='fr'?'Effacer':'Far'):(lang==='fr'?'Tout voir':'Seet lépp')} onAction={()=>setQuery('')}/>
