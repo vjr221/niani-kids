@@ -17,7 +17,7 @@ for (const entry of entries) {
   assert.ok(subtitle.trim(), `Missing subtitle for ${id}`);
   assert.ok(allowedCategories.has(category), `Unexpected category "${category}" for ${id}`);
   assert.ok(emoji.trim(), `Missing visual marker for ${id}`);
-  assert.match(duration, /^\\d+ min$/, `Invalid duration for ${id}: ${duration}`);
+  assert.ok(new RegExp('^[0-9]+ min$').test(duration), `Invalid duration for ${id}: ${duration}`);
   assert.ok(allowedLanguages.has(language), `Unexpected language "${language}" for ${id}`);
 }
 
