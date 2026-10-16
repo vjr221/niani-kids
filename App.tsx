@@ -122,7 +122,7 @@ export default function App() {
 
 function AppShell() {
   const insets = useSafeAreaInsets();
-  const [lang,setLangState=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [stars,setStarsState]=useState(0); const [selectedItem,setSelectedItem]=useState<ContentItem|null>(null); const [isSpeaking,setIsSpeaking]=useState(false);
+  const [lang,setLangState]=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [stars,setStarsState]=useState(0); const [selectedItem,setSelectedItem]=useState<ContentItem|null>(null); const [isSpeaking,setIsSpeaking]=useState(false);
   const setLang=(next:Language)=>{setLangState(next);AsyncStorage.setItem('niani-language',next).catch(()=>{});};
   useEffect(()=>{if(!selectedItem){Speech.stop();setIsSpeaking(false);} return ()=>{Speech.stop();};},[selectedItem]);
   useEffect(()=>{AsyncStorage.multiGet(['niani-favorites','niani-stars','niani-language']).then(values=>{const f=values[0][1],st=values[1][1],l=values[2][1];if(f)setFavorites(JSON.parse(f));if(st)setStarsState(Number(st)||0);if(l==='fr'||l==='wo')setLangState(l)}).catch(()=>{});},[]);
