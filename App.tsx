@@ -20,7 +20,7 @@ function Header({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
   return <View style={s.header}>
     <View style={s.brandMark}><Text style={{fontSize:25}}>🌳</Text></View>
     <View style={{flex:1}}><Text style={s.brand}>Niani <Text style={{color:C.blue}}>Kids</Text></Text><Text style={s.tagline}>{t.tagline}</Text></View>
-    <Pressable style={s.langButton} onPress={()=>setLang(lang==='fr'?'wo':'fr')}><Text style={s.langText}>{lang.toUpperCase()} ▾</Text></Pressable>
+    <Pressable accessibilityRole="button" accessibilityLabel={lang==='fr'?'Passer au wolof':'Changer en français'} style={s.langButton} onPress={()=>setLang(lang==='fr'?'wo':'fr')}><Text style={s.langText}>{lang.toUpperCase()} ▾</Text></Pressable>
   </View>;
 }
 function Pill({children,active,onPress}:{children:string;active?:boolean;onPress:()=>void}) {
@@ -32,9 +32,9 @@ function Section({title,action,onAction}:{title:string;action?:string;onAction?:
 function ContentCard({item,favorite,onFavorite,onOpen}:{item:ContentItem;favorite:boolean;onFavorite:()=>void;onOpen:()=>void}) {
   const bg = item.category==='Berceuses'?'#E9E9FF':item.category==='J’apprends'?'#DDF8E6':item.category==='Histoires'?'#FFF0D7':'#DDF4FF';
   return <View style={s.contentCard}>
-    <Pressable onPress={onOpen} style={[s.art,{backgroundColor:bg}]}><Text style={{fontSize:42}}>{item.emoji}</Text><Text style={s.duration}>{item.duration}</Text></Pressable>
+    <Pressable accessibilityRole="button" accessibilityLabel={`Découvrir ${item.title}, ${item.category}, ${item.duration}`} onPress={onOpen} style={[s.art,{backgroundColor:bg]}><Text style={{fontSize:42}}>{item.emoji}</Text><Text style={s.duration}>{item.duration}</Text></Pressable>
     <View style={s.cardInfo}><Text style={s.cardCategory}>{item.category.toUpperCase()} · {item.language}</Text><Text style={s.cardTitle}>{item.title}</Text><Text style={s.cardSubtitle}>{item.subtitle}</Text>
-      <View style={s.cardActions}><Pressable onPress={onOpen} style={s.playButton}><Text style={s.playText}>▶ Découvrir</Text></Pressable><Pressable onPress={onFavorite}><Text style={{fontSize:22}}>{favorite?'❤️':'🤍'}</Text></Pressable></View>
+      <View style={s.cardActions}><Pressable accessibilityRole="button" accessibilityLabel={`Découvrir ${item.title}`} onPress={onOpen} style={s.playButton}><Text style={s.playText}>▶ Découvrir</Text></Pressable><Pressable accessibilityRole="button" accessibilityLabel={favorite?`Retirer ${item.title} des favoris`:`Ajouter ${item.title} aux favoris`} accessibilityState={{selected:favorite}} hitSlop={8} onPress={onFavorite}><Text style={{fontSize:22}}>{favorite?'❤️':'🤍'}</Text></Pressable></View>
     </View>
   </View>;
 }
@@ -49,9 +49,9 @@ function HomeScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Languag
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
     <Hero lang={lang} onVideos={()=>openExternal(YOUTUBE)} onPlay={()=>navigation.navigate('Jouer')}/>
     <View style={s.quickGrid}>
-      <Pressable onPress={()=>navigation.navigate('Jouer')} style={[s.quickCard,{backgroundColor:'#E5F6E9'}]}><Text style={s.quickEmoji}>🎮</Text><Text style={s.quickTitle}>Jeux malins</Text><Text style={s.quickSub}>Jouer et apprendre</Text></Pressable>
-      <Pressable onPress={()=>navigation.navigate('Atelier')} style={[s.quickCard,{backgroundColor:'#FFE9ED'}]}><Text style={s.quickEmoji}>🎨</Text><Text style={s.quickTitle}>Mon atelier</Text><Text style={s.quickSub}>Créer avec les parents</Text></Pressable>
-      <Pressable onPress={()=>navigation.navigate('Bibliothèque')} style={[s.quickCard,{backgroundColor:'#E1F3FF'}]}><Text style={s.quickEmoji}>🎵</Text><Text style={s.quickTitle}>Comptines</Text><Text style={s.quickSub}>Chanter ensemble</Text></Pressable>
+      <Pressable accessibilityRole="button" accessibilityLabel="Ouvrir les jeux éducatifs" onPress={()=>navigation.navigate('Jouer')} style={[s.quickCard,{backgroundColor:'#E5F6E9'}]}><Text style={s.quickEmoji}>🎮</Text><Text style={s.quickTitle}>Jeux malins</Text><Text style={s.quickSub}>Jouer et apprendre</Text></Pressable>
+      <Pressable accessibilityRole="button" accessibilityLabel="Ouvrir les ateliers créatifs" onPress={()=>navigation.navigate('Atelier')} style={[s.quickCard,{backgroundColor:'#FFE9ED'}]}><Text style={s.quickEmoji}>🎨</Text><Text style={s.quickTitle}>Mon atelier</Text><Text style={s.quickSub}>Créer avec les parents</Text></Pressable>
+      <Pressable accessibilityRole="button" accessibilityLabel="Ouvrir la bibliothèque de comptines" onPress={()=>navigation.navigate('Bibliothèque')} style={[s.quickCard,{backgroundColor:'#E1F3FF'}]}><Text style={s.quickEmoji}>🎵</Text><Text style={s.quickTitle}>Comptines</Text><Text style={s.quickSub}>Chanter ensemble</Text></Pressable>
     </View>
     <TextInput value={query} onChangeText={setQuery} placeholder={'🔎 '+translations[lang].search+'…'} placeholderTextColor="#947F70" style={s.search}/>
     <Section title={query?(lang==='fr'?'Résultats':'Li ci gën a méngoo'):translations[lang].featured} action={query?(lang==='fr'?'Effacer':'Far'):(lang==='fr'?'Tout voir':'Seet lépp')} onAction={()=>setQuery('')}/>
@@ -102,7 +102,7 @@ function WorkshopsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>voi
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}>
     <View style={s.pageIntro}><Text style={{fontSize:35}}>🎨</Text><View style={{flex:1}}><Text style={s.pageTitle}>Mon atelier créatif</Text><Text style={s.cardSubtitle}>Créer, écouter, imaginer ensemble.</Text></View></View>
     <View style={s.parentHint}>À faire avec un parent ou un éducateur. Utiliser du matériel adapté à l’âge, éviter les petites pièces et ne jamais laisser un tout-petit sans surveillance.</View>
-    {workshops.map(w=><View key={w.id} style={s.workshop}><View style={s.workshopHead}><Text style={{fontSize:38}}>{w.emoji}</Text><View style={{flex:1}}><Text style={s.cardTitle}>{w.title}</Text><Text style={s.workshopAge}>{w.age}</Text></View><Pressable onPress={()=>toggleDone(w.id)}><Text style={{fontSize:24}}>{done.includes(w.id)?'✅':'⭕'}</Text></Pressable></View><Text style={s.cardSubtitle}>{w.desc}</Text><Text style={s.materials}>🧺 Matériel : {w.materials}</Text><Text style={s.stepsTitle}>On essaie ensemble</Text>{w.steps.map((x,i)=><Text key={x} style={s.stepText}>{i+1}. {x}</Text>)}</View>)}
+    {workshops.map(w=><View key={w.id} style={s.workshop}><View style={s.workshopHead}><Text style={{fontSize:38}}>{w.emoji}</Text><View style={{flex:1}}><Text style={s.cardTitle}>{w.title}</Text><Text style={s.workshopAge}>{w.age}</Text></View><Pressable accessibilityRole="checkbox" accessibilityLabel={`Atelier terminé : ${w.title}`} accessibilityState={{checked:done.includes(w.id)}} hitSlop={8} onPress={()=>toggleDone(w.id)}><Text style={{fontSize:24}}>{done.includes(w.id)?'✅':'⭕'}</Text></Pressable></View><Text style={s.cardSubtitle}>{w.desc}</Text><Text style={s.materials}>🧺 Matériel : {w.materials}</Text><Text style={s.stepsTitle}>On essaie ensemble</Text>{w.steps.map((x,i)=><Text key={x} style={s.stepText}>{i+1}. {x}</Text>)}</View>)}
     <Text style={s.footer}>Chaque enfant crée à son rythme. Le plaisir compte plus que le résultat. 💛</Text>
   </ScrollView></SafeAreaView>;
 }

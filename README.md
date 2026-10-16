@@ -34,3 +34,11 @@ Les paroles de démonstration sont originales pour ce starter. Elles ne remplace
 ## Chaînes
 - YouTube: https://www.youtube.com/@NianiKids
 - TikTok: https://www.tiktok.com/@niani.kids
+
+
+## Accessibilité et validation
+- Les contrôles interactifs doivent annoncer leur fonction et leur état à TalkBack.
+- Vérifier l'affichage avec les tailles de texte système agrandies et sur petits écrans Android.
+- Garder des cibles tactiles confortables, avec un libellé explicite pour les boutons à icône.
+- Les activités sont prévues avec un adulte; adapter le matériel à l'âge et ne jamais laisser un tout-petit sans surveillance.
+- Avant publication : valider les traductions wolof, les liens externes, la politique de confidentialité et le parcours Google Play Families.
