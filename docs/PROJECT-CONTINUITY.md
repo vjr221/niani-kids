@@ -15,10 +15,10 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 ## GitHub : état vérifié
 - main au dernier contrôle connu : 91224057148aad7362ae51906d3ad7acf9404442.
 - Branche de travail : feat/niani-kids-modernization-oct-2026.
-- Dernier commit de branche confirmé avant cette mise à jour documentaire : 2f9c87c4fa22c4ab979e8ab1af70a824702b6d10.
+- Dernier commit de branche confirmé avant cette mise à jour documentaire : c35bfa2e0ae9e3190cd2ef81e3f7db13681805c3.
 - La branche contient roadmap, src/audioCatalog.ts, workflow de revue audio, inventaire des 10 MP3 (7 fichiers binaires uniques), checklist de publication, script de validation du catalogue audio et ce document.
 - Le workflow de qualité est configuré pour les pushes sur main et sur la branche de modernisation, les pull requests vers main et le déclenchement manuel.
-- CI vérifiée : workflow run 39025214998, commit testé 7418c45f51801aa7db6daec6b57e658bb950420e, conclusion `success`. Les étapes npm install, tsc, validate-translations, validate-content, validate-audio-catalog et expo export --platform android sont toutes réussies. Le commit 6dfad05 est une mise à jour documentaire postérieure ; aucun échec n'a été signalé pour ce changement de documentation.
+- CI vérifiée : workflow run 39025478719, commit testé c35bfa2e0ae9e3190cd2ef81e3f7db13681805c3, conclusion `success`. Les étapes npm install, tsc, validate-translations, validate-content, validate-audio-catalog et expo export --platform android sont toutes réussies. Cela valide l'export JS Android, pas une APK installable ni des tests sur appareil.
 - Aucune PR ni fusion vers main confirmée.
 
 ## Application
@@ -29,7 +29,7 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 - Un vrai lecteur musical n'est pas encore implémenté ou validé.
 
 ## Audios ElevenLabs
-- Flow musical : uiSMmtS8Q8pbnavPtL9o. 19 nœuds visibles au dernier contrôle, dont 16 titres précédemment identifiés comme terminés, deux nœuds supplémentaires terminés et un échec. Aucun lien entre nœuds.
+- Flow musical : uiSMmtS8Q8pbnavPtL9o. La vérification la plus récente renvoie 18 nœuds, 17 terminés et un en échec. Aucun lien entre nœuds. Le nombre précédent de 19 était une erreur de comptage ; utiliser le registre docs/AUDIO-TRACK-REGISTER.md comme référence.
 - Inspection des prompts des nœuds supplémentaires : `TPPsTRB9e8TmLEjssDme` = « Ma famille, mes amis » (terminé) ; `577nL1TrUo19ggB3hOWf` = « Je brosse mes petites dents » (terminé) ; `okyVoqnA0AvO4K7VdOJY` = autre variante de « Je brosse mes petites dents » (échec). Les trois labels ont été renommés dans ElevenLabs pour distinguer les deux générations terminées et la version en échec. Aucune génération payante supplémentaire n'a été lancée.
 - Dix MP3 reçus : 48 kHz stéréo, 192 kb/s, sans ID3 selon le contrôle précédent ; durées entre 75,024 et 81,024 secondes.
 - Doublons binaires exacts : content.mp3 = content (2).mp3; content (4).mp3 = content (5).mp3; content (7).mp3 = content (8).mp3 = content (9).mp3. Il reste 7 fichiers binaires uniques au maximum.
