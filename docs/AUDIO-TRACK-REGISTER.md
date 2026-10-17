@@ -44,3 +44,21 @@ Flow : https://elevenlabs.io/app/flows/uiSMmtS8Q8pbnavPtL9o
 2. Vérifier « Bienvenue chez Niani Kids » et « Niani Kids, c’est parti ! » pour éviter que l'intro et l'outro se ressemblent trop.
 3. Valider en priorité les comptines d'hygiène, de nombres et de couleurs, puis la berceuse.
 4. Préparer ensuite un manifeste des masters réellement téléchargés et les lier à leurs identifiants de contenu stables.
+
+
+## Contrôle de récupération des masters — 17 octobre 2026
+
+- Recherche dans la bibliothèque d'assets audio ElevenLabs via la connexion disponible : aucun asset audio n'est retourné.
+- La lecture des paramètres de nœuds confirme les titres et les paroles de certaines générations, mais ne retourne pas les fichiers audio maîtres ni leurs URL de téléchargement.
+- Le flow expose les statuts de génération, pas les sessions de génération antérieures nécessaires pour réafficher les résultats via l'outil de résultats. Aucune génération n'a été relancée.
+- Conclusion : récupération automatique des masters non disponible par les outils actuellement accessibles dans cette conversation. Ne pas créer de liens de téléchargement supposés.
+
+### Procédure de transfert recommandée
+
+1. Ouvrir le flow ElevenLabs ci-dessus dans le compte qui a créé les morceaux.
+2. Ouvrir les résultats des générations terminées et télécharger le fichier audio maître de chaque titre à conserver.
+3. Déposer les fichiers dans un dossier local dédié, sans les renommer au hasard ; consigner le titre exact affiché dans ElevenLabs.
+4. Téléverser ici les masters (ou un ZIP contenant les fichiers). L'inventaire technique pourra alors calculer les SHA-256, détecter les doublons et préparer le manifeste.
+5. Après écoute et validation éditoriale, copier uniquement les fichiers approuvés dans le projet mobile et compléter `src/audioCatalog.ts`.
+
+Aucun fichier audio n'est actuellement approuvé pour la publication dans l'application.
