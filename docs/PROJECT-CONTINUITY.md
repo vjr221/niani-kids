@@ -15,11 +15,11 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 ## GitHub : état vérifié
 - main au dernier contrôle connu : 91224057148aad7362ae51906d3ad7acf9404442.
 - Branche de travail : feat/niani-kids-modernization-oct-2026.
-- Dernier commit de branche confirmé avant cette mise à jour documentaire : c35bfa2e0ae9e3190cd2ef81e3f7db13681805c3.
+- Dernier commit confirmé sur la branche : `382d5be9bc2d9210c622aea967c827a11caf3682` (`docs: add verified ElevenLabs music register`).
 - La branche contient roadmap, src/audioCatalog.ts, workflow de revue audio, inventaire des 10 MP3 (7 fichiers binaires uniques), checklist de publication, script de validation du catalogue audio et ce document.
 - Le workflow de qualité est configuré pour les pushes sur main et sur la branche de modernisation, les pull requests vers main et le déclenchement manuel.
-- CI vérifiée : workflow run 39025478719, commit testé c35bfa2e0ae9e3190cd2ef81e3f7db13681805c3, conclusion `success`. Les étapes npm install, tsc, validate-translations, validate-content, validate-audio-catalog et expo export --platform android sont toutes réussies. Cela valide l'export JS Android, pas une APK installable ni des tests sur appareil.
-- Aucune PR ni fusion vers main confirmée.
+- CI vérifiée la plus récente : [workflow run 39025566301](https://github.com/vjr221/niani-kids/actions/runs/39025566301), commit `382d5be9bc2d9210c622aea967c827a11caf3682`, conclusion `success` (run #82). Les étapes `npm install`, `npx tsc --noEmit`, `validate-translations`, `validate-content`, `validate-audio-catalog` et `expo export --platform android` sont toutes réussies. Cela valide l'export JS Android, pas une APK installable ni des tests sur appareil.
+- La PR #25 « feat: intégrer le Baobab comme guide-conteur » est encore ouverte au dernier contrôle : https://github.com/vjr221/niani-kids/pull/25. Ne pas la déclarer fusionnée sans nouveau contrôle.
 
 ## Application
 - Expo SDK 54, React Native 0.81.4, React 19.1, TypeScript 5.9.
@@ -43,7 +43,7 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 - Le catalogue audio reste volontairement vide jusqu'à validation des masters.
 
 ## Prochaines actions
-1. Obtenir un résultat effectif du workflow GitHub et corriger les éventuels échecs.
+1. CI vérifiée verte sur le commit actuel de la branche de modernisation ; garder cette validation comme référence.
 2. Identifier les 7 MP3 uniques par écoute/transcription et comparaison aux générations ElevenLabs.
 3. Vérifier expo-audio pour SDK 54, puis implémenter et tester lecture/pause/progression/fin/interruption.
 4. Intégrer les images comme fichiers d'assets vérifiés.
