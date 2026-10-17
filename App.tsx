@@ -36,7 +36,7 @@ function ContentCard({item,favorite,onFavorite,onOpen,lang}:{item:ContentItem;fa
   return <View style={s.contentCard}>
     <Pressable accessibilityRole="button" accessibilityLabel={`${t.discover} ${item.title}, ${category}, ${item.duration}`} onPress={onOpen} style={[s.art,{backgroundColor:bg}]}><Text style={{fontSize:42}}>{item.emoji}</Text><Text style={s.duration}>{item.duration}</Text></Pressable>
     <View style={s.cardInfo}><Text style={s.cardCategory}>{category.toUpperCase()} · {item.language}</Text><Text style={s.cardTitle}>{item.title}</Text><Text style={s.cardSubtitle}>{item.subtitle}</Text>
-      <View style={s.cardActions}><Pressable accessibilityRole="button" accessibilityLabel={`${t.discover} ${item.title}`} onPress={onOpen} style={s.playButton}><Text style={s.playText}>▶ {t.discover}</Text></Pressable><Pressable accessibilityRole="button" accessibilityLabel={favorite?`${t.removeFavorite} ${item.title}`:`${t.addFavorite} ${item.title}`} accessibilityState={{selected:favorite}} hitSlop={8} onPress={onFavorite}><Text style={{fontSize:22}}>{favorite?'❤️':'🤍'}</Text></Pressable></View>
+      <View style={s.cardActions}><Pressable accessibilityRole="button" accessibilityLabel={`${t.discover} ${item.title}`} onPress={onOpen} style={s.playButton}><Text style={s.playText}>📖 {t.discover}</Text></Pressable><Pressable accessibilityRole="button" accessibilityLabel={favorite?`${t.removeFavorite} ${item.title}`:`${t.addFavorite} ${item.title}`} accessibilityState={{selected:favorite}} hitSlop={8} onPress={onFavorite}><Text style={{fontSize:22}}>{favorite?'❤️':'🤍'}</Text></Pressable></View>
     </View>
   </View>;
 }
