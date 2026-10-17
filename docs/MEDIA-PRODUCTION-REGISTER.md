@@ -1,57 +1,62 @@
 # Registre de production des médias — Niani Kids
 
-Ce registre distingue une fiche éditoriale, une voix de synthèse et un enregistrement musical final.
+## État vérifié
+- Les fiches de contenus sont définies dans `src/content.ts`.
+- Le bouton « Écouter le texte » s’appuie sur `expo-speech` : il lit le texte avec une voix synthétique et ne remplace pas un master musical.
+- Le logo et les images de Samba, Awa et Bobo sont maintenant présents dans `assets/` et utilisés par l’interface.
+- Le propriétaire indique disposer de chansons générées avec ElevenLabs. Les fichiers audio ne sont pas encore visibles dans le dépôt ni dans la bibliothèque d’assets ElevenLabs accessible à cette session.
+- Le Baobab individuel, les décors et les couvertures individuelles restent à intégrer après vérification/production.
 
-## État actuel vérifié dans le dépôt
-- Les fiches de chansons et d'histoires sont dans src/content.ts.
-- Le bouton de lecture du texte utilise expo-speech : il lit le texte avec une voix synthétique. Ce n'est pas un enregistrement chanté.
-- Les fichiers originaux du logo et des personnages Samba, Awa et Bobo sont présents dans assets/ et le logo ainsi que les personnages sont utilisés par l'interface.
-- Le Baobab, les décors, les couvertures illustrées individuelles et les masters audio définitifs restent à compléter ou à confirmer.
-- Les textes wolof sont provisoires et doivent être validés par un locuteur natif avant publication.
+## Convention de fichiers
+```text
+assets/
+  brand/
+    logo.png
+    logo-icon.png
+  characters/
+    baobab.png
+  backgrounds/
+    village.png
+    savane.png
+    nuit.png
+    interieur.png
+  covers/
+    bonjour-bonjour.png
+    couleurs.png
+    animaux.png
+    berceuse.png
+  audio/
+    jingle-intro.mp3
+    jingle-outro.mp3
+    bonjour-bonjour-fr.mp3
+    bonjour-bonjour-wo.mp3
+    couleurs-fr.mp3
+    couleurs-wo.mp3
+    animaux-fr.mp3
+    animaux-wo.mp3
+    berceuse-fr.mp3
+    berceuse-wo.mp3
+```
 
-## Organisation cible des fichiers
-    assets/
-      brand/
-        logo.png
-        logo-icon.png
-      characters/
-        baobab.png
-      backgrounds/
-        village.png
-        baobab-grove.png
-      audio/
-        jingle-intro-master.mp3
-        jingle-outro-master.mp3
-        bonjour-bonjour-fr-master.mp3
-        bonjour-bonjour-wo-master.mp3
-        couleurs-fr-master.mp3
-        couleurs-wo-master.mp3
-        animaux-fr-master.mp3
-        animaux-wo-master.mp3
-        berceuse-fr-master.mp3
-        berceuse-wo-master.mp3
+Ce sont des chemins cibles uniquement : ne créer aucun fichier vide et ne référencer un chemin dans le code qu’après ajout du média réel.
 
-Ne pas créer de fichier vide pour faire croire qu'un média existe. Ne référencer un fichier dans l'application qu'après l'avoir ajouté et vérifié.
+## Priorité de production
+| Priorité | Livrable | État |
+| --- | --- | --- |
+| P0 | Baobab compagnon détouré, cohérent avec les personnages | En production visuelle |
+| P0 | Couvertures individuelles pour les chansons livrées | À produire après inventaire des masters |
+| P0 | Masters ElevenLabs existants (audio final + métadonnées) | À récupérer et contrôler |
+| P1 | Fonds de village, savane, nuit et intérieur | À produire ou retrouver |
+| P1 | Cartes couleurs, chiffres, formes, animaux et objets | À produire ou retrouver |
+| P2 | États UI et visuels promotionnels | À compléter selon les écrans |
 
-## Priorité de production audio
-| Priorité | Média | Livrable attendu | État |
-| --- | --- | --- | --- |
-| P0 | « Bienvenue chez Niani Kids » | Jingle instrumental + version chantée validée | Version finale à confirmer et intégrer |
-| P1 | « Bonjour, bonjour ! » | Masters chantés français et wolof | À produire ; paroles wolof à faire valider |
-| P2 | Les couleurs | Masters chantés français et wolof | À produire |
-| P3 | Les animaux | Masters chantés français et wolof | À produire |
-| P4 | Berceuse | Masters doux français et wolof | À produire |
+## Contrôle des chansons ElevenLabs
+Pour chaque master reçu :
+1. Écouter le fichier complet, vérifier les coupures, le niveau sonore et la qualité du mix.
+2. Relever le titre exact, la langue, la durée et la version.
+3. Valider les paroles, surtout le wolof, avec un locuteur natif.
+4. Vérifier les droits d’utilisation commerciale et de diffusion de la musique, de la voix et des éventuels échantillons selon les conditions du compte et du service.
+5. Ajouter le master au dépôt, déclarer son chemin dans les données de contenu et connecter le lecteur audio à un vrai fichier, avec états lecture/pause/erreur.
+6. Tester sur Android, y compris interruption, retour à l’application et comportement hors ligne.
 
-## Contrat de validation d'un média
-1. Vérifier l'écoute complète, le volume, les coupures et le bruit.
-2. Vérifier la prononciation, surtout pour le wolof, avec un locuteur natif.
-3. Obtenir les droits d'utilisation commerciale et de diffusion des voix, de la musique et des éventuels échantillons.
-4. Confirmer le nom de fichier, la langue, la durée et la version.
-5. Tester le lancement, la pause/l'arrêt, le retour à l'application et l'absence de lecture fantôme.
-6. Vérifier le comportement hors ligne si le fichier est livré dans l'application.
-
-## Métadonnées minimales
-Chaque enregistrement final doit avoir un titre, un identifiant stable, une langue (fr ou wo), une durée vérifiée, un chemin de fichier, une version, un statut de droits et un statut de validation linguistique.
-
-## Règle produit
-Tant qu'aucun enregistrement chanté n'est livré, l'interface doit présenter honnêtement la lecture comme une lecture vocale du texte et non comme une chanson enregistrée. Les liens vers YouTube restent accompagnés d'une confirmation destinée aux parents.
+Tant que les fichiers ne sont pas disponibles et testés, l’interface ne doit pas présenter la lecture synthétique comme une chanson enregistrée.
