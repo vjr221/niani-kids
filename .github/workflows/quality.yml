@@ -1,7 +1,9 @@
 name: Niani Kids - Quality Check
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - feat/niani-kids-modernization-oct-2026
   pull_request:
     branches: [main]
   workflow_dispatch:
