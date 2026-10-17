@@ -15,7 +15,7 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 ## GitHub : état vérifié
 - main au dernier contrôle connu : 91224057148aad7362ae51906d3ad7acf9404442.
 - Branche de travail : feat/niani-kids-modernization-oct-2026.
-- Dernier commit confirmé au moment de cette mise à jour : `6c0f5645ebf05711dbfae7a230b32152fd7caa60` (`fix: distinguish content discovery from music playback`).
+- Dernier commit confirmé au moment de cette mise à jour : `92cd058fc0c49262b9d8124852145092bab2cedf` (`a11y: improve search and game control labels`).
 - La branche contient roadmap, src/audioCatalog.ts, workflow de revue audio, inventaire audio actualisé après le dernier envoi (9 fichiers `content*.mp3` dont 7 binaires uniques, plus un fichier WhatsApp distinct), checklist de publication, script de validation du catalogue audio et ce document.
 - Le workflow de qualité est configuré pour les pushes sur main et sur la branche de modernisation, les pull requests vers main et le déclenchement manuel.
 - CI vérifiée la plus récente : [workflow run 39025566301](https://github.com/vjr221/niani-kids/actions/runs/39025566301), commit `382d5be9bc2d9210c622aea967c827a11caf3682`, conclusion `success` (run #82). Les étapes `npm install`, `npx tsc --noEmit`, `validate-translations`, `validate-content`, `validate-audio-catalog` et `expo export --platform android` sont toutes réussies. Cela valide l'export JS Android, pas une APK installable ni des tests sur appareil.
