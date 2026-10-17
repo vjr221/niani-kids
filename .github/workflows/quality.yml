@@ -17,4 +17,5 @@ jobs:
       - run: npx tsc --noEmit
       - run: node scripts/validate-translations.mjs
       - run: node scripts/validate-content.mjs
+      - run: node scripts/validate-audio-catalog.mjs
       - run: npx expo export --platform android

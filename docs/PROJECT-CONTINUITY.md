@@ -12,74 +12,46 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 - Langues prioritaires : français et wolof. Toute traduction/parole wolof doit être relue par un locuteur compétent avant publication.
 - Personnages : Samba (sweat bleu, cheveux courts bouclés), Awa (longues tresses avec perles colorées et tenue d'inspiration sénégalaise), Bobo (casquette rouge à l'envers et tee-shirt jaune) forment le trio principal. Le Baobab est une mascotte-guide/conteur distincte.
 - Priorités éditoriales : comptines, berceuses, chansons éducatives, contes et culture sénégalaise.
-- Chaînes : YouTube https://youtube.com/@nianikids ; TikTok https://www.tiktok.com/@niani.kids.
+- Chaînes : https://youtube.com/@nianikids ; https://www.tiktok.com/@niani.kids.
 
 ## GitHub : état vérifié
 
-- `main` au dernier contrôle : `91224057148aad7362ae51906d3ad7acf9404442`.
-- Branche de travail : `feat/niani-kids-modernization-oct-2026`.
-- Dernier commit connu : `7a9f6dfd30eb54e0a2b6f0794b8f701afc9aacba`.
-- Fichiers ajoutés sur la branche :
-  - `docs/MODERNIZATION-ROADMAP-2026.md` — décisions produit et priorités P0–P3.
-  - `src/audioCatalog.ts` — garde-fou typé ; catalogue vide tant que les masters ne sont pas validés.
-  - `docs/AUDIO-REVIEW-WORKFLOW.md` — méthode d'écoute, transcription, validation des droits/langues.
-  - `docs/RELEASE-CHECKLIST.md` — critères de validation avant livraison.
-  - `docs/AUDIO-FILE-INVENTORY.md` — durées, tailles, empreintes SHA-256 et doublons exacts.
-  - `docs/PROJECT-CONTINUITY.md` — ce document de reprise.
-- Une première PR a été tentée via le connecteur GitHub, mais celui-ci a affiché un formulaire interactif. Aucune PR ne doit être considérée créée tant que GitHub ne retourne pas son numéro/URL.
-- Le dernier appel de statut de commit pour `bc521222ae77cf6499e88f088b18fc0c48f23b0d` a renvoyé zéro statut ; ce n'est pas une preuve que les tests passent. Le nouveau commit doit être contrôlé séparément.
-- Ne pas fusionner automatiquement sur `main` sans revue et contrôles CI.
+- main au dernier contrôle connu : 91224057148aad7362ae51906d3ad7acf9404442.
+- Branche de travail : feat/niani-kids-modernization-oct-2026.
+- Dernier commit connu avant cette mise à jour : f33cf98773a20f17c7a3937831f6fa872c6252ca.
+- Fichiers de travail : roadmap, src/audioCatalog.ts, workflow de revue audio, inventaire des 10 fichiers reçus (7 binaires uniques), checklist de publication et ce document.
+- Cette branche est distincte de main. Ne pas annoncer de fusion ni de PR tant que GitHub n'en confirme pas le numéro et le statut.
+- Aucun workflow CI n'a été trouvé pour la branche lors du dernier contrôle. Cela ne prouve ni réussite ni échec des tests.
 
 ## État de l'application
 
-- Stack : Expo SDK 54, React Native 0.81.4, React 19.1, TypeScript 5.9 ; scripts `start`, `android`, `ios`, `web`, `typecheck`.
+- Stack : Expo SDK 54, React Native 0.81.4, React 19.1, TypeScript 5.9.
 - Écrans existants : Accueil, Bibliothèque, Jouer, Atelier, Parents.
-- Fonctionnalités existantes : favoris/langue enregistrés localement, mini-jeux, ateliers parent-enfant, lecture de paroles/contes par synthèse vocale via `expo-speech`, liens vers les réseaux dans l'espace Parents.
-- Attention : `expo-speech` lit du texte ; ce n'est pas la lecture de chansons master.
-- `src/content.ts` contient 20 fiches environ avec paroles ou contes de démonstration ; les paroles de démonstration ne sont pas toutes associées à un master validé.
-- Ne pas annoncer la lecture audio réelle tant que le lecteur n'est pas implémenté, testé et connecté à des masters identifiés.
+- Fonctionnalités existantes : favoris/langue enregistrés localement, mini-jeux, ateliers parent-enfant, lecture de paroles/contes par synthèse vocale via expo-speech, liens réseaux dans l'espace Parents.
+- expo-speech lit du texte ; ce n'est pas un lecteur de chanson master.
+- src/content.ts contient des fiches et paroles de démonstration. Ne pas les présenter comme des masters enregistrés.
+- Le vrai lecteur musical n'est pas encore implémenté ou validé.
 
 ## Audios ElevenLabs
 
-- Flow : `uiSMmtS8Q8pbnavPtL9o` ; 16 nœuds `eleven_music_v2` marqués terminés et étiquetés :
-  1. Bonjour, bonjour ! — Maquette 01
-  2. Bonjour, bonjour ! — Maquette 02
-  3. Bienvenue chez Niani Kids
-  4. Niani Kids, c’est parti !
-  5. Les couleurs dansent
-  6. Dors, petit cœur
-  7. Les animaux du Sénégal
-  8. Comptons jusqu’à 10
-  9. Bouge et stop !
-  10. Conte musical du Baobab
-  11. Nuyoo, nuyoo ! — Bonjour en français et wolof
-  12. Les formes
-  13. Les jours de la semaine
-  14. Les fruits du Sénégal
-  15. Je lave mes mains
-  16. Quand je ris, quand je pleure
-- Statut « terminé » ne signifie pas écouté, validé ou associé à un fichier reçu.
-- Dix MP3 reçus ont été vérifiés localement. Ils sont 48 kHz stéréo, 192 kb/s, sans ID3 selon le contrôle précédent. Les durées vont de 75,024 à 81,024 secondes.
-- Audit SHA-256 du 17 octobre : 3 groupes de doublons exacts : `content.mp3` = `content (2).mp3`; `content (4).mp3` = `content (5).mp3`; `content (7).mp3` = `content (8).mp3` = `content (9).mp3`. Il y a donc 7 masters binaires distincts au maximum. Voir `docs/AUDIO-FILE-INVENTORY.md` pour les empreintes.
-- Titre, langue, paroles, qualité, droits et correspondance des 7 fichiers uniques restent à confirmer. Ne pas les relier aux fiches par ordre de fichier.
-- Les images Baobab/village générées via ElevenLabs ne sont pas encore intégrées en fichiers binaires au dépôt.
+- Flow musique : uiSMmtS8Q8pbnavPtL9o, avec 16 nœuds musicaux étiquetés. Un état completed ne prouve pas une écoute, une validation éditoriale ou un lien avec un MP3.
+- Dix MP3 reçus : 48 kHz stéréo, 192 kb/s, sans ID3 selon le contrôle précédent ; durées entre 75,024 et 81,024 secondes.
+- Doublons binaires exacts : content.mp3 = content (2).mp3 ; content (4).mp3 = content (5).mp3 ; content (7).mp3 = content (8).mp3 = content (9).mp3. Il reste 7 fichiers uniques au maximum.
+- Titres, paroles, langues, droits et correspondances restent à confirmer. Ne pas associer les fichiers par ordre.
+- Images Baobab et village générées via ElevenLabs, mais pas encore intégrées comme fichiers binaires au dépôt.
+- Fond de village terminé en 1280×720 : génération HzH2gWVNXC76I1dtDSgP. Historique : https://elevenlabs.io/app/image-video/history?modality=image&generationId=HzH2gWVNXC76I1dtDSgP.
+
+## Changement ajouté dans cette étape
+
+- Ajout de scripts/validate-audio-catalog.mjs pour contrôler les identifiants audio, les contentId dupliqués, la correspondance avec le catalogue et les conditions d'approbation.
+- Ajout de cette validation au workflow .github/workflows/quality.yml.
+- Ces changements ne sont pas déclarés testés tant que le workflow n'a pas été exécuté et que son résultat n'est pas observable.
 
 ## Prochaines actions prioritaires
 
-1. Vérifier le SHA courant de la branche et lire le diff réel.
-2. Exécuter `npm ci`, `npm run typecheck` et export Android Expo sur la branche ; corriger toute erreur.
-3. Identifier les 7 MP3 distincts par écoute/transcription et comparaison avec les nœuds ElevenLabs.
-4. Vérifier la compatibilité de `expo-audio` avec Expo SDK 54 avant installation ; intégrer un vrai lecteur avec lecture/pause/progression/fin/erreur/interruption.
-5. Tester sur Android physique, petit écran, TalkBack, tailles de texte agrandies, stockage local et navigation.
-6. Vérifier politique de confidentialité, parcours des liens externes, Google Play Families, Data safety, IARC et signature EAS.
-7. Ouvrir une PR après vérification. Un formulaire affiché n'est pas une PR créée ; une PR ouverte n'est pas fusionnée ; une compilation exportée n'est pas nécessairement un APK signé.
-
-## Références
-
-- Dépôt : https://github.com/vjr221/niani-kids
-- Google Play Families : https://support.google.com/googleplay/android-developer/answer/9893335
-- Expo Audio : https://docs.expo.dev/versions/latest/sdk/audio/
-
-## Règle de communication
-
-Dire précisément ce qui a été commité, testé, compilé, fusionné ou publié. Si un test n'a pas été exécuté, le signaler. Ne jamais promettre une APK, une PR ou une fusion avant confirmation vérifiable.
+1. Vérifier le SHA de la branche et l'état des workflows après ce commit.
+2. Faire passer TypeScript, validation des traductions/contenus/audio et export Android Expo.
+3. Identifier les 7 MP3 uniques par écoute/transcription et comparaison aux générations ElevenLabs.
+4. Vérifier la compatibilité expo-audio avec Expo SDK 54 ; implémenter puis tester lecture/pause/progression/fin/interruption.
+5. Intégrer les illustrations en fichiers d'assets vérifiés, puis tester l'interface sur Android.
+6. Vérifier l'accessibilité, la confidentialité et les exigences Google Play Families avant publication.
