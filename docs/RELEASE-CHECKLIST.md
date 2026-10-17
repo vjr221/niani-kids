@@ -5,6 +5,7 @@
 - [ ] `npm ci` réussi sur Node compatible avec le projet.
 - [ ] `npm run typecheck` réussi.
 - [ ] Export Android Expo réussi avec les dépendances verrouillées.
+- [ ] Icône de l’application, icône adaptative Android et splash screen utilisent le logo officiel ; rendu visuel vérifié sur appareil réel.
 - [ ] Aucun secret, jeton, fichier utilisateur ou asset non autorisé dans le commit.
 - [ ] État CI vérifié sur le SHA exact à livrer.
 
