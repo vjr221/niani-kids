@@ -138,7 +138,7 @@ export default function App() {
     <Modal visible={!!selectedItem} animationType="slide" onRequestClose={()=>setSelectedItem(null)}>
       <SafeAreaView style={s.readerSafe} edges={['top','bottom']}>
         <View style={s.readerHeader}>
-          <Pressable onPress={()=>setSelectedItem(null)} style={s.readerClose}><Text style={s.readerCloseText}>✕ {translations[lang].close}</Text></Pressable>
+          <Pressable accessibilityRole="button" accessibilityLabel={translations[lang].close} onPress={()=>setSelectedItem(null)} style={s.readerClose}><Text style={s.readerCloseText}>✕ {translations[lang].close}</Text></Pressable>
           <Text style={s.readerBrand}>Niani Kids 🌳</Text>
         </View>
         {selectedItem&&<ScrollView contentContainerStyle={s.readerScroll}>
@@ -149,10 +149,10 @@ export default function App() {
           <Text style={s.readerTitle}>{selectedItem.title}</Text>
           <Text style={s.readerSubtitle}>{selectedItem.subtitle}</Text>
           {(selectedItem.lyrics||selectedItem.storyText)&&<View style={s.readerAudioRow}>
-            <Pressable style={s.readerListenButton} onPress={()=>{const spokenText=[selectedItem.lyrics,selectedItem.storyText].filter(Boolean).join('\n\n').replace(/^.*Note : paroles wolof de travail.*$/m,'').trim();Speech.stop();setIsSpeaking(true);Speech.speak(spokenText,{language:selectedItem.language==='WO'?'wo-SN':'fr-FR',rate:0.82,pitch:1.05,onDone:()=>setIsSpeaking(false),onStopped:()=>setIsSpeaking(false),onError:()=>setIsSpeaking(false)});}}>
+            <Pressable accessibilityRole="button" accessibilityLabel={isSpeaking?translations[lang].playText:translations[lang].listen} onPress={()=>{const spokenText=[selectedItem.lyrics,selectedItem.storyText].filter(Boolean).join('\n\n').replace(/^.*Note : paroles wolof de travail.*$/m,'').trim();Speech.stop();setIsSpeaking(true);Speech.speak(spokenText,{language:selectedItem.language==='WO'?'wo-SN':'fr-FR',rate:0.82,pitch:1.05,onDone:()=>setIsSpeaking(false),onStopped:()=>setIsSpeaking(false),onError:()=>setIsSpeaking(false)});}}>
               <Text style={s.readerListenText}>{isSpeaking?'🔊 '+translations[lang].playText:'🔊 '+translations[lang].listen}</Text>
             </Pressable>
-            <Pressable style={s.readerStopButton} onPress={()=>{Speech.stop();setIsSpeaking(false);}}>
+            <Pressable accessibilityRole="button" accessibilityLabel={translations[lang].stop} onPress={()=>{Speech.stop();setIsSpeaking(false);}}>
               <Text style={s.readerStopText}>■ {translations[lang].stop}</Text>
             </Pressable>
           </View>}
