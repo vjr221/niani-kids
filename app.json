@@ -3,16 +3,28 @@
     "name": "Niani Kids",
     "slug": "niani-kids",
     "owner": "vjr221s-team",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "scheme": "nianikids",
+    "icon": "./assets/a_clean_graphic_png_logo_on_a_transparent_backgrou.png",
     "splash": {
-      "backgroundColor": "#FFF7D6"
+      "image": "./assets/a_clean_graphic_png_logo_on_a_transparent_backgrou.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFF04A"
     },
     "android": {
       "package": "sn.nianikids.app",
-      "versionCode": 1
+      "versionCode": 3,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/a_clean_graphic_png_logo_on_a_transparent_backgrou.png",
+        "backgroundColor": "#FFD52A"
+      },
+      "navigationBar": {
+        "backgroundColor": "#FFF9E8",
+        "barStyle": "dark-content",
+        "enforceContrast": false
+      }
     },
     "ios": {
       "bundleIdentifier": "sn.nianikids.app"
