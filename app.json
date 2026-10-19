@@ -24,6 +24,15 @@
     },
     "ios": {
       "bundleIdentifier": "sn.nianikids.app"
-    }
+    },
+    "plugins": [
+      [
+        "expo-audio",
+        {
+          "recordAudioAndroid": false,
+          "microphonePermission": false
+        }
+      ]
+    ]
   }
 }
