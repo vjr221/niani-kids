@@ -2,7 +2,7 @@
 **Niani Kids — Les petites mélodies d’Afrique** est une application Expo / React Native / TypeScript pour les enfants de 0 à 6 ans, à utiliser avec un adulte.
 
 ## Modules
-- Accueil ludique et découverte des quatre personnages : Samba, Awa, Bobo et le Baobab.
+- Accueil ludique : Samba, Awa et Bobo forment le trio principal; le Baobab est une mascotte-guide distincte qui ouvre les contes et les découvertes culturelles. Sa carte mène à l’histoire « Le secret du Baobab ».
 - Bibliothèque : comptines, berceuses, apprentissages et histoires.
 - Jeux interactifs : couleurs, dénombrement, gestes pour la nature, étoiles de récompense enregistrées localement.
 - Ateliers parent-enfant : arts, rythme, baobab des gentillesses, conte en images, danse.
