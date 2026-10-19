@@ -7,6 +7,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { contents, ContentItem } from './src/content';
 import { Language, translations } from './src/i18n';
+import AudioPlayerCard from './src/AudioPlayerCard';
+import { getAudioTrack, isAudioReady } from './src/audioCatalog';
 
 const Tab = createBottomTabNavigator();
 const YOUTUBE = 'https://youtube.com/@nianikids';
@@ -148,6 +150,8 @@ export default function App() {
           </View>
           <Text style={s.readerTitle}>{selectedItem.title}</Text>
           <Text style={s.readerSubtitle}>{selectedItem.subtitle}</Text>
+          {selectedItem.lyrics&&isAudioReady(getAudioTrack(selectedItem.id)) ? <AudioPlayerCard key={selectedItem.id} title={selectedItem.title} source={getAudioTrack(selectedItem.id)!.assetPath} language={selectedItem.language} /> : null}
+          {selectedItem.lyrics&&!isAudioReady(getAudioTrack(selectedItem.id)) ? <View style={s.readerNotice}><Text style={s.readerNotice}>{lang==='fr'?'🎵 Enregistrement musical en préparation. Tu peux écouter le texte avec la synthèse vocale ci-dessous.':'🎵 Woy bu dëgg-dëgg mi ngi ci waajal. Mën nga déglu mbind mi ak baat bu ordinatëër ci suuf.'}</Text></View> : null}
           {(selectedItem.lyrics||selectedItem.storyText)&&<View style={s.readerAudioRow}>
             <Pressable accessibilityRole="button" accessibilityLabel={isSpeaking?translations[lang].playText:translations[lang].listen} onPress={()=>{const spokenText=[selectedItem.lyrics,selectedItem.storyText].filter(Boolean).join('\n\n').replace(/^.*Note : paroles wolof de travail.*$/m,'').trim();Speech.stop();setIsSpeaking(true);Speech.speak(spokenText,{language:selectedItem.language==='WO'?'wo-SN':'fr-FR',rate:0.82,pitch:1.05,onDone:()=>setIsSpeaking(false),onStopped:()=>setIsSpeaking(false),onError:()=>setIsSpeaking(false)});}}>
               <Text style={s.readerListenText}>{isSpeaking?'🔊 '+translations[lang].playText:'🔊 '+translations[lang].listen}</Text>
