@@ -6,6 +6,7 @@ type Props = {
   title: string;
   source: string;
   language: 'FR' | 'WO' | 'FR + WO';
+  uiLanguage?: 'fr' | 'wo';
 };
 
 const formatTime = (seconds: number) => {
@@ -15,22 +16,25 @@ const formatTime = (seconds: number) => {
 };
 
 /** Render only for a master that passed the editorial and rights gate. */
-export default function AudioPlayerCard({ title, source, language }: Props) {
+export default function AudioPlayerCard({ title, source, language, uiLanguage = 'fr' }: Props) {
   const player = useAudioPlayer(source, { updateInterval: 500 });
   const status = useAudioPlayerStatus(player);
   const duration = Math.max(0, status.duration || 0);
   const current = Math.min(duration, Math.max(0, status.currentTime || 0));
   const progress = duration > 0 ? (current / duration) * 100 : 0;
+  const copy = uiLanguage === 'wo'
+    ? { recorded: 'WOY BU ÑU ENREGISTRE', progress: 'Yoonu woy bi', back: 'Delluwaat ci 10 sekond', forward: 'Dem kanam ci 10 sekond', pause: 'Taxawal tuuti woy bi', listen: 'Déglu woy bi', loading: 'Mi ngi yeb', pauseButton: 'Ⅱ Taxawal' }
+    : { recorded: 'CHANSON ENREGISTRÉE', progress: 'Progression de la chanson', back: 'Reculer de dix secondes', forward: 'Avancer de dix secondes', pause: 'Mettre la chanson en pause', listen: 'Écouter la chanson', loading: 'Chargement…', pauseButton: 'Ⅱ Pause' };
 
   return (
-    <View style={styles.card} accessibilityLabel={`Lecteur audio : ${title}`}>
+    <View style={styles.card} accessibilityLabel={`${copy.recorded} : ${title}`}>
       <View style={styles.heading}>
-        <Text style={styles.kicker}>CHANSON ENREGISTRÉE · {language}</Text>
+        <Text style={styles.kicker}>{copy.recorded} · {language}</Text>
         <Text style={styles.title}>{title}</Text>
       </View>
       <View
         accessibilityRole="progressbar"
-        accessibilityLabel="Progression de la chanson"
+        accessibilityLabel={copy.progress}
         accessibilityValue={{ min: 0, max: Math.round(duration), now: Math.round(current) }}
         style={styles.track}
       >
@@ -43,27 +47,29 @@ export default function AudioPlayerCard({ title, source, language }: Props) {
       <View style={styles.controls}>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Reculer de dix secondes"
+          accessibilityLabel={copy.back}
+          disabled={!status.isLoaded}
           onPress={() => { void player.seekTo(Math.max(0, current - 10)); }}
-          style={styles.skip}
+          style={[styles.skip, !status.isLoaded && styles.disabled]}
         >
           <Text style={styles.skipText}>−10 s</Text>
         </Pressable>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={status.playing ? 'Mettre la chanson en pause' : 'Écouter la chanson'}
+          accessibilityLabel={status.playing ? copy.pause : copy.listen}
           accessibilityState={{ disabled: !status.isLoaded }}
           disabled={!status.isLoaded}
           onPress={() => { if (status.playing) { player.pause(); } else if (status.didJustFinish) { void player.seekTo(0).then(() => player.play()); } else { player.play(); } }}
           style={[styles.play, !status.isLoaded && styles.disabled]}
         >
-          <Text style={styles.playText}>{status.playing ? 'Ⅱ Pause' : status.isLoaded ? '▶ Écouter' : 'Chargement…'}</Text>
+          <Text style={styles.playText}>{status.playing ? copy.pauseButton : status.isLoaded ? `▶ ${copy.listen}` : copy.loading}</Text>
         </Pressable>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Avancer de dix secondes"
+          accessibilityLabel={copy.forward}
+          disabled={!status.isLoaded}
           onPress={() => { void player.seekTo(Math.min(duration, current + 10)); }}
-          style={styles.skip}
+          style={[styles.skip, !status.isLoaded && styles.disabled]}
         >
           <Text style={styles.skipText}>+10 s</Text>
         </Pressable>
