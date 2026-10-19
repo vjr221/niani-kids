@@ -1,0 +1,63 @@
+name: Niani Kids - Android Preview (modernization branch)
+
+on:
+  push:
+    branches:
+      - feat/niani-kids-modernization-oct-2026
+    paths:
+      - "App.tsx"
+      - "app.json"
+      - "eas.json"
+      - "package.json"
+      - "package-lock.json"
+      - "src/**"
+      - "assets/**"
+      - "scripts/**"
+      - ".github/workflows/android-preview-feature.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    name: Validate and build Android preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact source commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - name: Show source revision
+        run: echo "Building source commit ${GITHUB_SHA}"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install
+      - name: Check Expo dependency compatibility
+        run: npx expo install --check
+      - name: TypeScript
+        run: npx tsc --noEmit
+      - name: Validate translations
+        run: node scripts/validate-translations.mjs
+      - name: Validate content
+        run: node scripts/validate-content.mjs
+      - name: Validate audio catalog
+        run: node scripts/validate-audio-catalog.mjs
+      - name: Export Android bundle
+        run: npx expo export --platform android
+      - name: Install EAS CLI
+        run: npm install --global eas-cli
+      - name: Verify Expo authentication
+        env:
+          EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
+        run: eas whoami
+      - name: Ensure Expo project association
+        env:
+          EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
+        run: eas init --account vjr221s-team --non-interactive
+      - name: Build signed Android preview APK
+        env:
+          EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
+        run: eas build --platform android --profile preview --non-interactive --wait
