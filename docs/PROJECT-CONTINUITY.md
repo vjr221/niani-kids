@@ -17,7 +17,7 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 - Branche de travail : feat/niani-kids-modernization-oct-2026.
 - Dernier commit confirmé au moment de cette mise à jour : `e8167eee9ed3a70ced609f9540c0b7cf48d7fd3c` (`ci: check Expo SDK dependency compatibility`).
 - La branche contient roadmap, src/audioCatalog.ts, workflow de revue audio, inventaire audio actualisé après le dernier envoi (9 fichiers `content*.mp3` dont 7 binaires uniques, plus un fichier WhatsApp distinct), checklist de publication, script de validation du catalogue audio et ce document.
-- Le workflow de qualité est configuré pour les pushes sur main et sur la branche de modernisation, les pull requests vers main et le déclenchement manuel.
+- Le workflow de qualité est configuré pour les pushes sur main et sur la branche de modernisation, les pull requests vers main et le déclenchement manuel. Il exécute aussi `npx expo install --check` pour détecter les versions incompatibles avec le SDK.
 - CI vérifiées : run [#116](https://github.com/vjr221/niani-kids/actions/runs/39191044250) et run [#115](https://github.com/vjr221/niani-kids/actions/runs/39191023689), tous deux `success` au 19 octobre 2026. Les validations TypeScript, traductions, contenus, catalogue audio et export Android Expo ont réussi. La CI du commit `e8167eee9ed3a70ced609f9540c0b7cf48d7fd3c` ajoute `npx expo install --check` ; son résultat est à confirmer. L'export Expo valide le bundle JS Android, pas une APK installable ni des tests sur appareil.
 - La PR #25 « feat: intégrer le Baobab comme guide-conteur » a été vérifiée via l’API GitHub : état `closed`, `merged=true`, fusionnée le 17 octobre 2026 dans `main` avec le commit `ed625d6a57820e663c392d04969e621220d174f5`. Référence : https://github.com/vjr221/niani-kids/pull/25.
 
@@ -26,7 +26,7 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 - Écrans : Accueil, Bibliothèque, Jouer, Atelier, Parents.
 - Fonctions existantes : favoris/langue persistés localement, mini-jeux, ateliers parent-enfant, lecture de texte via expo-speech, liens vers réseaux dans l'espace Parents.
 - expo-speech est une synthèse vocale, pas un lecteur de chansons enregistrées.
-- `src/AudioPlayerCard.tsx` implémente une interface de lecture avec play/pause, progression, temps écoulé/durée, sauts ±10 secondes et libellés accessibles. Le lecteur est connecté au catalogue via `isAudioReady` et ne s'affiche que pour un master approuvé. Le composant passe TypeScript et les validations, mais aucun master n'est approuvé et la lecture native n'a pas été testée sur appareil.
+- `src/AudioPlayerCard.tsx` implémente une interface de lecture avec play/pause, progression, temps écoulé/durée, sauts ±10 secondes et libellés accessibles en français et en wolof selon la langue sélectionnée. Les commandes de saut sont désactivées pendant le chargement. Le lecteur est connecté au catalogue via `isAudioReady` et ne s'affiche que pour un master approuvé. CI verte, mais aucun master n'est approuvé et la lecture native n'a pas été testée sur appareil.
 
 ## Audios ElevenLabs
 - Flow musical : uiSMmtS8Q8pbnavPtL9o. La vérification la plus récente renvoie 18 nœuds, 17 terminés et un en échec. Aucun lien entre nœuds. Le nombre précédent de 19 était une erreur de comptage ; utiliser le registre docs/AUDIO-TRACK-REGISTER.md comme référence.
@@ -45,7 +45,7 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 - `app.json` configure le logo existant comme icône, icône adaptative Android et image de splash ; la CI a réussi sur les commits de documentation/configuration, mais le rendu de l'icône sur un appareil réel reste à contrôler.
 
 ## Prochaines actions
-1. CI vérifiée verte sur le commit actuel de la branche de modernisation ; garder cette validation comme référence.
+1. CI verte sur le SHA `5b606b2f16bac926fc7d585a4eb83b23637f28f6` (run #120). Le contrôle Expo a d'abord révélé des versions hors plage (`react-native` et `expo-asset`) ; elles ont été alignées et le run #120 passe tous les contrôles.
 2. Identifier les 7 MP3 uniques par écoute/transcription et comparaison aux générations ElevenLabs.
 3. Vérifier expo-audio pour SDK 54, puis implémenter et tester lecture/pause/progression/fin/interruption.
 4. Intégrer les images comme fichiers d'assets vérifiés.
