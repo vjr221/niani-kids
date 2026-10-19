@@ -139,7 +139,7 @@ export default function App() {
         const parsed:unknown=JSON.parse(favoritesValue);
         if(Array.isArray(parsed)){
           const validIds=new Set(contents.map(item=>item.id));
-          setFavorites(parsed.filter((id):id is string=>typeof id==='string'&&validIds.has(id)));
+          setFavorites([...new Set(parsed.filter((id):id is string=>typeof id==='string'&&validIds.has(id)))]);
         }
       }catch{
         // Ignore invalid local data and keep the app usable.
