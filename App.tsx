@@ -95,7 +95,8 @@ function GamesScreen({lang,setLang,stars,setStars}:{lang:Language;setLang:(l:Lan
 }
 function WorkshopsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
   const [done,setDone]=useState<string[]>([]);
-  useEffect(()=>{AsyncStorage.getItem('niani-workshops-done').then(v=>{if(!v)return;const parsed:unknown=JSON.parse(v);if(Array.isArray(parsed))setDone(parsed.filter((id):id is string=>typeof id==='string'));}).catch(()=>{});},[]);
+  const workshopIds=['colors','drum','baobab','story','movement'];
+  useEffect(()=>{AsyncStorage.getItem('niani-workshops-done').then(v=>{if(!v)return;const parsed:unknown=JSON.parse(v);if(Array.isArray(parsed))setDone([...new Set(parsed.filter((id):id is string=>typeof id==='string'&&workshopIds.includes(id))]);}).catch(()=>{});},[]);
   const toggleDone=(id:string)=>setDone(old=>{const next=old.includes(id)?old.filter(x=>x!==id):[...old,id];AsyncStorage.setItem('niani-workshops-done',JSON.stringify(next)).catch(()=>{});return next});
   const workshops=[
     {id:'colors',emoji:'🎨',title:translations[lang].workshopColorsTitle,age:translations[lang].workshopColorsAge,desc:translations[lang].workshopColorsDesc,materials:translations[lang].workshopColorsMaterials,steps:[translations[lang].workshopColorsStep1,translations[lang].workshopColorsStep2,translations[lang].workshopColorsStep3]},
