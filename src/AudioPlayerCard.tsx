@@ -68,7 +68,6 @@ export default function AudioPlayerCard({ title, source, language }: Props) {
           <Text style={styles.skipText}>+10 s</Text>
         </Pressable>
       </View>
-      {status.error ? <Text accessibilityRole="alert" style={styles.error}>Impossible de lire cet audio. Réessaie plus tard.</Text> : null}
     </View>
   );
 }
@@ -88,5 +87,4 @@ const styles = StyleSheet.create({
   play: { minHeight: 48, minWidth: 132, alignItems: 'center', justifyContent: 'center', backgroundColor: '#27B84A', borderRadius: 16, paddingHorizontal: 16 },
   playText: { color: '#FFFFFF', fontWeight: '900' },
   disabled: { opacity: 0.55 },
-  error: { color: '#B42318', marginTop: 10, fontSize: 13 },
 });
