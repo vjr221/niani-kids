@@ -26,7 +26,7 @@ function Header({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
   </View>;
 }
 function Pill({children,active,onPress}:{children:React.ReactNode;active?:boolean;onPress:()=>void}) {
-  return <Pressable onPress={onPress} style={[s.pill,active&&s.pillActive]}><Text style={[s.pillText,active&&{color:'#fff'}]}>{children}</Text></Pressable>;
+  return <Pressable accessibilityRole="button" accessibilityState={{selected:!!active}} onPress={onPress} style={[s.pill,active&&s.pillActive]}><Text style={[s.pillText,active&&{color:'#fff'}]}>{children}</Text></Pressable>;
 }
 function Section({title,action,onAction}:{title:string;action?:string;onAction?:()=>void}) {
   return <View style={s.sectionRow}><Text style={s.sectionTitle}>{title}</Text>{action&&<Pressable onPress={onAction}><Text style={s.sectionAction}>{action} →</Text></Pressable>}</View>;
