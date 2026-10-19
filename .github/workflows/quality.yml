@@ -20,6 +20,8 @@ jobs:
         run: |
           npm audit --json > /tmp/niani-npm-audit.json || true
           node -e "const a=require('/tmp/niani-npm-audit.json'); const rows=Object.entries(a.vulnerabilities||{}).map(([name,v])=>({name,severity:v.severity,direct:v.isDirect,range:v.range,fixAvailable:v.fixAvailable,via:(v.via||[]).map(x=>typeof x==='string'?x:x.title)})); console.log(JSON.stringify({summary:a.metadata?.vulnerabilities,packages:rows},null,2))"
+          npm audit --omit=dev --json > /tmp/niani-npm-audit-production.json || true
+          node -e "const a=require('/tmp/niani-npm-audit-production.json'); console.log('PRODUCTION DEPENDENCIES ONLY'); console.log(JSON.stringify({summary:a.metadata?.vulnerabilities,packages:Object.entries(a.vulnerabilities||{}).map(([name,v])=>({name,severity:v.severity,direct:v.isDirect,range:v.range,fixAvailable:v.fixAvailable,via:(v.via||[]).map(x=>typeof x==='string'?x:x.title)}))},null,2))"
       - run: npx expo install --check
       - run: npx tsc --noEmit
       - run: node scripts/validate-translations.mjs
