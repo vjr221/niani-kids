@@ -126,7 +126,29 @@ export default function App() {
   const [lang,setLangState]=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [stars,setStarsState]=useState(0); const [selectedItem,setSelectedItem]=useState<ContentItem|null>(null); const [isSpeaking,setIsSpeaking]=useState(false);
   const setLang=(next:Language)=>{setLangState(next);AsyncStorage.setItem('niani-language',next).catch(()=>{});};
   useEffect(()=>{if(!selectedItem){Speech.stop();setIsSpeaking(false);} return ()=>{Speech.stop();};},[selectedItem]);
-  useEffect(()=>{AsyncStorage.multiGet(['niani-favorites','niani-stars','niani-language']).then(values=>{const f=values[0][1],st=values[1][1],l=values[2][1];if(f)setFavorites(JSON.parse(f));if(st)setStarsState(Number(st)||0);if(l==='fr'||l==='wo')setLangState(l)}).catch(()=>{});},[]);
+  useEffect(()=>{AsyncStorage.multiGet(['niani-favorites','niani-stars','niani-language']).then(values=>{
+    const favoritesValue=values[0][1];
+    const starsValue=values[1][1];
+    const languageValue=values[2][1];
+
+    // A corrupted favorites value must not prevent the language and reward state from loading.
+    if(favoritesValue){
+      try{
+        const parsed:unknown=JSON.parse(favoritesValue);
+        if(Array.isArray(parsed)){
+          const validIds=new Set(contents.map(item=>item.id));
+          setFavorites(parsed.filter((id):id is string=>typeof id==='string'&&validIds.has(id)));
+        }
+      }catch{
+        // Ignore invalid local data and keep the app usable.
+      }
+    }
+    if(starsValue!==null){
+      const parsedStars=Number(starsValue);
+      if(Number.isFinite(parsedStars)&&parsedStars>=0)setStarsState(Math.floor(parsedStars));
+    }
+    if(languageValue==='fr'||languageValue==='wo')setLangState(languageValue);
+  }).catch(()=>{});},[]);
   const toggleFavorite=(id:string)=>setFavorites(old=>{const next=old.includes(id)?old.filter(x=>x!==id):[...old,id];AsyncStorage.setItem('niani-favorites',JSON.stringify(next)).catch(()=>{});return next});
   const setStars=(n:number)=>{setStarsState(n);AsyncStorage.setItem('niani-stars',String(n)).catch(()=>{})};
   const onOpen=(item:ContentItem)=>setSelectedItem(item);
