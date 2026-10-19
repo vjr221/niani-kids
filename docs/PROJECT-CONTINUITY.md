@@ -15,7 +15,7 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 ## GitHub : état vérifié
 - main au dernier contrôle connu : 91224057148aad7362ae51906d3ad7acf9404442.
 - Branche de travail : feat/niani-kids-modernization-oct-2026.
-- Dernier commit confirmé au moment de cette mise à jour : `8b53be624ca025748adb842ad0ae683c3ea20917` (`config: disable microphone permission for playback-only audio`).
+- Dernier commit confirmé au moment de cette mise à jour : `0b0e4ef4df5b3c123c6262f0858c12f98a2e36b4` (`fix: replay audio from the beginning after completion`).
 - La branche contient roadmap, src/audioCatalog.ts, workflow de revue audio, inventaire audio actualisé après le dernier envoi (9 fichiers `content*.mp3` dont 7 binaires uniques, plus un fichier WhatsApp distinct), checklist de publication, script de validation du catalogue audio et ce document.
 - Le workflow de qualité est configuré pour les pushes sur main et sur la branche de modernisation, les pull requests vers main et le déclenchement manuel.
 - CI vérifiée la plus récente : [workflow run 39025566301](https://github.com/vjr221/niani-kids/actions/runs/39025566301), commit `382d5be9bc2d9210c622aea967c827a11caf3682`, conclusion `success` (run #82). Les étapes `npm install`, `npx tsc --noEmit`, `validate-translations`, `validate-content`, `validate-audio-catalog` et `expo export --platform android` sont toutes réussies. Cela valide l'export JS Android, pas une APK installable ni des tests sur appareil.
