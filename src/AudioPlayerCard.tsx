@@ -54,7 +54,7 @@ export default function AudioPlayerCard({ title, source, language }: Props) {
           accessibilityLabel={status.playing ? 'Mettre la chanson en pause' : 'Écouter la chanson'}
           accessibilityState={{ disabled: !status.isLoaded }}
           disabled={!status.isLoaded}
-          onPress={() => status.playing ? player.pause() : player.play()}
+          onPress={() => { if (status.playing) { player.pause(); } else { if (status.didJustFinish) void player.seekTo(0); player.play(); } }}
           style={[styles.play, !status.isLoaded && styles.disabled]}
         >
           <Text style={styles.playText}>{status.playing ? 'Ⅱ Pause' : status.isLoaded ? '▶ Écouter' : 'Chargement…'}</Text>
