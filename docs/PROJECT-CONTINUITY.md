@@ -15,7 +15,7 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 ## GitHub : état vérifié
 - main au dernier contrôle connu : 91224057148aad7362ae51906d3ad7acf9404442.
 - Branche de travail : feat/niani-kids-modernization-oct-2026.
-- Dernier commit confirmé au moment de cette mise à jour : `a06b390c7c12404e5174073c073f31fde226d612` (`fix: align character section heading with displayed cards`).
+- Dernier commit confirmé au moment de cette mise à jour : `8b53be624ca025748adb842ad0ae683c3ea20917` (`config: disable microphone permission for playback-only audio`).
 - La branche contient roadmap, src/audioCatalog.ts, workflow de revue audio, inventaire audio actualisé après le dernier envoi (9 fichiers `content*.mp3` dont 7 binaires uniques, plus un fichier WhatsApp distinct), checklist de publication, script de validation du catalogue audio et ce document.
 - Le workflow de qualité est configuré pour les pushes sur main et sur la branche de modernisation, les pull requests vers main et le déclenchement manuel.
 - CI vérifiée la plus récente : [workflow run 39025566301](https://github.com/vjr221/niani-kids/actions/runs/39025566301), commit `382d5be9bc2d9210c622aea967c827a11caf3682`, conclusion `success` (run #82). Les étapes `npm install`, `npx tsc --noEmit`, `validate-translations`, `validate-content`, `validate-audio-catalog` et `expo export --platform android` sont toutes réussies. Cela valide l'export JS Android, pas une APK installable ni des tests sur appareil.
@@ -41,6 +41,7 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 - .github/workflows/quality.yml exécute ce script en plus de TypeScript, des validations de contenu/traductions et de l'export Android Expo ; le workflow inclut la branche de modernisation.
 - Le script a été relu depuis GitHub après correction des motifs d'expression régulière. Le workflow CI a depuis terminé avec succès sur le commit 7418c45f51801aa7db6daec6b57e658bb950420e, y compris le typecheck et l'export Expo Android.
 - Le catalogue audio reste volontairement vide jusqu'à validation des masters.
+- La configuration audio doit être contrôlée par la CI et un build natif avant livraison ; l’export JS seul ne prouve pas le rendu audio sur appareil.
 - `app.json` configure le logo existant comme icône, icône adaptative Android et image de splash ; la CI a réussi sur les commits de documentation/configuration, mais le rendu de l'icône sur un appareil réel reste à contrôler.
 
 ## Prochaines actions
