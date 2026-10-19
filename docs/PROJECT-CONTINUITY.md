@@ -19,7 +19,7 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 - La branche contient roadmap, src/audioCatalog.ts, workflow de revue audio, inventaire audio actualisé après le dernier envoi (9 fichiers `content*.mp3` dont 7 binaires uniques, plus un fichier WhatsApp distinct), checklist de publication, script de validation du catalogue audio et ce document.
 - Le workflow de qualité est configuré pour les pushes sur main et sur la branche de modernisation, les pull requests vers main et le déclenchement manuel.
 - CI vérifiées : run [#116](https://github.com/vjr221/niani-kids/actions/runs/39191044250) et run [#115](https://github.com/vjr221/niani-kids/actions/runs/39191023689), tous deux `success` au 19 octobre 2026. Les validations TypeScript, traductions, contenus, catalogue audio et export Android Expo ont réussi. La CI du commit `e8167eee9ed3a70ced609f9540c0b7cf48d7fd3c` ajoute `npx expo install --check` ; son résultat est à confirmer. L'export Expo valide le bundle JS Android, pas une APK installable ni des tests sur appareil.
-- La PR #25 « feat: intégrer le Baobab comme guide-conteur » est encore ouverte au dernier contrôle : https://github.com/vjr221/niani-kids/pull/25. Ne pas la déclarer fusionnée sans nouveau contrôle.
+- La PR #25 « feat: intégrer le Baobab comme guide-conteur » a été vérifiée via l’API GitHub : état `closed`, `merged=true`, fusionnée le 17 octobre 2026 dans `main` avec le commit `ed625d6a57820e663c392d04969e621220d174f5`. Référence : https://github.com/vjr221/niani-kids/pull/25.
 
 ## Application
 - Expo SDK 54, React Native 0.81.4, React 19.1, TypeScript 5.9.
