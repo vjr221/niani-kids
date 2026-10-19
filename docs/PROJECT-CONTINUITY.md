@@ -21,6 +21,11 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 - CI vérifiées : run [#116](https://github.com/vjr221/niani-kids/actions/runs/39191044250) et run [#115](https://github.com/vjr221/niani-kids/actions/runs/39191023689), tous deux `success` au 19 octobre 2026. Les validations TypeScript, traductions, contenus, catalogue audio et export Android Expo ont réussi. La CI du commit `e8167eee9ed3a70ced609f9540c0b7cf48d7fd3c` ajoute `npx expo install --check` ; son résultat est à confirmer. L'export Expo valide le bundle JS Android, pas une APK installable ni des tests sur appareil.
 - La PR #25 « feat: intégrer le Baobab comme guide-conteur » a été vérifiée via l’API GitHub : état `closed`, `merged=true`, fusionnée le 17 octobre 2026 dans `main` avec le commit `ed625d6a57820e663c392d04969e621220d174f5`. Référence : https://github.com/vjr221/niani-kids/pull/25.
 
+## Sécurité des dépendances — contrôle du 19 octobre 2026
+- CI #123 : [rapport de dépendances](https://github.com/vjr221/niani-kids/actions/runs/39258652262) — le rapport npm compte 35 vulnérabilités (12 modérées, 23 élevées, aucune critique) dans l'arbre installé. Le même total apparaît avec `npm audit --omit=dev`, donc ce n'est pas limité aux dépendances de développement.
+- Plusieurs corrections suggérées par npm impliquent une mise à niveau majeure (par exemple React Native vers 0.86.x ou des changements majeurs du SDK Expo). Ne pas appliquer `npm audit fix --force` sans plan de migration et validation native.
+- Le workflow affiche désormais les rapports complet et production sans bloquer les contrôles fonctionnels. Prochaine étape sécurité : analyser les avis individuels et distinguer les chemins réellement embarqués dans l'application avant de choisir des mises à niveau compatibles SDK 54.
+
 ## Application
 - Expo SDK 54, React Native 0.81.4, React 19.1, TypeScript 5.9.
 - Écrans : Accueil, Bibliothèque, Jouer, Atelier, Parents.
