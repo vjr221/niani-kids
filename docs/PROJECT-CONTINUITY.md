@@ -15,10 +15,10 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 ## GitHub : état vérifié
 - main au dernier contrôle connu : 91224057148aad7362ae51906d3ad7acf9404442.
 - Branche de travail : feat/niani-kids-modernization-oct-2026.
-- Dernier commit confirmé au moment de cette mise à jour : `8778022fc767627edd244e40fee12ff88204d1d2` (`fix: align expo asset dependency with SDK 54 runtime`).
+- Dernier commit confirmé au moment de cette mise à jour : `e8167eee9ed3a70ced609f9540c0b7cf48d7fd3c` (`ci: check Expo SDK dependency compatibility`).
 - La branche contient roadmap, src/audioCatalog.ts, workflow de revue audio, inventaire audio actualisé après le dernier envoi (9 fichiers `content*.mp3` dont 7 binaires uniques, plus un fichier WhatsApp distinct), checklist de publication, script de validation du catalogue audio et ce document.
 - Le workflow de qualité est configuré pour les pushes sur main et sur la branche de modernisation, les pull requests vers main et le déclenchement manuel.
-- CI vérifiée la plus récente : [workflow run 39183358127](https://github.com/vjr221/niani-kids/actions/runs/39183358127), commit `8778022fc767627edd244e40fee12ff88204d1d2`, conclusion `success` (run #113). Les validations TypeScript, traductions, contenus, catalogue audio et export Android Expo ont réussi sur ce SHA. Cela valide l'export JS Android, pas une APK installable ni des tests sur appareil.
+- CI vérifiées : run [#116](https://github.com/vjr221/niani-kids/actions/runs/39191044250) et run [#115](https://github.com/vjr221/niani-kids/actions/runs/39191023689), tous deux `success` au 19 octobre 2026. Les validations TypeScript, traductions, contenus, catalogue audio et export Android Expo ont réussi. La CI du commit `e8167eee9ed3a70ced609f9540c0b7cf48d7fd3c` ajoute `npx expo install --check` ; son résultat est à confirmer. L'export Expo valide le bundle JS Android, pas une APK installable ni des tests sur appareil.
 - La PR #25 « feat: intégrer le Baobab comme guide-conteur » est encore ouverte au dernier contrôle : https://github.com/vjr221/niani-kids/pull/25. Ne pas la déclarer fusionnée sans nouveau contrôle.
 
 ## Application
@@ -50,3 +50,10 @@ Ce document est le point de reprise du projet. Il distingue l'état vérifié de
 3. Vérifier expo-audio pour SDK 54, puis implémenter et tester lecture/pause/progression/fin/interruption.
 4. Intégrer les images comme fichiers d'assets vérifiés.
 5. Vérifier accessibilité, confidentialité, sécurité enfant et exigences Google Play Families avant publication.
+
+
+## Contrôles CI supplémentaires — 19 octobre 2026
+
+- Runs #115 et #116 terminés avec succès après localisation du lecteur audio et connexion à la langue active.
+- Le workflow de qualité exécute maintenant `npx expo install --check` après `npm install` afin de détecter les versions de dépendances Expo incompatibles avec le SDK déclaré. Le résultat de cette nouvelle étape doit être confirmé dans le run déclenché par le commit `e8167eee9ed3a70ced609f9540c0b7cf48d7fd3c`.
+- Aucun build EAS payant ni publication n'a été lancé. Le profil APK `preview` est configuré dans `eas.json`, mais un build natif et un essai sur appareil restent à effectuer avant de déclarer la lecture native validée.
