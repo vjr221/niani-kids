@@ -47,17 +47,15 @@ jobs:
         run: node scripts/validate-audio-catalog.mjs
       - name: Export Android bundle
         run: npx expo export --platform android
-      - name: Install EAS CLI
-        run: npm install --global eas-cli
-      - name: Verify Expo authentication
-        env:
-          EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
-        run: eas whoami
-      - name: Ensure Expo project association
-        env:
-          EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
-        run: eas init --account vjr221s-team --non-interactive
-      - name: Build signed Android preview APK
-        env:
-          EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
-        run: eas build --platform android --profile preview --non-interactive --wait
+      - name: Generate native Android project
+        run: npx expo prebuild --platform android --non-interactive --no-install
+      - name: Build installable Android debug APK
+        working-directory: android
+        run: chmod +x gradlew && ./gradlew assembleDebug
+      - name: Upload Android test APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: niani-kids-android-debug-${{ github.sha }}
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14
