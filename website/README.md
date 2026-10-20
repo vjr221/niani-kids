@@ -1,23 +1,24 @@
-# Niani Kids — site web (brouillon)
+# Prototype du portail Niani Kids
 
-Prototype HTML/CSS/JS autonome pour explorer la direction artistique du site Niani Kids : univers chaleureux inspiré du Sénégal, animations douces au défilement, cartes éducatives et navigation responsive.
+Ce dossier contient le prototype HTML/CSS/JS de travail du portail Niani Kids. Le site n'est pas encore publié.
 
-## Domaine prévu
-- Domaine principal souhaité : `nianikids.com`
-- Statut : prévu par le propriétaire du projet ; l'enregistrement et la disponibilité n'ont pas été vérifiés ici.
-- Ne pas activer de DNS ni annoncer le site comme publié avant que le domaine soit enregistré et que l'accès à la zone DNS soit disponible.
-- Domaine canonique recommandé après configuration : `https://nianikids.com`; rediriger `www.nianikids.com` vers la version canonique (ou inversement, selon l'hébergeur).
+## Aperçu
+- Ouvrir `index.html` depuis un environnement qui conserve le dossier `../assets/` du dépôt.
+- Les personnages et le logo utilisent les fichiers officiels déjà présents dans `assets/`.
+- La bibliothèque contient des aperçus éditoriaux et des maquettes, pas des fichiers audio ou des téléchargements finalisés.
+- La recherche et les filtres de la bibliothèque fonctionnent dans ce prototype.
+- Le prototype ne collecte pas de données et n'utilise pas d'outil d'analyse.
 
-## Prévisualiser
-Ouvrir `index.html` dans un navigateur. Les visuels des personnages et le logo utilisent les médias déjà présents dans `../assets/` ; pour que les illustrations s'affichent, conserver ce dossier relatif à côté du dossier `website/`.
+## Direction
+Portail chaleureux, inspiré du Sénégal, responsive, avec profondeur CSS légère, animations respectant la préférence de mouvement réduit, navigation accessible, contes, chansons, activités et espace parents.
 
-## Avant publication
-- Remplacer les coordonnées provisoires par l'adresse officielle validée.
-- Enregistrer le domaine et le configurer sur l'hébergeur choisi.
-- Créer et publier les pages Politique de confidentialité, Mentions légales et Contact avec des informations exactes.
-- Vérifier tous les liens et la disponibilité des médias sur mobile.
-- Faire valider les contenus en wolof par un locuteur compétent.
-- Tester les performances et l'accessibilité ; respecter la préférence de réduction des animations.
-- Ajouter une vraie médiathèque de chansons et de contes seulement lorsque les fichiers et droits sont validés.
+## Avant toute publication
+1. Vérifier l'affichage des images et du logo.
+2. Valider les textes, les traductions wolof et les indications d'âge.
+3. Vérifier les droits des illustrations, textes, musiques, sons et médias.
+4. Ajouter les vraies pages WordPress, coordonnées officielles, mentions légales et politique de confidentialité.
+5. Tester les performances, le clavier, les liens et les écrans mobiles.
+6. Remplacer tout statut provisoire par un état réel et validé.
+7. Faire valider la mise en ligne par le propriétaire.
 
-Ce prototype ne collecte aucune donnée et ne comporte ni compte enfant, ni publicité, ni formulaire de suivi.
+Les chemins d'images sont relatifs à la racine du dépôt ; ne pas déployer ce dossier isolément sans adapter et tester les chemins.
