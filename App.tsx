@@ -221,7 +221,9 @@ export default function App() {
           {selectedItem.storyText?<View style={s.readerTextCard}>
             <Text style={s.readerSection}>{translations[lang].storyLabel} 📖</Text>
             <Text style={s.readerBody}>{selectedItem.storyText}</Text>
-            <Text style={s.readerQuestion}>💬 {translations[lang].questionLabel} : {selectedItem.id==='story-mango'?translations[lang].storyMangoQuestion:selectedItem.id==='story-river'?translations[lang].storyRiverQuestion:selectedItem.id==='story-griot'?translations[lang].storyGriotQuestion:translations[lang].storyFriendsQuestion}</Text>
+            {selectedItem.learningGoal?<Text style={s.readerNotice}>🌱 {lang==='fr'?'Ce que l’on découvre :':'Li nga xam :'} {selectedItem.learningGoal}</Text>:null}
+            <Text style={s.readerQuestion}>💬 {translations[lang].questionLabel} : {selectedItem.storyQuestion??(selectedItem.id==='story-mango'?translations[lang].storyMangoQuestion:selectedItem.id==='story-river'?translations[lang].storyRiverQuestion:selectedItem.id==='story-griot'?translations[lang].storyGriotQuestion:translations[lang].storyFriendsQuestion)}</Text>
+            {selectedItem.readingTip?<Text style={s.readerNotice}>👨‍👩‍👧 {lang==='fr'?'Pour accompagner la lecture :':'Naka mag mi di dimbali :'} {selectedItem.readingTip}</Text>:null}
           </View>:null}
           {!selectedItem.lyrics&&!selectedItem.storyText?<View style={s.readerTextCard}>
             <Text style={s.readerSection}>{translations[lang].contentComing} ✨</Text>
