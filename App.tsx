@@ -224,6 +224,8 @@ export default function App() {
             {selectedItem.learningGoal?<Text style={s.readerNotice}>🌱 {lang==='fr'?'Ce que l’on découvre :':'Li nga xam :'} {selectedItem.learningGoal}</Text>:null}
             <Text style={s.readerQuestion}>💬 {translations[lang].questionLabel} : {selectedItem.storyQuestion??(selectedItem.id==='story-mango'?translations[lang].storyMangoQuestion:selectedItem.id==='story-river'?translations[lang].storyRiverQuestion:selectedItem.id==='story-griot'?translations[lang].storyGriotQuestion:translations[lang].storyFriendsQuestion)}</Text>
             {selectedItem.readingTip?<Text style={s.readerNotice}>👨‍👩‍👧 {lang==='fr'?'Pour accompagner la lecture :':'Naka mag mi di dimbali :'} {selectedItem.readingTip}</Text>:null}
+            {selectedItem.afterStoryActivity?<View style={{backgroundColor:'#E5F6E8',borderRadius:14,padding:12,gap:6}}><Text style={s.readerSection}>🎨 {lang==='fr'?'À faire après l’histoire':'Jëf bu topp nettali bi'}</Text><Text style={s.readerBody}>{selectedItem.afterStoryActivity}</Text></View>:null}
+            {selectedItem.keyWords?.length?<Text style={s.readerNotice}>🧠 {lang==='fr'?'Mots à découvrir :':'Baat yi ñuy jàng :'} {selectedItem.keyWords.join(' · ')}</Text>:null}
           </View>:null}
           {!selectedItem.lyrics&&!selectedItem.storyText?<View style={s.readerTextCard}>
             <Text style={s.readerSection}>{translations[lang].contentComing} ✨</Text>
