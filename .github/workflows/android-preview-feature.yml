@@ -14,6 +14,7 @@ on:
       - "assets/**"
       - "scripts/**"
       - ".github/workflows/android-preview-feature.yml"
+      - ".github/workflows/quality.yml"
 
 permissions:
   contents: read
@@ -45,6 +46,8 @@ jobs:
         run: node scripts/validate-content.mjs
       - name: Audit Wolof content coverage
         run: npm run audit:wolof
+      - name: Audit Wolof learning program coverage
+        run: node scripts/audit-wolof-program.mjs
       - name: Validate audio catalog
         run: node scripts/validate-audio-catalog.mjs
       - name: Export Android bundle
