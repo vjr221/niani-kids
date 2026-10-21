@@ -27,6 +27,23 @@ header{position:sticky;top:0;z-index:30;background:#fff8e9ed;backdrop-filter:blu
 .parents{background:var(--cream)}.parents-grid{display:grid;grid-template-columns:1fr 1fr;gap:42px;align-items:center}.parent-art{min-height:340px;position:relative;display:grid;place-items:center;border-radius:30px;background:linear-gradient(135deg,#bde5f1,#e0edcf);overflow:hidden}.parent-art .big{font-size:7.5rem;filter:drop-shadow(0 15px 12px #00000012)}.sticker{position:absolute;background:white;border-radius:15px;padding:11px 14px;box-shadow:var(--shadow);font-weight:900;font-size:.83rem}.sticker.one{left:18px;top:20px}.sticker.two{right:18px;bottom:22px}.parent-copy h2{font-size:clamp(2.3rem,4vw,3.7rem);line-height:.98;letter-spacing:-.07em;margin:12px 0 18px}.parent-copy>p{color:var(--muted);line-height:1.75}.parent-list{padding:0;list-style:none;display:grid;gap:12px;margin:22px 0}.parent-list li:before{content:"✓";display:inline-grid;place-items:center;background:#d7e9c8;color:#28583c;width:25px;height:25px;border-radius:50%;font-weight:950;margin-right:10px}
 .final-cta{padding:74px 20px;text-align:center;background:var(--sun)}.final-cta h2{font-size:clamp(2.5rem,5vw,4.7rem);line-height:.98;letter-spacing:-.075em;max-width:780px;margin:0 auto 17px}.final-cta p{max-width:560px;margin:0 auto 24px;color:#4b5c48;line-height:1.7}
 footer{background:#102f29;color:white;padding:40px 0 22px}.footer-top{display:flex;justify-content:space-between;gap:30px;align-items:center;padding-bottom:26px;border-bottom:1px solid #ffffff24}.footer .brand span{color:white}.footer .brand img{background:white;border-radius:50%}.footer-intro{max-width:420px;color:#c5d9cd;font-size:.94rem;line-height:1.65;margin:13px 0 0}.footer-links{display:flex;flex-wrap:wrap;gap:16px;color:#d6e5dc;font-size:.83rem}.footer-links a:hover{text-decoration:underline}.footer-bottom{display:flex;justify-content:space-between;gap:14px;padding-top:19px;color:#9eb6a8;font-size:.75rem}
+
+/* Collection éditoriale issue du catalogue de production */
+.music-collection{background:linear-gradient(180deg,#fff8e9 0%,#fffdf7 100%)}
+.music-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.music-item{position:relative;display:flex;gap:13px;align-items:flex-start;min-height:130px;padding:18px;border:1px solid #e8e8d9;border-radius:22px;background:#fff;overflow:hidden;transition:transform .22s,box-shadow .22s}
+.music-item:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.music-art{width:54px;height:54px;flex:0 0 54px;display:grid;place-items:center;border-radius:17px;background:#ffe7a0;font-size:1.7rem}
+.music-item:nth-child(4n+2) .music-art{background:#d5edf6}
+.music-item:nth-child(4n+3) .music-art{background:#d9edcc}
+.music-item:nth-child(4n) .music-art{background:#ffd9d0}
+.music-item h3{font-size:1rem;line-height:1.25;letter-spacing:-.025em;margin:2px 0 7px}
+.music-item p{font-size:.79rem;line-height:1.45;color:var(--muted);margin:0}
+.music-status{display:inline-block;margin-top:9px;padding:4px 8px;border-radius:99px;background:#f3f1e7;color:#665b3e;font-size:.68rem;font-weight:900}
+.music-note{margin:22px 0 0;padding:15px 18px;border-left:4px solid var(--sun);background:#fff9df;border-radius:0 14px 14px 0;color:#5d604b;font-size:.88rem}
+@media(max-width:1000px){.music-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.music-grid{grid-template-columns:1fr}.music-item{min-height:unset}}
+
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}.reveal.visible{opacity:1;transform:none}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}@keyframes characterFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px) rotate(1deg)}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 @media(max-width:1000px){.navlinks{gap:13px}.navlinks a:not(.navbutton){font-size:.8rem}.world-grid{grid-template-columns:repeat(2,1fr)}.character-grid,.learning-grid{grid-template-columns:repeat(2,1fr)}.hero{padding-top:60px}.hero-grid{grid-template-columns:1fr}.hero-copy{text-align:center}.hero h1,.hero-copy>p{margin-left:auto;margin-right:auto}.actions,.trustline{justify-content:center}.hero-art{width:min(620px,100%);margin:5px auto 0;min-height:430px}.hero{padding-bottom:68px}.hero-caption{bottom:-18px}.content-grid{grid-template-columns:repeat(2,1fr)}}
@@ -133,6 +150,39 @@ footer{background:#102f29;color:white;padding:40px 0 22px}.footer-top{display:fl
    <article class="person reveal"><div class="portrait"><div class="baobab-mark" aria-label="Baobab, arbre-guide" role="img"><span>🌳</span><small>Le guide des histoires</small></div></div><h3>🌳 Le Baobab</h3><p>Sage guide des contes, de la nature et des découvertes culturelles.</p></article>
   </div>
   <p class="character-note reveal">Les personnages officiels de Niani Kids conservent leurs couleurs, leurs silhouettes et leurs attributs distinctifs sur tous les supports.</p>
+ </div>
+</section>
+<section class="section music-collection" id="collection-musicale">
+ <div class="wrap">
+  <div class="section-head reveal"><div><div class="kicker">Le catalogue Niani Kids</div><h2>Des chansons pour apprendre, rêver et grandir.</h2></div><p>Une collection originale inspirée du Sénégal, pensée pour les enfants de 0 à 6 ans et leurs familles.</p></div>
+  <div class="music-grid">
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🎵</div><div><h3>Bonjour, bonjour !</h3><p>Accueil et salutations · Maquette 01</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">👋</div><div><h3>Bonjour, bonjour !</h3><p>Accueil et salutations · Maquette 02</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🌟</div><div><h3>Bienvenue chez Niani Kids</h3><p>Chanson signature de la marque</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">💃</div><div><h3>Niani Kids, c’est parti !</h3><p>Danse et mouvements</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🎨</div><div><h3>Les couleurs dansent</h3><p>Découverte des couleurs</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🌙</div><div><h3>Dors, petit cœur</h3><p>Berceuse et rituel du soir</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🦁</div><div><h3>Les animaux du Sénégal</h3><p>Animaux et nature</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🔢</div><div><h3>Comptons jusqu’à 10</h3><p>Premiers nombres</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🕺</div><div><h3>Bouge et stop !</h3><p>Motricité et écoute</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🌳</div><div><h3>Conte musical du Baobab</h3><p>Conte chanté et nature</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🤝</div><div><h3>Nuyoo, nuyoo !</h3><p>Salutations en français et wolof</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🔷</div><div><h3>Les formes</h3><p>Formes et observation</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">📅</div><div><h3>Les jours de la semaine</h3><p>Repères dans le temps</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🥭</div><div><h3>Les fruits du Sénégal</h3><p>Fruits, couleurs et hygiène</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🧼</div><div><h3>Je lave mes mains</h3><p>Gestes d’hygiène</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">💛</div><div><h3>Quand je ris, quand je pleure</h3><p>Émotions et respiration</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🪥</div><div><h3>Je brosse mes petites dents</h3><p>Hygiène bucco-dentaire · version retenue</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">👨‍👩‍👧</div><div><h3>Ma famille, mes amis</h3><p>Famille, amitié et gentillesse</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🧸</div><div><h3>Je range mes jouets</h3><p>Autonomie et rangement</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🙏</div><div><h3>S’il te plaît, merci !</h3><p>Politesse et partage</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">👕</div><div><h3>Je m’habille tout seul</h3><p>Autonomie et habillage</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">😊</div><div><h3>Bonjour, comment ça va ?</h3><p>Salutations et émotions</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">👏</div><div><h3>Tête, épaules, mains et pieds</h3><p>Parties du corps et mouvements</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🍽️</div><div><h3>À table, bon appétit !</h3><p>Repas et découverte des aliments</p><span class="music-status">Catalogue de production</span></div></article>
+   <article class="music-item reveal"><div class="music-art" aria-hidden="true">🥕</div><div><h3>Les légumes font la fête</h3><p>Légumes et découverte sensorielle</p><span class="music-status">Catalogue de production</span></div></article>
+  </div>
+  <p class="music-note">Ce catalogue présente les 25 versions répertoriées dans le registre de production, dont deux maquettes de « Bonjour, bonjour ! ». Les titres ne signifient pas que tous les fichiers audio sont déjà publiés : les masters seront ajoutés progressivement après écoute, contrôle technique et validation des paroles. Les formulations en wolof doivent être relues avant diffusion.</p>
  </div>
 </section>
 <section class="section learning" id="apprendre">
