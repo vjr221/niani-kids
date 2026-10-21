@@ -18,7 +18,38 @@ const FACEBOOK = 'https://www.facebook.com/nianikids/';
 const INSTAGRAM = 'https://www.instagram.com/nianikids';
 const C = { ink:'#432B20', cream:'#FFF9E8', yellow:'#FFD52A', orange:'#FF8A16', green:'#27B84A', blue:'#168BE8', red:'#F04444', muted:'#806B5D', lilac:'#EEE9FF', pink:'#FFE5E8' };
 const normalizeText = (value:string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase().trim();
-const openExternal = (url:string) => Alert.alert('Espace Parents','Tu vas ouvrir une application externe. Demande à un adulte de continuer.',[{text:'Rester ici',style:'cancel'},{text:'Continuer',onPress:()=>Linking.openURL(url).catch(()=>Alert.alert('Lien indisponible','Réessaie dans un instant.'))}]);
+const openExternal = (url:string) => {
+  // Parental gate: two explicit adult actions plus a randomized arithmetic check.
+  // This is a child-safety friction layer, not identity verification.
+  const a = 2 + Math.floor(Math.random() * 6);
+  const b = 1 + Math.floor(Math.random() * 5);
+  const answer = a + b;
+  const wrong1 = answer + 1;
+  const wrong2 = Math.max(0, answer - 1);
+  const choices = [answer, wrong1, wrong2].sort(() => Math.random() - 0.5);
+  Alert.alert(
+    'Espace Parents · Contrôle adulte',
+    `Réservé aux parents. Pour continuer, combien font ${a} + ${b} ?`,
+    choices.map((value) => ({
+      text: String(value),
+      onPress: () => {
+        if (value !== answer) {
+          Alert.alert('Accès non ouvert', 'Demande à un adulte de réessayer.');
+          return;
+        }
+        Alert.alert(
+          'Confirmation parentale',
+          'Tu vas quitter Niani Kids et ouvrir une plateforme externe. Un adulte doit continuer.',
+          [
+            { text: 'Rester ici', style: 'cancel' },
+            { text: 'Continuer', onPress: () => Linking.openURL(url).catch(() => Alert.alert('Lien indisponible', 'Réessaie dans un instant.')) },
+          ],
+        );
+      },
+    })),
+    { cancelable: true },
+  );
+};
 
 function Header({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
   const t=translations[lang];
