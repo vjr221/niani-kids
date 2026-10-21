@@ -1,10 +1,17 @@
 name: Niani Kids - Quality Check
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - feat/niani-kids-modernization-oct-2026
   pull_request:
     branches: [main]
   workflow_dispatch:
+
+concurrency:
+  group: niani-kids-quality-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -14,7 +21,15 @@ jobs:
         with:
           node-version: 20
       - run: npm install
+      - name: Rapport de sécurité des dépendances (informatif)
+        run: |
+          npm audit --json > /tmp/niani-npm-audit.json || true
+          node -e "const a=require('/tmp/niani-npm-audit.json'); const rows=Object.entries(a.vulnerabilities||{}).map(([name,v])=>({name,severity:v.severity,direct:v.isDirect,range:v.range,fixAvailable:v.fixAvailable,via:(v.via||[]).map(x=>typeof x==='string'?x:x.title)})); console.log(JSON.stringify({summary:a.metadata?.vulnerabilities,packages:rows},null,2))"
+          npm audit --omit=dev --json > /tmp/niani-npm-audit-production.json || true
+          node -e "const a=require('/tmp/niani-npm-audit-production.json'); console.log('PRODUCTION DEPENDENCIES ONLY'); console.log(JSON.stringify({summary:a.metadata?.vulnerabilities,packages:Object.entries(a.vulnerabilities||{}).map(([name,v])=>({name,severity:v.severity,direct:v.isDirect,range:v.range,fixAvailable:v.fixAvailable,via:(v.via||[]).map(x=>typeof x==='string'?x:x.title)}))},null,2))"
+      - run: npx expo install --check
       - run: npx tsc --noEmit
       - run: node scripts/validate-translations.mjs
       - run: node scripts/validate-content.mjs
+      - run: node scripts/validate-audio-catalog.mjs
       - run: npx expo export --platform android
