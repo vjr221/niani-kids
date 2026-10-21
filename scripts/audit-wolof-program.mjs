@@ -3,14 +3,15 @@ import { readFileSync } from 'node:fs';
 const source = readFileSync(new URL('../src/program.ts', import.meta.url), 'utf8');
 
 function extractArray(name) {
-  const marker = new RegExp('export const ' + name + '\\s*=\\s*\\[');
-  const match = marker.exec(source);
-  if (!match) throw new Error('Unable to find ' + name + ' in src/program.ts');
-  const start = match.index + match[0].length;
+  const marker = 'export const ' + name;
+  const markerIndex = source.indexOf(marker);
+  if (markerIndex < 0) throw new Error('Unable to find ' + name + ' in src/program.ts');
+  const startBracket = source.indexOf('[', markerIndex + marker.length);
+  if (startBracket < 0) throw new Error('Unable to find array for ' + name);
   let depth = 1;
   let quote = null;
   let escaped = false;
-  for (let i = start; i < source.length; i += 1) {
+  for (let i = startBracket + 1; i < source.length; i += 1) {
     const char = source[i];
     if (quote) {
       if (escaped) escaped = false;
@@ -22,7 +23,7 @@ function extractArray(name) {
     else if (char === '[') depth += 1;
     else if (char === ']') {
       depth -= 1;
-      if (depth === 0) return source.slice(start, i);
+      if (depth === 0) return source.slice(startBracket + 1, i);
     }
   }
   throw new Error('Unclosed array for ' + name);
