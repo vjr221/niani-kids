@@ -1,13 +1,13 @@
 import { readFileSync } from 'node:fs';
 
 const source = readFileSync(new URL('../src/content.ts', import.meta.url), 'utf8');
-const entries = [...source.matchAll(/\{id:'([^']+)',title:'([^']+)',subtitle:'([^']+)',category:'([^']+)',emoji:'([^']+)',duration:'([^']+)',language:'([^']+)'/g)]
-  .map((match) => ({
-    id: match[1],
-    title: match[2],
-    language: match[7],
-    block: source.slice(match.index, source.indexOf('\n},', match.index) === -1 ? source.length : source.indexOf('\n},', match.index) + 2),
-  }));
+const matches = [...source.matchAll(/\{id:'([^']+)',title:'([^']+)',subtitle:'([^']+)',category:'([^']+)',emoji:'([^']+)',duration:'([^']+)',language:'([^']+)'/g)];
+const entries = matches.map((match, index) => ({
+  id: match[1],
+  title: match[2],
+  language: match[7],
+  block: source.slice(match.index, matches[index + 1]?.index ?? source.length),
+}));
 
 if (entries.length === 0) {
   throw new Error('No content entries found. Update the audit script to match the catalogue format.');
