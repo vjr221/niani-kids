@@ -1,8 +1,9 @@
-name: Niani Kids - Android Preview (modernization branch)
+name: Niani Kids - Android APK (main and preview)
 
 on:
   push:
     branches:
+      - main
       - feat/niani-kids-modernization-oct-2026
     paths:
       - "App.tsx"
@@ -14,13 +15,14 @@ on:
       - "assets/**"
       - "scripts/**"
       - ".github/workflows/android-preview-feature.yml"
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
   preview:
-    name: Validate and build Android preview
+    name: Validate and build Android APK
     runs-on: ubuntu-latest
     steps:
       - name: Checkout exact source commit
@@ -52,7 +54,7 @@ jobs:
       - name: Build installable Android release APK with embedded JavaScript
         working-directory: android
         run: chmod +x gradlew && ./gradlew assembleRelease
-      - name: Upload Android test APK
+      - name: Upload Android APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: niani-kids-android-release-${{ github.sha }}
