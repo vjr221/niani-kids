@@ -48,3 +48,10 @@ Les fichiers `grok_*` et `wWP46.png` restent à identifier visuellement avant ut
 Le bouton « Écouter le texte » utilise une voix de synthèse ; il ne constitue pas un enregistrement musical. Les masters doivent être placés dans `audio/` avec les noms décrits dans [le registre de production média](../docs/MEDIA-PRODUCTION-REGISTER.md). Ne pas référencer de fichier absent ou vide.
 
 Pour le wolof, faire valider les paroles et la prononciation par un locuteur natif avant diffusion.
+
+
+## Référence de marque obligatoire
+
+Consulter la [bible d'identité visuelle](../docs/IDENTITE-VISUELLE.md) avant toute nouvelle illustration, miniature, vidéo ou écran. Les portraits et vues en pied individuels listés ci-dessus sont les références canoniques ; une image de scène ne doit pas redéfinir le visage, la coiffure, la tenue ou les couleurs signatures d'un personnage. Le logo transparent existant est la source de marque à privilégier ; ne pas le redessiner avec un générateur.
+
+Pour le portail web, le logo est aussi utilisé comme favicon et image de partage. Avant une publication publique, vérifier son cadrage sur fond clair et sombre, ainsi que l'aperçu des liens sur les réseaux sociaux.
