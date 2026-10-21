@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - feat/niani-kids-modernization-oct-2026
+      - feat/senegal-home-and-app-polish
       - feat/explorer-activities-v2
     paths:
       - "App.tsx"
