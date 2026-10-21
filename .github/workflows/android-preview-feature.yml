@@ -43,6 +43,8 @@ jobs:
         run: node scripts/validate-translations.mjs
       - name: Validate content
         run: node scripts/validate-content.mjs
+      - name: Audit Wolof content coverage
+        run: npm run audit:wolof
       - name: Validate audio catalog
         run: node scripts/validate-audio-catalog.mjs
       - name: Export Android bundle
