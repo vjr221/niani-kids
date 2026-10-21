@@ -1,31 +1,41 @@
 # Niani Kids — registre des médias de l’application
 
-Ce dossier contient les sources visuelles de la marque. Les médias doivent être référencés uniquement après vérification de leur existence, de leur rendu et de leur rôle. Ne pas utiliser une planche multi-personnages comme illustration individuelle.
+Ce dossier contient les médias embarqués et les références de production. Les nouveaux visuels fournis en octobre 2026 sont catalogués dans `graphics/manifest.json`; ils ne doivent être considérés comme embarqués dans l’APK qu’après dépôt des fichiers binaires et réussite d’une compilation sur ce commit.
 
-## Médias présents dans le dépôt
+## Médias présents et utilisés dans l’interface
 
-| Fichier | Usage | État |
+| Fichier | Usage actuel | État |
 |---|---|---|
-| `a_clean_graphic_png_logo_on_a_transparent_backgrou.png` | Logo transparent de l’en-tête | Intégré |
+| `a_clean_graphic_png_logo_on_a_transparent_backgrou.png` | Logo de l’en-tête | Intégré |
 | `Samba_portrait_et_nom.png` | Carte portrait de Samba | Intégré |
 | `Awa_portrait_et_nom.png` | Carte portrait d’Awa | Intégré |
 | `Bobo_portrait_et_nom.png` | Carte portrait de Bobo | Intégré |
-| `Samba_vues_corps_entier.png` | Illustration de Samba dans le héros | Intégré |
-| `Awa_vues_corps_entier.png` | Illustration d’Awa dans le héros | Intégré |
-| `Bobo_vues_corps_entier.png` | Illustration de Bobo dans le héros | Intégré |
-| `Samba_activites.png`, `Awa_activites.png`, `Bobo_activites.png` | Illustrations d’activités à affecter à des écrans précis | Disponibles, à intégrer après inspection |
-| `Samba_expressions.png`, `Awa_expressions.png`, `Bobo_expressions.png` | Expressions pour retours de jeu et états émotionnels | Disponibles, à intégrer après inspection |
+| `Samba_vues_corps_entier.png` | Illustration de Samba dans l’accueil | Intégré |
+| `Awa_vues_corps_entier.png` | Illustration d’Awa dans l’accueil | Intégré |
+| `Bobo_vues_corps_entier.png` | Illustration de Bobo dans l’accueil | Intégré |
+| `Samba_activites.png`, `Awa_activites.png`, `Bobo_activites.png` | Illustrations de l’espace Parents | Intégrées |
+| `Samba_expressions.png`, `Awa_expressions.png`, `Bobo_expressions.png` | Ressources d’expressions et d’états émotionnels | Disponibles, intégration écran par écran à poursuivre |
 
-Les fichiers `grok_*` et `wWP46.png` restent à identifier visuellement avant utilisation. Ne pas supposer qu’ils représentent un personnage ou une icône d’application d’après leur nom.
+Les fichiers `grok_*` et `wWP46.png` restent à identifier visuellement avant toute utilisation. Ne pas supposer qu’ils représentent un personnage ou une icône d’application d’après leur nom.
 
-## Visuels à préparer
+## Nouveaux visuels reçus — octobre 2026
 
-- `brand/logo-icon.png` — icône carrée dédiée à Android/iOS, 1024 × 1024 px.
-- `characters/baobab.png` — Baobab-guide détouré, silhouette reconnaissable.
-- `backgrounds/village.png` — décor d’accueil léger.
-- `backgrounds/baobab-grove.png` — décor de jeux et de contes.
-- Couvertures individuelles pour comptines, berceuses, histoires et apprentissages.
-- Icônes cohérentes pour les catégories et les commandes du lecteur.
+Voir [`graphics/manifest.json`](./graphics/manifest.json) et [`graphics/README.md`](./graphics/README.md).
+
+- Personnages : variantes de Samba, Awa, Bobo et planches d’expressions du Baobab.
+- Logos : logo rond et propositions de texte 3D.
+- Bannières : compositions larges pour les usages web et sociaux.
+- Planches composites : références de marque uniquement, jamais des portraits individuels.
+
+**État d’intégration :** le catalogue et les chemins cibles sont suivis dans Git, mais les nouveaux fichiers PNG du lot ne sont pas encore tous ajoutés en tant que binaires au dépôt. Ne pas ajouter de `require(...)` vers un fichier absent.
+
+## Visuels restant à préparer ou valider
+
+- Icône carrée dédiée à Android/iOS, 1024 × 1024 px, avec zone de sécurité vérifiée.
+- Baobab détouré en image individuelle et test de rendu dans l’accueil et le lecteur de contes.
+- Décors légers pour l’accueil et les contes.
+- Couvertures distinctes pour comptines, berceuses, histoires et apprentissages.
+- Vérification du canal alpha du logo annoncé comme transparent.
 
 ## Identité des personnages
 
@@ -39,7 +49,7 @@ Les fichiers `grok_*` et `wWP46.png` restent à identifier visuellement avant ut
 1. Préférer PNG/WebP de 512–1024 px pour les personnages détourés.
 2. Utiliser une icône carrée dédiée, avec fond contrôlé, pour Android/iOS.
 3. Compresser les images et éviter d’intégrer de gros GIF si une image statique suffit.
-4. Vérifier les dimensions, la transparence, le contraste et le cadrage sur un petit écran.
+4. Vérifier les dimensions, la transparence, le contraste et le cadrage sur petit écran.
 5. N’ajouter aucun chemin `require(...)` tant que le fichier n’existe pas dans Git.
 6. Tester le build Android après chaque lot d’images.
 
