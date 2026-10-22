@@ -1,0 +1,62 @@
+name: Niani Kids - Safe dependency remediation
+on:
+  push:
+    branches:
+      - audit/sprint-2-dependency-remediation
+    paths:
+      - ".github/workflows/safe-dependency-remediation.yml"
+      - "package.json"
+      - "package-lock.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: niani-kids-safe-dependency-remediation
+  cancel-in-progress: false
+
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout remediation branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Apply compatible security updates only
+        run: |
+          npm audit fix || echo "npm audit fix reported remaining advisories; continuing with compatibility checks."
+      - name: Check Expo dependency compatibility
+        run: npx expo install --check
+      - name: TypeScript
+        run: npm run typecheck
+      - name: Validate translations
+        run: node scripts/validate-translations.mjs
+      - name: Validate content
+        run: node scripts/validate-content.mjs
+      - name: Validate audio catalog
+        run: node scripts/validate-audio-catalog.mjs
+      - name: Export Android bundle
+        run: npx expo export --platform android
+      - name: Summarize remaining advisories
+        run: |
+          npm audit --json > /tmp/niani-npm-audit-after.json || true
+          node -e "const a=require('/tmp/niani-npm-audit-after.json'); console.log(JSON.stringify({summary:a.metadata?.vulnerabilities,packages:Object.entries(a.vulnerabilities||{}).map(([name,v])=>({name,severity:v.severity,direct:v.isDirect,fixAvailable:v.fixAvailable}))},null,2))"
+      - name: Commit lockfile if safe checks pass
+        run: |
+          if git diff --quiet -- package-lock.json; then
+            echo "No lockfile changes from safe remediation."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add package-lock.json
+            git commit -m "security: apply compatible dependency updates"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
