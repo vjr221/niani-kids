@@ -6,6 +6,7 @@ on:
       - feat/niani-kids-modernization-oct-2026
       - feat/senegal-home-and-app-polish
       - feat/explorer-activities-v2
+      - fix/explorer-activity-visibility
   pull_request:
     branches: [main]
   workflow_dispatch:
