@@ -34,9 +34,14 @@ Les paroles de démonstration sont originales pour ce starter. Elles ne remplace
 - Configurer EAS Build et les secrets nécessaires pour produire un APK/AAB signé.
 - Le workflow actuel valide le code et exporte le bundle Android; il ne publie pas encore d'APK signé.
 
-## Chaînes
-- YouTube: https://www.youtube.com/@NianiKids
-- TikTok: https://www.tiktok.com/@niani.kids
+## Site officiel et communauté
+- Site officiel : https://nianikids.com (à publier/configurer et vérifier avant annonce publique)
+- YouTube : https://www.youtube.com/@NianiKids
+- TikTok : https://www.tiktok.com/@niani.kids
+- Facebook : page officielle à confirmer avant d'ajouter une URL publique
+- Instagram : compte officiel à confirmer avant d'ajouter une URL publique
+
+Les liens vers le site et les réseaux sont regroupés dans l’espace Parents de l’application. Les URL sociales doivent être confirmées avant publication afin d’éviter les redirections vers de mauvais comptes.
 
 ## Accessibilité et validation
 - Les contrôles interactifs doivent annoncer leur fonction et leur état à TalkBack.
