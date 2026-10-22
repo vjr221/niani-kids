@@ -6,9 +6,13 @@ on:
       - feat/niani-kids-modernization-oct-2026
       - feat/senegal-home-and-app-polish
       - feat/explorer-activities-v2
+      - audit/sprint-1-release-hardening
   pull_request:
     branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 concurrency:
   group: niani-kids-quality-${{ github.ref }}
@@ -22,7 +26,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm install
+      - name: Install locked dependencies
+        run: npm ci
       - name: Rapport de sécurité des dépendances (informatif)
         run: |
           npm audit --json > /tmp/niani-npm-audit.json || true
@@ -30,7 +35,7 @@ jobs:
           npm audit --omit=dev --json > /tmp/niani-npm-audit-production.json || true
           node -e "const a=require('/tmp/niani-npm-audit-production.json'); console.log('PRODUCTION DEPENDENCIES ONLY'); console.log(JSON.stringify({summary:a.metadata?.vulnerabilities,packages:Object.entries(a.vulnerabilities||{}).map(([name,v])=>({name,severity:v.severity,direct:v.isDirect,range:v.range,fixAvailable:v.fixAvailable,via:(v.via||[]).map(x=>typeof x==='string'?x:x.title)}))},null,2))"
       - run: npx expo install --check
-      - run: npx tsc --noEmit
+      - run: npm run typecheck
       - run: node scripts/validate-translations.mjs
       - run: node scripts/validate-content.mjs
       - run: node scripts/validate-audio-catalog.mjs
