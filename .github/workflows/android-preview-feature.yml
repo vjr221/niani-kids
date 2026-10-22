@@ -7,6 +7,7 @@ on:
       - feat/niani-kids-modernization-oct-2026
       - feat/senegal-home-and-app-polish
       - feat/explorer-activities-v2
+      - audit/sprint-1-release-hardening
     paths:
       - "App.tsx"
       - "app.json"
@@ -37,12 +38,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install dependencies
-        run: npm install
+      - name: Install locked dependencies
+        run: npm ci
       - name: Check Expo dependency compatibility
         run: npx expo install --check
       - name: TypeScript
-        run: npx tsc --noEmit
+        run: npm run typecheck
       - name: Validate translations
         run: node scripts/validate-translations.mjs
       - name: Validate content
