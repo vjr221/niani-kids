@@ -58,3 +58,20 @@ Cette section complète le relevé historique du 19 octobre ci-dessus; elle ne r
 - [ ] Réaliser un build de préproduction et des tests sur appareil avant diffusion.
 
 Le statut de sécurité reste **en cours de revue**; ce document ne constitue pas une certification.
+
+
+## Mise à jour — 23 octobre 2026 (rapport CI archivé)
+
+Le workflow de la PR #46 a maintenant terminé avec succès sur le commit `b2aaebe78065f7e3c6a7512eeb912650b863f4c7`. Les contrôles Expo, TypeScript, validateurs et export Android sont verts. Le rapport complet est archivé dans l'artefact CI [niani-kids-npm-audit](https://github.com/vjr221/niani-kids/actions/runs/39879138759), disponible jusqu'au 6 novembre 2026.
+
+- Le rapport de cette exécution contient **23 avis de sévérité élevée, 0 modéré, 0 critique**. L'audit avec `--omit=dev` renvoie le même total. Cela ne veut pas dire que les 23 problèmes sont tous exploitables dans le binaire; les versions et chaînes de dépendances doivent être évaluées.
+- Ce résultat diffère du décompte précédent de 28 (23 élevés + 5 modérés). Il faut conserver les dates et rapports séparés plutôt que mélanger les chiffres; la différence de résolution du graphe ou de la base d'avis doit être clarifiée lors du tri.
+- Versions présentes dans le lockfile pour des paquets signalés : `expo 54.0.38`, `react-native 0.81.5`, `node-forge 1.4.0`, `postcss 8.4.49`, `image-size 1.2.1`, `braces 3.0.3`, `micromatch 4.0.8`, Metro `0.83.3`. La chaîne Metro/Expo et les outils Jest sont transitifs de l'écosystème React Native.
+- Le rapport npm propose souvent une correction majeure globale (Expo 44 ou React Native 0.86.3), ce qui n'est pas une recommandation acceptable pour ce projet Expo SDK 54 sans migration. Ne pas appliquer ces propositions globales automatiquement.
+- Des paquets isolés comme `image-size` et `metro-transform-worker` indiquent une correction disponible; ils seront étudiés avec leurs contraintes amont. Pour `postcss`, `node-forge`, `braces` et Metro, vérifier les versions corrigées et les plages imposées par Expo avant de créer un override. Aucun override ou correctif de dépendance n'est appliqué dans cette mise à jour documentaire.
+
+## Étapes suivantes
+
+1. Confirmer, à partir des avis complets et de leurs URL, les versions corrigées de chaque paquet.
+2. Tester les correctifs transitifs isolés dans une branche de remédiation et laisser la CI vérifier l'installation, l'export Expo et TypeScript.
+3. Ne pas publier tant que les avis élevés ne sont pas triés, les tests Android réels exécutés et la signature de production configurée.
