@@ -3,7 +3,7 @@
 > **Statut : brouillon de travail. Ne pas publier ni utiliser comme URL de politique dans une boutique avant validation par l'éditeur.** Les champs entre crochets doivent être complétés et les vérifications techniques ci-dessous doivent être terminées.
 
 - Éditeur responsable : [NOM LÉGAL / ENTITÉ RESPONSABLE À CONFIRMER]
-- Contact confidentialité : [ADRESSE E-MAIL OFFICIELLE À CONFIRMER]
+- Contact confidentialité et support : nianikids1@gmail.com
 - Date d'entrée en vigueur : [DATE À COMPLÉTER]
 - URL publique de cette politique : [URL À CRÉER ET À TESTER]
 
@@ -48,7 +48,7 @@ Aucun SDK publicitaire ou d'analytique n'a été identifié dans le manifeste de
 
 Les préférences et la progression décrites à la section 2 sont conservées localement sur l'appareil. Elles peuvent être effacées en supprimant les données de l'application dans les paramètres Android ou en désinstallant l'application, sous réserve des mécanismes de sauvegarde éventuels gérés par le système de l'appareil.
 
-Pour toute question ou demande concernant la confidentialité, le parent ou le tuteur pourra contacter l'éditeur à l'adresse indiquée en tête de cette politique une fois celle-ci confirmée.
+Pour toute question ou demande concernant la confidentialité ou le support, le parent ou le tuteur peut contacter Niani Kids à l'adresse nianikids1@gmail.com.
 
 ## 8. Protection des enfants
 
@@ -62,7 +62,9 @@ Si les fonctionnalités ou les traitements changent, l'éditeur mettra cette pol
 
 ## Liste de validation interne — à retirer de la version publique
 
-- [ ] Confirmer le nom légal de l'éditeur et l'adresse de contact officielle.
+- [x] Adresse de contact confidentialité et support fournie par l'éditeur : nianikids1@gmail.com.
+- [ ] Confirmer le nom légal de l'éditeur.
+- [ ] Définir la date d'entrée en vigueur et l'URL publique de la politique.
 - [ ] Effectuer une revue complète des dépendances et du binaire final pour confirmer les affirmations sur la collecte, la publicité et le suivi.
 - [ ] Vérifier le comportement réel du service de synthèse vocale sur Android.
 - [ ] Confirmer les règles de sauvegarde/restauration Android et les moyens de suppression des données locales.
