@@ -38,3 +38,23 @@ Le rapport npm a proposé des corrections qui impliquent des changements majeurs
 - [ ] Revue finale de confidentialité, sécurité enfant et conformité au programme Google Play Familles.
 
 Ce document décrit l'état du rapport observé, pas une certification de sécurité.
+
+## Mise à jour — 22 octobre 2026 (UTC)
+
+Cette section complète le relevé historique du 19 octobre ci-dessus; elle ne remplace pas ses résultats datés.
+
+- La vérification plus récente effectuée dans le cadre de la PR [#46](https://github.com/vjr221/niani-kids/pull/46) rapporte **28 avis npm : 23 élevés, 5 modérés et 0 critique**. Ce total n'est pas directement comparable à l'ancien total sans comparer les versions effectivement résolues et les rapports détaillés.
+- L'exécution de `npm audit fix` sans `--force` s'est terminée, mais n'a pas réduit le nombre total d'avis. Les changements temporaires du lockfile n'ont pas été intégrés.
+- Le lockfile et le durcissement de l'installation CI ont depuis été ajoutés dans la branche principale via le sprint 1; la PR #46 part de cette base. Vérifier que toute future modification des dépendances garde `package-lock.json` cohérent avec `package.json` et que la CI utilise l'installation verrouillée.
+- Aucune mise à jour majeure proposée automatiquement n'a été appliquée. Ne pas utiliser `npm audit fix --force` sans plan de migration Expo/React Native et tests natifs.
+- Les rapports détaillés doivent encore être examinés avis par avis : le nombre agrégé ne démontre ni l'exploitabilité de chaque avis dans l'application ni l'absence de risque.
+
+## État actualisé du plan
+
+- [x] Lockfile reproductible ajouté et installation CI durcie.
+- [ ] Archiver un rapport complet `npm audit --json` daté pour la revue actuelle.
+- [ ] Trier les avis élevés par paquet, chaîne de dépendance, exposition et version corrective compatible avec Expo SDK 54.
+- [ ] Appliquer les corrections compatibles par petits lots, puis exécuter les contrôles Expo, TypeScript, validateurs et export Android.
+- [ ] Réaliser un build de préproduction et des tests sur appareil avant diffusion.
+
+Le statut de sécurité reste **en cours de revue**; ce document ne constitue pas une certification.
