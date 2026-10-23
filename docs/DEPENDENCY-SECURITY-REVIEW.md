@@ -75,3 +75,21 @@ Le workflow de la PR #46 a maintenant terminé avec succès sur le commit `b2aae
 1. Confirmer, à partir des avis complets et de leurs URL, les versions corrigées de chaque paquet.
 2. Tester les correctifs transitifs isolés dans une branche de remédiation et laisser la CI vérifier l'installation, l'export Expo et TypeScript.
 3. Ne pas publier tant que les avis élevés ne sont pas triés, les tests Android réels exécutés et la signature de production configurée.
+
+
+## Triage ciblée — 23 octobre 2026 (recherche d'avis publics)
+
+Cette recherche complète le rapport npm archivé; elle ne remplace pas la vérification des chemins exacts dans le lockfile ni les tests d'intégration.
+
+- **PostCSS 8.4.49** : des avis publics récents couvrent des versions bien plus récentes que 8.4.49; le correctif pour l'avis élevé de traversée de chemin est indiqué à partir de 8.5.18, et un avis de correction incomplète indique 8.5.23. Une mise à jour dans la ligne 8.x semble à étudier en premier, mais elle doit être testée avec les dépendances Expo/Metro qui la consomment. Références : [GHSA-r28c-9q8g-f849](https://github.com/advisories/GHSA-r28c-9q8g-f849), [GHSA-fxqj-rqcc-2cmp](https://github.com/advisories/GHSA-fxqj-rqcc-2cmp).
+- **node-forge 1.4.0** : l'avis [GHSA-86w9-cpqp-85rv](https://github.com/advisories/GHSA-86w9-cpqp-85rv) couvre également la version 1.4.0 et ne déclare pas de version corrigée. Ne pas prétendre que la mise à jour vers 1.4.0 a résolu tous les avis node-forge; identifier le consommateur et l'exposition, puis suivre la correction amont.
+- **braces 3.0.3 / micromatch 4.0.8** : l'avis [GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm) couvre braces jusqu'à 3.0.3 et la recherche n'a pas identifié de version amont corrigée sur cette ligne. Éviter un override arbitraire vers une fourche non vérifiée; suivre l'amont et documenter l'exposition du chemin de dépendance.
+- **image-size 1.2.1** : un avis antérieur est corrigé en 1.2.1, mais des avis plus récents concernent les versions 1.x/2.0.x et signalent l'absence de version corrigée dans les métadonnées amont consultées. Ne pas supposer que la correction d'un avis règle tous les avis du paquet. Vérifier les avis précis du JSON npm et les contraintes de Metro avant toute substitution.
+- **Compatibilité Expo** : la documentation Expo associe SDK 54 à React Native 0.81; garder ce couple aligné pendant le tri. Une migration SDK est un chantier séparé, pas un correctif automatique d'audit.
+
+### Décision de remédiation
+
+1. Prioriser l'analyse et le test contrôlé de PostCSS, car une version corrective est identifiée dans la ligne 8.x.
+2. Traiter node-forge, braces et image-size comme des cas nécessitant une analyse de la chaîne et/ou une correction amont; ne pas ajouter d'override non validé.
+3. Pour chaque changement, comparer `npm audit --json` avant/après, puis exécuter `npm ci`, `npx expo install --check`, TypeScript, les validateurs du projet et l'export Android.
+4. Garder la PR ouverte et en brouillon jusqu'à ce que les corrections aient été vérifiées et que les tests natifs restants soient effectués.
