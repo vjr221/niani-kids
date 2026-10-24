@@ -13,8 +13,8 @@ Ce dossier contient les médias embarqués et les références de production. Le
 | `Samba_vues_corps_entier.png` | Illustration de Samba dans l’accueil | Intégré |
 | `Awa_vues_corps_entier.png` | Illustration d’Awa dans l’accueil | Intégré |
 | `Bobo_vues_corps_entier.png` | Illustration de Bobo dans l’accueil | Intégré |
-| `Samba_activites.png`, `Awa_activites.png`, `Bobo_activites.png` | Illustrations de l’espace Parents | Intégrées |
-| `Samba_expressions.png`, `Awa_expressions.png`, `Bobo_expressions.png` | Ressources d’expressions et d’états émotionnels | Disponibles ; intégration écran par écran à poursuivre |
+| `Samba_activites.png`, `Awa_activites.png`, `Bobo_activites.png` | Illustrations d’activités à affecter à des écrans précis | Disponibles ; vérifier le rendu et l’affectation |
+| `Samba_expressions.png`, `Awa_expressions.png`, `Bobo_expressions.png` | Expressions et états émotionnels | Disponibles ; intégration écran par écran à poursuivre |
 
 Les fichiers `grok_*` et `wWP46.png` restent à identifier visuellement avant toute utilisation. Ne pas supposer qu’ils représentent un personnage ou une icône d’application d’après leur nom.
 
@@ -27,7 +27,7 @@ Voir [`graphics/manifest.json`](./graphics/manifest.json) et [`graphics/README.m
 - Bannières : compositions larges pour les usages web et sociaux.
 - Planches composites : références de marque uniquement, jamais des portraits individuels.
 
-**État d’intégration :** le catalogue et les chemins cibles sont suivis dans Git, mais les nouveaux fichiers PNG du lot ne sont pas encore tous ajoutés comme fichiers binaires au dépôt. Ne pas ajouter de `require(...)` vers un fichier absent.
+**État d’intégration :** le catalogue et les chemins cibles sont suivis dans Git, mais les nouveaux fichiers PNG du lot ne sont pas encore tous ajoutés comme fichiers binaires au dépôt. Ne pas ajouter de `require(...)` vers un fichier absent. L’intégration des visuels distants dans les cartes ne prouve pas que les fichiers sont embarqués dans l’APK.
 
 ## Visuels restant à préparer ou valider
 
@@ -61,6 +61,6 @@ Pour le wolof, faire valider les paroles et la prononciation par un locuteur nat
 
 ## Référence de marque obligatoire
 
-Consulter la [bible d'identité visuelle](../docs/IDENTITE-VISUELLE.md) avant toute nouvelle illustration, miniature, vidéo ou écran. Les portraits et vues en pied individuels listés ci-dessus sont les références canoniques ; une image de scène ne doit pas redéfinir le visage, la coiffure, la tenue ou les couleurs signatures d'un personnage. Le logo existant est la source de marque à privilégier ; ne pas le redessiner avec un générateur.
+Consulter la [bible d'identité visuelle](../docs/IDENTITE-VISUELLE.md) avant toute nouvelle illustration, miniature, vidéo ou écran. Les portraits et vues en pied individuels listés ci-dessus sont les références canoniques ; une image de scène ne doit pas redéfinir le visage, la coiffure, la tenue ou les couleurs signatures d'un personnage. Le logo transparent existant est la source de marque à privilégier ; ne pas le redessiner avec un générateur.
 
 Pour le portail web, le logo est aussi utilisé comme favicon et image de partage. Avant une publication publique, vérifier son cadrage sur fond clair et sombre, ainsi que l'aperçu des liens sur les réseaux sociaux.
