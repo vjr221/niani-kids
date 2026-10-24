@@ -1,0 +1,82 @@
+{
+  "brand": "Niani Kids",
+  "receivedAt": "2026-10-21",
+  "status": "catalogued-not-yet-committed-as-binary-assets",
+  "assets": [
+    {
+      "file": "characters/samba/samba-pose-pouce.png",
+      "description": "Samba portrait avec pouce levé",
+      "source": "32383.png"
+    },
+    {
+      "file": "characters/samba/samba-plein-pied.png",
+      "description": "Samba plein pied",
+      "source": "32384.png"
+    },
+    {
+      "file": "characters/awa/awa-portrait.png",
+      "description": "Awa portrait",
+      "source": "32385.png"
+    },
+    {
+      "file": "characters/awa/awa-danse.png",
+      "description": "Awa pose dansante",
+      "source": "32386.png"
+    },
+    {
+      "file": "characters/bobo/bobo-pose-pouces.png",
+      "description": "Bobo avec pouces levés",
+      "source": "32387.png"
+    },
+    {
+      "file": "characters/bobo/bobo-poses-multiples.png",
+      "description": "Bobo composition multi-pose",
+      "source": "32388.png"
+    },
+    {
+      "file": "characters/baobab/baobab-expressions-01.png",
+      "description": "Baobab expressions, planche 1",
+      "source": "32389.png"
+    },
+    {
+      "file": "characters/baobab/baobab-expressions-02.png",
+      "description": "Baobab expressions, planche 2",
+      "source": "32390.png"
+    },
+    {
+      "file": "logos/logo-rond-equipe.png",
+      "description": "Logo rond avec personnages",
+      "source": "32391.png"
+    },
+    {
+      "file": "banners/banniere-large-personnages-logo.png",
+      "description": "Bannière large avec personnages et logo",
+      "source": "32392.png"
+    },
+    {
+      "file": "logos/logo-texte-3d-fond-clair.png",
+      "description": "Logo texte 3D sur fond clair",
+      "source": "32393.png"
+    },
+    {
+      "file": "logos/logo-texte-3d-fond-transparent.png",
+      "description": "Logo texte 3D, transparence à vérifier",
+      "source": "32394.png"
+    },
+    {
+      "file": "banners/banniere-equipe-large.png",
+      "description": "Bannière équipe au format large",
+      "source": "32395.png"
+    },
+    {
+      "file": "brand/planche-identite-visuelle.png",
+      "description": "Planche récapitulative d'identité visuelle",
+      "source": "32396.png"
+    },
+    {
+      "file": "brand/planche-assets-generee.png",
+      "description": "Planche de présentation générée",
+      "source": "a_bright_colorful_high_resolution_2d_3d_styled_v.png"
+    }
+  ]
+}

@@ -1,10 +1,11 @@
-name: Niani Kids - Android APK (main and preview)
+name: Niani Kids - Android APK (main and media preview)
 
 on:
   push:
     branches:
       - main
       - feat/niani-kids-modernization-oct-2026
+      - feat/niani-media-library-integration-oct-2026
       - feat/senegal-home-and-app-polish
       - feat/explorer-activities-v2
       - audit/sprint-1-release-hardening
@@ -18,14 +19,19 @@ on:
       - "assets/**"
       - "scripts/**"
       - ".github/workflows/android-preview-feature.yml"
+      - ".github/workflows/quality.yml"
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: niani-android-preview-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   preview:
-    name: Validate and build Android APK
+    name: Validate and build Android preview APK
     runs-on: ubuntu-latest
     steps:
       - name: Checkout exact source commit
@@ -38,14 +44,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install locked dependencies
-        run: npm ci
+      - name: Install dependencies
+        run: npm install
       - name: Check Expo dependency compatibility
         run: npx expo install --check
       - name: TypeScript
         run: npm run typecheck
       - name: Validate translations
         run: node scripts/validate-translations.mjs
+      - name: Audit Wolof content coverage
+        run: npm run audit:wolof
+      - name: Audit Wolof learning program coverage
+        run: node scripts/audit-wolof-program.mjs
       - name: Validate content
         run: node scripts/validate-content.mjs
       - name: Validate audio catalog
@@ -54,13 +64,13 @@ jobs:
         run: npx expo export --platform android
       - name: Generate native Android project
         run: npx expo prebuild --platform android --non-interactive --no-install
-      - name: Build installable Android release APK with embedded JavaScript
+      - name: Build installable Android preview APK
         working-directory: android
         run: chmod +x gradlew && ./gradlew assembleRelease
-      - name: Upload Android APK artifact
+      - name: Upload Android preview artifact
         uses: actions/upload-artifact@v4
         with:
-          name: niani-kids-android-release-${{ github.sha }}
+          name: niani-kids-android-preview-${{ github.sha }}
           path: android/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 14
