@@ -8,6 +8,7 @@ on:
       - feat/senegal-home-and-app-polish
       - feat/explorer-activities-v2
       - audit/sprint-1-release-hardening
+      - audit/sprint-2-dependency-remediation
     paths:
       - "App.tsx"
       - "app.json"
@@ -54,13 +55,19 @@ jobs:
         run: npx expo export --platform android
       - name: Generate native Android project
         run: npx expo prebuild --platform android --non-interactive --no-install
-      - name: Build installable Android release APK with embedded JavaScript
+      - name: Build installable Android preview APK with embedded JavaScript
         working-directory: android
         run: chmod +x gradlew && ./gradlew assembleRelease
+      - name: Verify APK signature and show certificate (not production signing)
+        run: |
+          SDK_ROOT="${ANDROID_HOME:-${ANDROID_SDK_ROOT}}"
+          APKSIGNER="$(find "$SDK_ROOT/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
+          test -n "$APKSIGNER"
+          "$APKSIGNER" verify --verbose --print-certs android/app/build/outputs/apk/release/app-release.apk
       - name: Upload Android APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: niani-kids-android-release-${{ github.sha }}
+          name: niani-kids-android-preview-${{ github.sha }}
           path: android/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 14

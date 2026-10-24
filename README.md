@@ -32,7 +32,7 @@ Les paroles de démonstration sont originales pour ce starter. Elles ne remplace
 - Vérifier le parcours des liens externes, les règles Google Play Families et les obligations applicables aux applications pour enfants.
 - Tester avec des enfants uniquement sous supervision et sans collecter de données personnelles.
 - Configurer EAS Build et les secrets nécessaires pour produire un APK/AAB signé.
-- Le workflow actuel valide le code et exporte le bundle Android; il ne publie pas encore d'APK signé.
+- Le workflow CI produit un APK Android de prévisualisation et vérifie sa signature. Le certificat observé est le certificat Android Debug : cet APK n'est pas signé pour la production et ne doit pas être présenté comme prêt pour Google Play. Configurer une signature de production sécurisée avant publication.
 
 ## Chaînes
 - YouTube: https://www.youtube.com/@NianiKids

@@ -34,6 +34,16 @@ jobs:
           node -e "const a=require('/tmp/niani-npm-audit.json'); const rows=Object.entries(a.vulnerabilities||{}).map(([name,v])=>({name,severity:v.severity,direct:v.isDirect,range:v.range,fixAvailable:v.fixAvailable,via:(v.via||[]).map(x=>typeof x==='string'?x:x.title)})); console.log(JSON.stringify({summary:a.metadata?.vulnerabilities,packages:rows},null,2))"
           npm audit --omit=dev --json > /tmp/niani-npm-audit-production.json || true
           node -e "const a=require('/tmp/niani-npm-audit-production.json'); console.log('PRODUCTION DEPENDENCIES ONLY'); console.log(JSON.stringify({summary:a.metadata?.vulnerabilities,packages:Object.entries(a.vulnerabilities||{}).map(([name,v])=>({name,severity:v.severity,direct:v.isDirect,range:v.range,fixAvailable:v.fixAvailable,via:(v.via||[]).map(x=>typeof x==='string'?x:x.title)}))},null,2))"
+      - name: Archive complete npm audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: niani-kids-npm-audit-${{ github.sha }}
+          path: |
+            /tmp/niani-npm-audit.json
+            /tmp/niani-npm-audit-production.json
+          if-no-files-found: error
+          retention-days: 14
       - run: npx expo install --check
       - run: npm run typecheck
       - run: node scripts/validate-translations.mjs
