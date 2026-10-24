@@ -7,7 +7,6 @@
 <meta name="description" content="Bienvenue chez Niani Kids : chansons, contes, découvertes et activités à partager avec les enfants. Un univers inspiré du Sénégal, pour grandir en s'amusant.">
 <meta property="og:title" content="Niani Kids - Le monde des petites découvertes">
 <meta property="og:description" content="Des chansons, des contes et des activités pour découvrir, imaginer et grandir ensemble.">
-<title><?php echo esc_html( get_bloginfo( "name" ) ); ?> — Le monde des petites découvertes</title>
 <script>document.documentElement.classList.add('js-reveal');</script>
 <style>
 :root{color-scheme:light;--forest:#12372f;--forest-2:#1d5747;--leaf:#a8c98a;--cream:#fff8e9;--paper:#fffdf7;--sun:#ffd15d;--coral:#ff826d;--sky:#b9e5f3;--ink:#173a31;--muted:#61736a;--line:#e6e8dc;--shadow:0 18px 55px #18382a14;--radius:26px;--max:1160px}
