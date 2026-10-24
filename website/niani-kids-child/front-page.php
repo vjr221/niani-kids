@@ -57,8 +57,8 @@ $nk_email   = 'nianikids1@gmail.com';
       <div class="nk-wrap nk-hero-grid">
         <div class="nk-hero-copy nk-reveal">
           <p class="nk-eyebrow"><span aria-hidden="true">☀</span> Bienvenue dans notre univers</p>
-          <h1 id="nk-hero-title">Chanter, jouer, apprendre… <em>grandir ensemble.</em></h1>
-          <p class="nk-hero-lede">Des chansons, des contes et des idées pour éveiller les petits, inspirés par le Sénégal et imaginés pour grandir en famille.</p>
+          <h1 id="nk-hero-title">Chanter, jouer. <em>Grandir ensemble.</em></h1>
+          <p class="nk-hero-lede">Des chansons, des jeux, des contes et des découvertes inspirés du Sénégal, pour apprendre et grandir en famille.</p>
           <div class="nk-hero-actions">
             <a class="nk-button" href="#nk-aventures">Choisir une aventure <span aria-hidden="true">→</span></a>
             <a class="nk-button nk-button-outline" href="<?php echo esc_url( $nk_youtube ); ?>" target="_blank" rel="noopener noreferrer"><span class="nk-play-icon" aria-hidden="true">▶</span> Découvrir YouTube</a>
