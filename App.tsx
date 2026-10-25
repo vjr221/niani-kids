@@ -203,14 +203,14 @@ function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(FACEBOOK)}><Text style={{fontSize:26}}>📘</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].facebook}</Text><Text style={s.cardSubtitle}>{translations[lang].facebookSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(INSTAGRAM)}><Text style={{fontSize:26}}>📸</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].instagram}</Text><Text style={s.cardSubtitle}>{translations[lang].instagramSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
     <View style={s.safety}><Text style={s.cardTitle}>{label?'Informations légales et confidentialité':'Xibaar yu yoon ak sutura'}</Text>
-      <Text style={s.cardSubtitle}>{label?'Niani Kids est édité et hébergé par Sentic, entreprise individuelle, située à Yoff, Dakar, Sénégal. Responsable de publication : Sentic.':'Sentic moo yor ak di héberge Niani Kids. Dakar, Senegaal.'}</Text>
+      <Text style={s.cardSubtitle}>{label?'Niani Kids est édité et hébergé par Sentic, situé à Yoff, Dakar, Sénégal. Responsable de publication : Sentic.':'Sentic moo yor ak di héberge Niani Kids. Dakar, Senegaal.'}</Text>
       <Text style={s.cardSubtitle}>{label?'Contact Niani Kids : '+NIANI_EMAIL:'Jokkoo Niani Kids : '+NIANI_EMAIL}</Text>
       <Text style={s.cardSubtitle}>{label?'Sentic : '+SENTIC_EMAIL+' · +221 77 510 56 36':'Sentic : '+SENTIC_EMAIL+' · +221 77 510 56 36'}</Text>
       <Pressable accessibilityRole="link" onPress={()=>openInfo(SENTIC_WEBSITE)}><Text style={s.sectionAction}>Sentic · senticsn.com ↗</Text></Pressable>
       <Pressable accessibilityRole="link" onPress={()=>openInfo(WEBSITE)}><Text style={s.sectionAction}>{label?'Site Niani Kids':'Site Niani Kids'} ↗</Text></Pressable>
       <Pressable accessibilityRole="link" onPress={()=>openInfo(PRIVACY_PAGE)}><Text style={s.sectionAction}>{label?'Politique de confidentialité ↗':'Politigu sutura ↗'}</Text></Pressable>
       <Pressable accessibilityRole="link" onPress={()=>openInfo(CONTACT_PAGE)}><Text style={s.sectionAction}>{label?'Contacter Niani Kids ↗':'Jokkoo ak Niani Kids ↗'}</Text></Pressable>
-      <Text style={s.cardSubtitle}>{label?'La politique de confidentialité doit être publiée et vérifiée avant la diffusion de cette version.':'Politigu sutura bi war na génn te ñu seet ko bala ñu génne version bii.'}</Text>
+      <Text style={s.cardSubtitle}>{label?'Consultez la politique de confidentialité pour connaître les informations relatives aux données et à leur utilisation.':'Jàngal politigu sutura bi ngir xam ni ñuy jëfandikoo say xibaar.'}</Text>
     </View>
     <View style={s.safety}><Text style={s.cardTitle}>{translations[lang].parentSafetyTitle}</Text><Text style={s.cardSubtitle}>{translations[lang].parentSafetyBody} {label?'Les plateformes externes appliquent leurs propres règles. Un adulte doit accompagner l’enfant.':'Platform yu biti am nañu seen yoon. Mag war na ànd ak xale bi.'}</Text></View>
     <Text style={s.footer}>{translations[lang].prelaunchNote}</Text>
