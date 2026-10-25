@@ -16,6 +16,13 @@ const YOUTUBE = 'https://youtube.com/@nianikids';
 const TIKTOK = 'https://www.tiktok.com/@niani.kids';
 const FACEBOOK = 'https://www.facebook.com/nianikids/';
 const INSTAGRAM = 'https://www.instagram.com/nianikids';
+const WEBSITE = 'https://nianikids.com/';
+const CONTACT_PAGE = 'https://nianikids.com/contact/';
+const PRIVACY_PAGE = 'https://nianikids.com/politique-de-confidentialite/';
+const SENTIC_WEBSITE = 'https://senticsn.com/';
+const SENTIC_EMAIL = 'senticsn@gmail.com';
+const SENTIC_PHONE = '+221775105636';
+const NIANI_EMAIL = 'nianikids1@gmail.com';
 const C = { ink:'#432B20', cream:'#FFF9E8', yellow:'#FFD52A', orange:'#FF8A16', green:'#27B84A', blue:'#168BE8', red:'#F04444', muted:'#806B5D', lilac:'#EEE9FF', pink:'#FFE5E8' };
 const normalizeText = (value:string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase().trim();
 const openExternal = (url:string) => {
@@ -185,8 +192,29 @@ function FavoritesScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:La
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}><Text style={s.pageTitle}>❤️ {translations[lang].favorites}</Text>{contents.filter(x=>favorites.includes(x.id)).map(item=><ContentCard key={item.id} item={item} lang={lang} favorite onFavorite={()=>toggleFavorite(item.id)} onOpen={()=>onOpen(item)}/>)}{!favorites.length&&<View style={s.empty}><Text style={{fontSize:45}}>⭐</Text><Text style={s.cardTitle}>{translations[lang].treasuresHere}</Text><Text style={s.cardSubtitle}>{translations[lang].favoriteHint}</Text></View>}</ScrollView></SafeAreaView>;
 }
 function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
-  return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}><Text style={s.pageTitle}>👨‍👩‍👧 {translations[lang].parentTitle}</Text><View style={s.parentCard}><Text style={{fontSize:42}}>💚</Text><Text style={s.heroTitle}>{translations[lang].parentTogether}</Text><Text style={s.cardSubtitle}>{translations[lang].parentBody}</Text></View><Section title={translations[lang].parentSpaceTitle}/><Pressable style={s.externalLink} onPress={()=>openExternal(YOUTUBE)}><Text style={{fontSize:26}}>▶️</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].youtube}</Text><Text style={s.cardSubtitle}>{translations[lang].youtubeSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].opening} ↗</Text></Pressable><Pressable style={s.externalLink} onPress={()=>openExternal(TIKTOK)}><Text style={{fontSize:26}}>🎬</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].tiktok}</Text><Text style={s.cardSubtitle}>{translations[lang].tiktokSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
-<Pressable accessibilityRole="button" style={s.externalLink} onPress={()=>openExternal(FACEBOOK)}><Text style={{fontSize:26}}>📘</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].facebook}</Text><Text style={s.cardSubtitle}>{translations[lang].facebookSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable><Pressable accessibilityRole="button" style={s.externalLink} onPress={()=>openExternal(INSTAGRAM)}><Text style={{fontSize:26}}>📸</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].instagram}</Text><Text style={s.cardSubtitle}>{translations[lang].instagramSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable><View style={s.safety}><Text style={s.cardTitle}>{translations[lang].parentSafetyTitle}</Text><Text style={s.cardSubtitle}>{translations[lang].parentSafetyBody} {lang==='fr'?'Les contenus de démonstration doivent être reliés aux vidéos officielles avant publication.':'Dafay soxla ñu boole ay contenu yu dëgg-dëgg ak wideyo yi bala génn.'}</Text></View><Text style={s.footer}>{translations[lang].prelaunchNote}</Text></ScrollView></SafeAreaView>;
+  const openInfo = (url:string) => Linking.openURL(url).catch(() => Alert.alert(lang==='fr'?'Lien indisponible':'Link bi amul',lang==='fr'?'Réessaie dans un instant.':'Jéemaat ci kanam.'));
+  const label = lang==='fr';
+  return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}>
+    <Text style={s.pageTitle}>👨‍👩‍👧 {translations[lang].parentTitle}</Text>
+    <View style={s.parentCard}><Text style={{fontSize:42}}>💚</Text><Text style={s.heroTitle}>{translations[lang].parentTogether}</Text><Text style={s.cardSubtitle}>{translations[lang].parentBody}</Text></View>
+    <Section title={translations[lang].parentSpaceTitle}/>
+    <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(YOUTUBE)}><Text style={{fontSize:26}}>▶️</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].youtube}</Text><Text style={s.cardSubtitle}>{translations[lang].youtubeSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].opening} ↗</Text></Pressable>
+    <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(TIKTOK)}><Text style={{fontSize:26}}>🎬</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].tiktok}</Text><Text style={s.cardSubtitle}>{translations[lang].tiktokSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
+    <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(FACEBOOK)}><Text style={{fontSize:26}}>📘</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].facebook}</Text><Text style={s.cardSubtitle}>{translations[lang].facebookSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
+    <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(INSTAGRAM)}><Text style={{fontSize:26}}>📸</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].instagram}</Text><Text style={s.cardSubtitle}>{translations[lang].instagramSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
+    <View style={s.safety}><Text style={s.cardTitle}>{label?'Informations légales et confidentialité':'Xibaar yu yoon ak sutura'}</Text>
+      <Text style={s.cardSubtitle}>{label?'Niani Kids est édité et hébergé par Sentic, entreprise individuelle, située à Yoff, Dakar, Sénégal. Responsable de publication : Sentic.':'Sentic moo yor ak di héberge Niani Kids. Dakar, Senegaal.'}</Text>
+      <Text style={s.cardSubtitle}>{label?'Contact Niani Kids : '+NIANI_EMAIL:'Jokkoo Niani Kids : '+NIANI_EMAIL}</Text>
+      <Text style={s.cardSubtitle}>{label?'Sentic : '+SENTIC_EMAIL+' · +221 77 510 56 36':'Sentic : '+SENTIC_EMAIL+' · +221 77 510 56 36'}</Text>
+      <Pressable accessibilityRole="link" onPress={()=>openInfo(SENTIC_WEBSITE)}><Text style={s.sectionAction}>Sentic · senticsn.com ↗</Text></Pressable>
+      <Pressable accessibilityRole="link" onPress={()=>openInfo(WEBSITE)}><Text style={s.sectionAction}>{label?'Site Niani Kids':'Site Niani Kids'} ↗</Text></Pressable>
+      <Pressable accessibilityRole="link" onPress={()=>openInfo(PRIVACY_PAGE)}><Text style={s.sectionAction}>{label?'Politique de confidentialité ↗':'Politigu sutura ↗'}</Text></Pressable>
+      <Pressable accessibilityRole="link" onPress={()=>openInfo(CONTACT_PAGE)}><Text style={s.sectionAction}>{label?'Contacter Niani Kids ↗':'Jokkoo ak Niani Kids ↗'}</Text></Pressable>
+      <Text style={s.cardSubtitle}>{label?'La politique de confidentialité doit être publiée et vérifiée avant la diffusion de cette version.':'Politigu sutura bi war na génn te ñu seet ko bala ñu génne version bii.'}</Text>
+    </View>
+    <View style={s.safety}><Text style={s.cardTitle}>{translations[lang].parentSafetyTitle}</Text><Text style={s.cardSubtitle}>{translations[lang].parentSafetyBody} {label?'Les plateformes externes appliquent leurs propres règles. Un adulte doit accompagner l’enfant.':'Platform yu biti am nañu seen yoon. Mag war na ànd ak xale bi.'}</Text></View>
+    <Text style={s.footer}>{translations[lang].prelaunchNote}</Text>
+  </ScrollView></SafeAreaView>;
 }
 export default function App() {
   const [lang,setLangState]=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [stars,setStarsState]=useState(0); const [selectedItem,setSelectedItem]=useState<ContentItem|null>(null); const [isSpeaking,setIsSpeaking]=useState(false);

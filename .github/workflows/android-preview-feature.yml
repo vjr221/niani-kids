@@ -9,6 +9,7 @@ on:
       - feat/senegal-home-and-app-polish
       - feat/explorer-activities-v2
       - audit/sprint-1-release-hardening
+      - feat/sentic-legal-privacy-mobile
     paths:
       - "App.tsx"
       - "app.json"
