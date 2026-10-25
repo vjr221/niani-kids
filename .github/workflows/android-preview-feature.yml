@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - fix/centered-app-icon-oct-2026
       - feat/niani-kids-modernization-oct-2026
       - feat/niani-media-library-integration-oct-2026
       - feat/senegal-home-and-app-polish
