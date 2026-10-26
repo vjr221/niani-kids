@@ -1,6 +1,17 @@
 name: Android APK (Local Gradle)
 
 on:
+  push:
+    branches:
+      - build/android-local-gradle
+    paths:
+      - '.github/workflows/android-gradle-apk.yml'
+      - 'app.json'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'app/**'
+      - 'src/**'
+      - 'assets/**'
   workflow_dispatch:
 
 permissions:
