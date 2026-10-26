@@ -27,21 +27,21 @@ export const audioCatalog: AudioTrackRecord[] = [
     reviewStatus: 'needs-editorial-review',
     languageReviewed: false,
     rightsConfirmed: false,
-    notes: 'Reference: 01 Bonjour Bonjour les amis.m4a; confirm lyrics match before linking asset.',
+    notes: 'WordPress draft post ID 113; reference: 01 Bonjour Bonjour les amis.m4a (144.8 s); recover and verify original lyrics before linking asset.',
   },
   {
     contentId: 'song-welcome',
     reviewStatus: 'needs-identification',
     languageReviewed: false,
     rightsConfirmed: false,
-    notes: 'Reference: 02 — Bienvenue chez Niani Kids.m4a; content record still needs to be added and validated.',
+    notes: 'WordPress draft post ID 114; reference: 02 — Bienvenue chez Niani Kids.m4a (60 s); recover original lyrics and validate content record.',
   },
   {
     contentId: 'song-theme',
     reviewStatus: 'needs-identification',
     languageReviewed: false,
     rightsConfirmed: false,
-    notes: 'Reference: 03 - NIANI! NIANI! — ÑU NGI FII!.m4a; content record and Wolof lyrics need validation.',
+    notes: 'WordPress draft post ID 115; reference: 03 - NIANI! NIANI! — ÑU NGI FII!.m4a (60 s); recover original Wolof lyrics and validate content record.',
   },
 ];
 
