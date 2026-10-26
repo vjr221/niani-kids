@@ -1,10 +1,8 @@
 /**
  * Audio publication gate for Niani Kids.
  *
- * Do not map uploaded files named `content.mp3` to a song by filename/order.
- * Each master must first be auditioned, transcribed, matched to a title/language,
- * checked for rights and approved by the editorial owner. Until then the app must
- * treat the track as having no playable master.
+ * Reference masters are registered here before their assets are added, so they
+ * remain unplayable until editorial, language and rights checks are complete.
  */
 import type { ContentItem } from './content';
 
@@ -18,8 +16,34 @@ export type AudioTrackRecord = {
   notes: string;
 };
 
-/** Explicitly unlinked until each uploaded ElevenLabs master is identified. */
-export const audioCatalog: AudioTrackRecord[] = [];
+/**
+ * Official reference masters received 2026-10-26.
+ * No assetPath is set yet: the source files are not in the repository and must
+ * be validated/transcoded for the target players before playback is enabled.
+ */
+export const audioCatalog: AudioTrackRecord[] = [
+  {
+    contentId: 'song-bonjour',
+    reviewStatus: 'needs-editorial-review',
+    languageReviewed: false,
+    rightsConfirmed: false,
+    notes: 'Reference: 01 Bonjour Bonjour les amis.m4a; confirm lyrics match before linking asset.',
+  },
+  {
+    contentId: 'song-welcome',
+    reviewStatus: 'needs-identification',
+    languageReviewed: false,
+    rightsConfirmed: false,
+    notes: 'Reference: 02 — Bienvenue chez Niani Kids.m4a; confirm lyrics and language before approval.',
+  },
+  {
+    contentId: 'song-theme',
+    reviewStatus: 'needs-identification',
+    languageReviewed: false,
+    rightsConfirmed: false,
+    notes: 'Reference: 03 - NIANI! NIANI! — ÑU NGI FII!.m4a; validate Wolof lyrics with a native speaker.',
+  },
+];
 
 export function getAudioTrack(contentId: ContentItem['id']): AudioTrackRecord | undefined {
   return audioCatalog.find((track) => track.contentId === contentId);
