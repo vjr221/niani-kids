@@ -27,7 +27,7 @@ export const audioCatalog: AudioTrackRecord[] = [
     reviewStatus: 'needs-editorial-review',
     languageReviewed: false,
     rightsConfirmed: false,
-    notes: 'WordPress draft post ID 113; reference master available: 01 Bonjour Bonjour les amis.m4a (144.8 s, Opus/stereo/48 kHz); compare with both Bonjour variants and verify lyrics before linking asset.',
+    notes: 'WordPress draft post ID 113; reference master available: 01 Bonjour Bonjour les amis.m4a (144.8 s, Opus/stereo/48 kHz); signal-envelope comparison strongly matches ZIP export `Bonjour Bonjour Niani kids.mp3` (similarity 0.977, ~0.02 s offset); keep M4A as reference, then listen and verify lyrics before linking asset.',
   },
   {
     contentId: 'song-welcome',
