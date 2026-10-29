@@ -46,6 +46,9 @@ jobs:
       - name: TypeScript check
         run: npx tsc --noEmit
 
+      - name: Validate audio catalog publication gates
+        run: node scripts/validate-audio-catalog.mjs
+
       - name: Generate native Android project
         run: npx expo prebuild --platform android --clean --no-install
 
