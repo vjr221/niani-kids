@@ -1,0 +1,250 @@
+{
+  "schemaVersion": 1,
+  "project": "Niani Kids",
+  "sourceArchive": "Chansons Niani kids.zip",
+  "sourceArchiveSizeBytes": 56173915,
+  "status": "technical-audit-only",
+  "note": "A file's presence and technical metadata do not mean it has been perceptually listened to, matched against lyrics, language-reviewed, or rights-approved.",
+  "masters": [
+    {
+      "id": "master-bonjour",
+      "file": "01 Bonjour Bonjour les amis.m4a",
+      "durationSeconds": 144.8,
+      "priority": "reference-master",
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "id": "master-welcome",
+      "file": "02 — Bienvenue chez Niani Kids.m4a",
+      "durationSeconds": 60,
+      "priority": "reference-master",
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "id": "master-theme",
+      "file": "03 - NIANI! NIANI! — ÑU NGI FII!.m4a",
+      "durationSeconds": 60,
+      "priority": "reference-master",
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    }
+  ],
+  "songs": [
+    {
+      "number": 1,
+      "title": "Bonjour, bonjour ! — Maquette 01",
+      "candidateFiles": [
+        "Bonjour, bonjour ! — V2.mp3",
+        "Bonjour Bonjour Niani kids.mp3"
+      ],
+      "status": "needs-comparison-with-master"
+    },
+    {
+      "number": 2,
+      "title": "Bonjour, bonjour ! — Maquette 02",
+      "candidateFiles": [
+        "Bonjour, bonjour ! — V3.mp3",
+        "Bonjour Bonjour Niani (Remix).mp3"
+      ],
+      "status": "needs-comparison-with-master"
+    },
+    {
+      "number": 3,
+      "title": "Bienvenue chez Niani Kids",
+      "candidateFiles": [
+        "Bienvenue chez Niani Kids V2.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 4,
+      "title": "Niani Kids, c’est parti !",
+      "candidateFiles": [
+        "Niani Kids, c’est parti !.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 5,
+      "title": "Les couleurs dansent",
+      "candidateFiles": [
+        "Les couleurs dansent.mp3",
+        "Les couleurs dansent (2).mp3"
+      ],
+      "status": "exact-duplicate-detected"
+    },
+    {
+      "number": 6,
+      "title": "Dors, petit cœur",
+      "candidateFiles": [
+        "Dors, petit cœur.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 7,
+      "title": "Les animaux du Sénégal",
+      "candidateFiles": [
+        "Les animaux du Sénégal.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 8,
+      "title": "Comptons jusqu’à 10",
+      "candidateFiles": [
+        "Comptons jusqu’à 10.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 9,
+      "title": "Bouge et stop !",
+      "candidateFiles": [
+        "Bouge et stop !.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 10,
+      "title": "Conte musical du Baobab",
+      "candidateFiles": [
+        "Conte musical du Baobab.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 11,
+      "title": "Nuyoo, nuyoo !",
+      "candidateFiles": [
+        "Nuyoo, nuyoo ! — Bonjour en français et wolof.mp3"
+      ],
+      "status": "needs-wolof-review"
+    },
+    {
+      "number": 12,
+      "title": "Les formes",
+      "candidateFiles": [
+        "Les formes.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 13,
+      "title": "Les jours de la semaine",
+      "candidateFiles": [
+        "Les jours de la semaine.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 14,
+      "title": "Les fruits du Sénégal",
+      "candidateFiles": [
+        "Les fruits du Sénégal.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 15,
+      "title": "Je lave mes mains",
+      "candidateFiles": [
+        "Je lave mes mains.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 16,
+      "title": "Quand je ris, quand je pleure",
+      "candidateFiles": [
+        "Quand je ris, quand je pleure.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 17,
+      "title": "Je brosse mes petites dents — version réussie",
+      "candidateFiles": [
+        "Je brosse mes petites dents — version B terminée.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 18,
+      "title": "Ma famille, mes amis",
+      "candidateFiles": [
+        "Ma famille, mes amis — génération terminée.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 19,
+      "title": "Je range mes jouets",
+      "candidateFiles": [
+        "Je range mes jouets.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 20,
+      "title": "S’il te plaît, merci !",
+      "candidateFiles": [
+        "S’il te plaît, merci !.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 21,
+      "title": "Je m’habille tout seul",
+      "candidateFiles": [
+        "Je m’habille tout seul.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 22,
+      "title": "Bonjour, comment ça va ?",
+      "candidateFiles": [
+        "Bonjour, comment ça va.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 23,
+      "title": "Tête, épaules, mains et pieds",
+      "candidateFiles": [
+        "Tête, épaules, mains et pieds.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 24,
+      "title": "À table, bon appétit !",
+      "candidateFiles": [
+        "À table, bon appétit !.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    },
+    {
+      "number": 25,
+      "title": "Les légumes font la fête",
+      "candidateFiles": [
+        "Les légumes font la fête.mp3"
+      ],
+      "status": "needs-perceptual-listening-and-lyrics-match"
+    }
+  ],
+  "technicalFindings": [
+    "29 MP3 files are present in the ZIP.",
+    "Les couleurs dansent.mp3 and Les couleurs dansent (2).mp3 have identical SHA-256 hashes.",
+    "22 MP3 files have exactly 75.024 seconds duration and 1,818,322 bytes; this pattern requires careful listening but does not prove the files are wrong.",
+    "The 3 separate M4A masters remain a distinct priority group and must not be replaced by similarly named ZIP files."
+  ],
+  "publicationGate": [
+    "perceptual listening completed",
+    "lyrics matched against official DOCX",
+    "Wolof reviewed by a competent native speaker where applicable",
+    "rights confirmed",
+    "mobile playback tested",
+    "website playback tested"
+  ]
+}
