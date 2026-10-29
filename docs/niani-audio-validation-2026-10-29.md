@@ -34,6 +34,19 @@ Les 25 titres/versions attendus sont présents dans l'archive selon leurs noms d
 - « Je brosse mes petites dents — version B terminée.mp3 » correspond par son nom à la version B attendue ; la qualité et les paroles restent à valider.
 - « NIANI! NIANI! — ÑU NGI FII!.mp3 » et son master M4A séparé sont deux fichiers distincts ; ne pas substituer l'un à l'autre sans comparaison.
 
+## Comparaison technique des masters avec les MP3 du ZIP
+
+Une comparaison automatique de l'enveloppe audio après décodage a été effectuée pour les trois paires candidates. C'est un indice de similarité, pas une écoute ni une preuve juridique de provenance.
+
+| Master | MP3 candidat | Résultat de similarité d'enveloppe | Interprétation prudente |
+|---|---|---:|---|
+| Bonjour (M4A, 144,8 s) | `Bonjour Bonjour Niani kids.mp3` (144,84 s) | 0,977 ; décalage estimé ≈ 0,02 s | Très forte ressemblance : probablement le même rendu exporté dans un autre format. Garder le M4A comme référence. |
+| Bonjour (M4A, 144,8 s) | `Bonjour Bonjour Niani (Remix).mp3` (147,24 s) | 0,148 | Ne pas considérer comme le même master ; comparer à l'écoute. |
+| Bienvenue (M4A, 60 s) | `Bienvenue chez Niani Kids V2.mp3` (81,02 s) | 0,143 | Les durées et le signal ne correspondent pas suffisamment pour déclarer une même version. |
+| Générique (M4A, 60 s) | `NIANI! NIANI! — ÑU NGI FII!.mp3` (60,05 s) | 0,210 | Malgré le titre et la durée proches, le signal n'est pas suffisamment similaire pour fusionner les fichiers. |
+
+Ces résultats renforcent la règle : les trois M4A restent les masters de référence, mais le MP3 de bienvenue et le MP3 du générique doivent rester des variantes distinctes jusqu'à écoute comparative.
+
 ## Statut de validation
 
 **Contrôle technique effectué ; validation d'écoute éditoriale non terminée.** L'analyse automatique confirme que les fichiers sont décodables et fournit les durées, niveaux et empreintes. Elle ne peut pas, à elle seule, certifier les paroles, la prononciation, la qualité artistique, l'adaptation aux 0–6 ans ni les droits.
