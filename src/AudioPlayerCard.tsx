@@ -7,6 +7,7 @@ type Props = {
   source: string;
   language: 'FR' | 'WO' | 'FR + WO';
   uiLanguage?: 'fr' | 'wo';
+  reviewMode?: boolean;
 };
 
 const formatTime = (seconds: number) => {
@@ -16,21 +17,22 @@ const formatTime = (seconds: number) => {
 };
 
 /** Render only for a master that passed the editorial and rights gate. */
-export default function AudioPlayerCard({ title, source, language, uiLanguage = 'fr' }: Props) {
+export default function AudioPlayerCard({ title, source, language, uiLanguage = 'fr', reviewMode = false }: Props) {
   const player = useAudioPlayer(source, { updateInterval: 500 });
   const status = useAudioPlayerStatus(player);
   const duration = Math.max(0, status.duration || 0);
   const current = Math.min(duration, Math.max(0, status.currentTime || 0));
   const progress = duration > 0 ? (current / duration) * 100 : 0;
   const copy = uiLanguage === 'wo'
-    ? { recorded: 'WOY BU ÑU ENREGISTRE', progress: 'Yoonu woy bi', back: 'Delluwaat ci 10 sekond', forward: 'Dem kanam ci 10 sekond', pause: 'Taxawal tuuti woy bi', listen: 'Déglu woy bi', loading: 'Mi ngi yeb', pauseButton: 'Ⅱ Taxawal' }
-    : { recorded: 'CHANSON ENREGISTRÉE', progress: 'Progression de la chanson', back: 'Reculer de dix secondes', forward: 'Avancer de dix secondes', pause: 'Mettre la chanson en pause', listen: 'Écouter la chanson', loading: 'Chargement…', pauseButton: 'Ⅱ Pause' };
+    ? { recorded: reviewMode ? 'WOY BU ÑU WAR A XAM' : 'WOY BU ÑU ENREGISTRE', reviewNote: 'Woy bi ci seetlu la, ñu ngi ci seetlu ko.', progress: 'Yoonu woy bi', back: 'Delluwaat ci 10 sekond', forward: 'Dem kanam ci 10 sekond', pause: 'Taxawal tuuti woy bi', listen: 'Déglu woy bi', loading: 'Mi ngi yeb', pauseButton: 'Ⅱ Taxawal' }
+    : { recorded: reviewMode ? 'APERÇU À VALIDER' : 'CHANSON ENREGISTRÉE', reviewNote: 'Écoute de contrôle — pas encore validée pour publication.', progress: 'Progression de la chanson', back: 'Reculer de dix secondes', forward: 'Avancer de dix secondes', pause: 'Mettre la chanson en pause', listen: 'Écouter la chanson', loading: 'Chargement…', pauseButton: 'Ⅱ Pause' };
 
   return (
     <View style={styles.card} accessibilityLabel={`${copy.recorded} : ${title}`}>
       <View style={styles.heading}>
         <Text style={styles.kicker}>{copy.recorded} · {language}</Text>
         <Text style={styles.title}>{title}</Text>
+        {reviewMode ? <Text style={styles.reviewNote}>{copy.reviewNote}</Text> : null}
       </View>
       <View
         accessibilityRole="progressbar"
@@ -83,6 +85,7 @@ const styles = StyleSheet.create({
   heading: { marginBottom: 14 },
   kicker: { color: '#806B5D', fontSize: 10, fontWeight: '900', letterSpacing: 0.8 },
   title: { color: '#432B20', fontSize: 17, fontWeight: '900', marginTop: 5 },
+  reviewNote: { color: '#806B5D', fontSize: 12, lineHeight: 16, marginTop: 5 },
   track: { height: 8, borderRadius: 8, overflow: 'hidden', backgroundColor: '#F3E8D6' },
   fill: { height: '100%', backgroundColor: '#27B84A', borderRadius: 8 },
   times: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 6 },
