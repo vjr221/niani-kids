@@ -5,6 +5,7 @@ on:
     branches:
       - build/android-local-gradle
       - audio/review-player-catalog-2026-10-29
+      - audio/master-similarity-player-ui
     paths:
       - '.github/workflows/android-gradle-apk.yml'
       - 'app.json'
