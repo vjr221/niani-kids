@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - build/android-local-gradle
+      - audio/review-player-catalog-2026-10-29
     paths:
       - '.github/workflows/android-gradle-apk.yml'
       - 'app.json'
