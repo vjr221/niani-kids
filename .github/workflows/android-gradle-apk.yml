@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - build/android-local-gradle
+      - audio/prepare-master-integration
     paths:
       - '.github/workflows/android-gradle-apk.yml'
       - 'app.json'
