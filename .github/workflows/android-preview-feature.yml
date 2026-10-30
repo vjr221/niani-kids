@@ -35,6 +35,8 @@ jobs:
   preview:
     name: Validate and build Android preview APK
     runs-on: ubuntu-latest
+    env:
+      EXPO_PUBLIC_AUDIO_REVIEW: "true"
     steps:
       - name: Checkout exact source commit
         uses: actions/checkout@v4

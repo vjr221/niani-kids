@@ -193,13 +193,14 @@ function FavoritesScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:La
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}><Text style={s.pageTitle}>❤️ {translations[lang].favorites}</Text>{contents.filter(x=>favorites.includes(x.id)).map(item=><ContentCard key={item.id} item={item} lang={lang} favorite onFavorite={()=>toggleFavorite(item.id)} onOpen={()=>onOpen(item)}/>)}{!favorites.length&&<View style={s.empty}><Text style={{fontSize:45}}>⭐</Text><Text style={s.cardTitle}>{translations[lang].treasuresHere}</Text><Text style={s.cardSubtitle}>{translations[lang].favoriteHint}</Text></View>}</ScrollView></SafeAreaView>;
 }
 function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
+  const showAudioReview = __DEV__ || process.env.EXPO_PUBLIC_AUDIO_REVIEW === 'true';
   const openInfo = (url:string) => Linking.openURL(url).catch(() => Alert.alert(lang==='fr'?'Lien indisponible':'Link bi amul',lang==='fr'?'Réessaie dans un instant.':'Jéemaat ci kanam.'));
   const label = lang==='fr';
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}>
     <Text style={s.pageTitle}>👨‍👩‍👧 {translations[lang].parentTitle}</Text>
     <View style={s.parentCard}><Text style={{fontSize:42}}>💚</Text><Text style={s.heroTitle}>{translations[lang].parentTogether}</Text><Text style={s.cardSubtitle}>{translations[lang].parentBody}</Text></View>
     <Section title={translations[lang].parentSpaceTitle}/>
-    <AudioReviewPanel lang={lang}/>
+    {showAudioReview ? <AudioReviewPanel lang={lang}/> : null}
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(YOUTUBE)}><Text style={{fontSize:26}}>▶️</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].youtube}</Text><Text style={s.cardSubtitle}>{translations[lang].youtubeSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].opening} ↗</Text></Pressable>
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(TIKTOK)}><Text style={{fontSize:26}}>🎬</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].tiktok}</Text><Text style={s.cardSubtitle}>{translations[lang].tiktokSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(FACEBOOK)}><Text style={{fontSize:26}}>📘</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].facebook}</Text><Text style={s.cardSubtitle}>{translations[lang].facebookSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
