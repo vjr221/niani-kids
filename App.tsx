@@ -116,7 +116,7 @@ function HomeScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Languag
     <Text style={s.footer}>Niani Kids • Chanter, rêver, grandir ❤️</Text>
   </ScrollView></SafeAreaView>;
 }
-function GamesScreen({lang,setLang,stars,setStars}:{lang:Language;setLang:(l:Language)=>void;stars:number;setStars:(n:number)=>void}) {
+function GamesScreen({lang,setLang,stars,setStars}:{lang:Language;setLang:(l:Language)=>void;stars:number;setStars:(update:(current:number)=>number)=>void}) {
   const [game,setGame]=useState<'menu'|'colors'|'count'|'nature'>('menu');
   const [round,setRound]=useState(0); const [feedback,setFeedback]=useState(''); const [answerCorrect,setAnswerCorrect]=useState(false);
   const correctAwardedRef=useRef(false);
@@ -126,7 +126,7 @@ function GamesScreen({lang,setLang,stars,setStars}:{lang:Language;setLang:(l:Lan
     {q:translations[lang].qTomato,emoji:'🍅',options:[['🟡',translations[lang].yellow],['🔴',translations[lang].red],['🟣',translations[lang].violet]],correct:translations[lang].red}
   ];
   const counts=[{q:translations[lang].qMango,emoji:'🥭 🥭',n:2,opts:[1,2,3]},{q:translations[lang].qStars,emoji:'⭐ ⭐ ⭐',n:3,opts:[2,3,4]},{q:translations[lang].qFlowers,emoji:'🌼 🌼 🌼 🌼',n:4,opts:[3,4,5]}];
-  const win=(ok:boolean)=>{if(feedback||correctAwardedRef.current)return;if(ok){correctAwardedRef.current=true;setAnswerCorrect(true);setFeedback(translations[lang].correctFeedback);setStars(stars+1)}else{setAnswerCorrect(false);setFeedback(translations[lang].retryFeedback);}};
+  const win=(ok:boolean)=>{if(feedback||correctAwardedRef.current)return;if(ok){correctAwardedRef.current=true;setAnswerCorrect(true);setFeedback(translations[lang].correctFeedback);setStars(current=>current+1)}else{setAnswerCorrect(false);setFeedback(translations[lang].retryFeedback);}};
   const reset=()=>{correctAwardedRef.current=false;setRound(0);setFeedback('');setAnswerCorrect(false);setGame('menu')};
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}>
     <View style={s.pageIntro}><Text style={{fontSize:34}}>🎮</Text><View style={{flex:1}}><Text style={s.pageTitle}>{translations[lang].gamesTitle}</Text><Text style={s.cardSubtitle}>{translations[lang].gamesIntro}</Text></View><View style={s.starPill}><Text style={{fontWeight:'900'}}>⭐ {stars}</Text></View></View>
@@ -217,7 +217,7 @@ function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}
   </ScrollView></SafeAreaView>;
 }
 export default function App() {
-  const [lang,setLangState]=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [stars,setStarsState]=useState(0); const [selectedItem,setSelectedItem]=useState<ContentItem|null>(null); const [isSpeaking,setIsSpeaking]=useState(false);
+  const [lang,setLangState]=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [stars,setStarsState]=useState(0); const starsRef=useRef(0); const [selectedItem,setSelectedItem]=useState<ContentItem|null>(null); const [isSpeaking,setIsSpeaking]=useState(false);
   const setLang=(next:Language)=>{setLangState(next);AsyncStorage.setItem('niani-language',next).catch(()=>{});};
   useEffect(()=>{if(!selectedItem){Speech.stop();setIsSpeaking(false);} return ()=>{Speech.stop();};},[selectedItem]);
   useEffect(()=>{AsyncStorage.multiGet(['niani-favorites','niani-stars','niani-language']).then(values=>{
@@ -239,12 +239,12 @@ export default function App() {
     }
     if(starsValue!==null){
       const parsedStars=Number(starsValue);
-      if(Number.isFinite(parsedStars)&&parsedStars>=0)setStarsState(Math.floor(parsedStars));
+      if(Number.isFinite(parsedStars)&&parsedStars>=0){const safeStars=Math.floor(parsedStars);starsRef.current=safeStars;setStarsState(safeStars);}
     }
     if(languageValue==='fr'||languageValue==='wo')setLangState(languageValue);
   }).catch(()=>{});},[]);
   const toggleFavorite=(id:string)=>setFavorites(old=>{const next=old.includes(id)?old.filter(x=>x!==id):[...old,id];AsyncStorage.setItem('niani-favorites',JSON.stringify(next)).catch(()=>{});return next});
-  const setStars=(n:number)=>{setStarsState(n);AsyncStorage.setItem('niani-stars',String(n)).catch(()=>{})};
+  const setStars=(update:(current:number)=>number)=>{const next=Math.max(0,Math.floor(update(starsRef.current)));starsRef.current=next;setStarsState(next);AsyncStorage.setItem('niani-stars',String(next)).catch(()=>{});};
   const onOpen=(item:ContentItem)=>setSelectedItem(item);
   return <NavigationContainer><StatusBar barStyle="dark-content" backgroundColor={C.cream}/><Tab.Navigator screenOptions={{headerShown:false,tabBarActiveTintColor:C.orange,tabBarInactiveTintColor:C.muted,tabBarStyle:{minHeight:64,paddingTop:6,paddingBottom:8,backgroundColor:'#fff',borderTopColor:'#F3E8D6'},tabBarLabelStyle:{fontWeight:'800',fontSize:10},tabBarHideOnKeyboard:true}}>
     <Tab.Screen name="Accueil" options={{tabBarLabel:translations[lang].home,tabBarAccessibilityLabel:translations[lang].home,tabBarIcon:({color})=><Text style={{fontSize:19}}>🏡</Text>}}>{()=> <HomeScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen>
