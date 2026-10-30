@@ -16,7 +16,7 @@ const formatTime = (seconds: number) => {
   return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`;
 };
 
-/** Render only for a master that passed the editorial and rights gate. */
+/** Published playback requires approval; reviewMode is reserved for the parent-gated QA panel. */
 export default function AudioPlayerCard({ title, source, language, uiLanguage = 'fr', reviewMode = false }: Props) {
   const player = useAudioPlayer(source, { updateInterval: 500 });
   const status = useAudioPlayerStatus(player);
