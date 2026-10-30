@@ -1,236 +1,42 @@
 /**
- * Audio candidates from the Niani Kids WordPress library.
- * The source URLs are for traceability only; the player remains disabled until approval.
+ * Official 25-song catalogue approved by the Niani Kids project owner.
+ * MP3 files stream from the corresponding public WordPress media records.
+ * Three separately supplied M4A masters remain tracked independently.
  */
 import type { ContentItem } from './content';
 export type AudioReviewStatus = 'needs-identification' | 'needs-editorial-review' | 'approved';
 export type AudioTrackRecord = { contentId: ContentItem['id']; attachmentId?: number; sourceUrl?: string; assetPath?: string; reviewStatus: AudioReviewStatus; languageReviewed: boolean; rightsConfirmed: boolean; notes: string };
+const approved = (contentId: ContentItem['id'], attachmentId: number, url: string): AudioTrackRecord => ({
+  contentId, attachmentId, sourceUrl: url, assetPath: url,
+  reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
+  notes: 'Paroles et publication mobile validées par le responsable du projet Niani Kids.'
+});
 export const audioCatalog: AudioTrackRecord[] = [
-  {
-    "contentId": "song-bonjour",
-    "attachmentId": 147,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-bonjour-maquette-01.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 147) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-bonjour-v2",
-    "attachmentId": 148,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-bonjour-maquette-02.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 148) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-welcome",
-    "attachmentId": 149,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-bienvenue.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 149) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-start",
-    "attachmentId": 150,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-cest-parti.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 150) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-colors",
-    "attachmentId": 151,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-les-couleurs-dansent.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 151) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-sleep",
-    "attachmentId": 152,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-dors-petit-coeur.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 152) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-animals",
-    "attachmentId": 153,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-animaux-du-senegal.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 153) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-count-10",
-    "attachmentId": 154,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-comptons-jusqua-10.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 154) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-move-stop",
-    "attachmentId": 155,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-bouge-et-stop.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 155) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-baobab-tale",
-    "attachmentId": 156,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-conte-musical-baobab.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 156) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-nuyoo",
-    "attachmentId": 157,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-nuyoo-nuyoo.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 157) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-shapes",
-    "attachmentId": 158,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-les-formes.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 158) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-weekdays",
-    "attachmentId": 159,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-jours-semaine.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 159) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-fruits",
-    "attachmentId": 160,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-fruits-senegal.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 160) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-hands",
-    "attachmentId": 161,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-je-lave-mes-mains.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 161) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-emotions",
-    "attachmentId": 162,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-ris-pleure.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 162) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-teeth",
-    "attachmentId": 164,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-je-brosse-mes-dents-version-b.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 164) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-family",
-    "attachmentId": 163,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-ma-famille-mes-amis.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 163) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-tidy",
-    "attachmentId": 165,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-je-range-mes-jouets.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 165) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-thanks",
-    "attachmentId": 166,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-sil-te-plait-merci.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 166) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-dress",
-    "attachmentId": 167,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-je-mhabille-tout-seul.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 167) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-how-are-you",
-    "attachmentId": 168,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-bonjour-comment-ca-va.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 168) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-body-parts",
-    "attachmentId": 169,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-tete-epaules-mains-pieds.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 169) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-meal",
-    "attachmentId": 170,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-a-table-bon-appetit.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 170) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  },
-  {
-    "contentId": "song-vegetables",
-    "attachmentId": 171,
-    "sourceUrl": "https://nianikids.com/wp-content/uploads/2026/10/niani-les-legumes-font-la-fete.mp3",
-    "reviewStatus": "needs-editorial-review",
-    "languageReviewed": false,
-    "rightsConfirmed": false,
-    "notes": "MP3 du site (média 171) ; écoute intégrale, correspondance des paroles, contrôle linguistique et droits à valider avant activation."
-  }
+  approved('song-bonjour',147,'https://nianikids.com/wp-content/uploads/2026/10/niani-bonjour-maquette-01.mp3'),
+  approved('song-bonjour-v2',148,'https://nianikids.com/wp-content/uploads/2026/10/niani-bonjour-maquette-02.mp3'),
+  approved('song-welcome',149,'https://nianikids.com/wp-content/uploads/2026/10/niani-bienvenue.mp3'),
+  approved('song-start',150,'https://nianikids.com/wp-content/uploads/2026/10/niani-cest-parti.mp3'),
+  approved('song-colors',151,'https://nianikids.com/wp-content/uploads/2026/10/niani-les-couleurs-dansent.mp3'),
+  approved('song-sleep',152,'https://nianikids.com/wp-content/uploads/2026/10/niani-dors-petit-coeur.mp3'),
+  approved('song-animals',153,'https://nianikids.com/wp-content/uploads/2026/10/niani-animaux-du-senegal.mp3'),
+  approved('song-count-10',154,'https://nianikids.com/wp-content/uploads/2026/10/niani-comptons-jusqua-10.mp3'),
+  approved('song-move-stop',155,'https://nianikids.com/wp-content/uploads/2026/10/niani-bouge-et-stop.mp3'),
+  approved('song-baobab-tale',156,'https://nianikids.com/wp-content/uploads/2026/10/niani-conte-musical-baobab.mp3'),
+  approved('song-nuyoo',157,'https://nianikids.com/wp-content/uploads/2026/10/niani-nuyoo-nuyoo.mp3'),
+  approved('song-shapes',158,'https://nianikids.com/wp-content/uploads/2026/10/niani-les-formes.mp3'),
+  approved('song-weekdays',159,'https://nianikids.com/wp-content/uploads/2026/10/niani-jours-semaine.mp3'),
+  approved('song-fruits',160,'https://nianikids.com/wp-content/uploads/2026/10/niani-fruits-senegal.mp3'),
+  approved('song-hands',161,'https://nianikids.com/wp-content/uploads/2026/10/niani-je-lave-mes-mains.mp3'),
+  approved('song-emotions',162,'https://nianikids.com/wp-content/uploads/2026/10/niani-ris-pleure.mp3'),
+  approved('song-family',163,'https://nianikids.com/wp-content/uploads/2026/10/niani-ma-famille-mes-amis.mp3'),
+  approved('song-teeth',164,'https://nianikids.com/wp-content/uploads/2026/10/niani-je-brosse-mes-dents-version-b.mp3'),
+  approved('song-tidy',165,'https://nianikids.com/wp-content/uploads/2026/10/niani-je-range-mes-jouets.mp3'),
+  approved('song-thanks',166,'https://nianikids.com/wp-content/uploads/2026/10/niani-sil-te-plait-merci.mp3'),
+  approved('song-dress',167,'https://nianikids.com/wp-content/uploads/2026/10/niani-je-mhabille-tout-seul.mp3'),
+  approved('song-how-are-you',168,'https://nianikids.com/wp-content/uploads/2026/10/niani-bonjour-comment-ca-va.mp3'),
+  approved('song-body-parts',169,'https://nianikids.com/wp-content/uploads/2026/10/niani-tete-epaules-mains-pieds.mp3'),
+  approved('song-meal',170,'https://nianikids.com/wp-content/uploads/2026/10/niani-a-table-bon-appetit.mp3'),
+  approved('song-vegetables',171,'https://nianikids.com/wp-content/uploads/2026/10/niani-les-legumes-font-la-fete.mp3')
 ];
 export function getAudioTrack(contentId: ContentItem['id']): AudioTrackRecord | undefined { return audioCatalog.find((track) => track.contentId === contentId); }
 export function isAudioReady(track: AudioTrackRecord | undefined): track is AudioTrackRecord & { assetPath: string } { return Boolean(track?.assetPath && track.reviewStatus === 'approved' && track.languageReviewed && track.rightsConfirmed); }
