@@ -235,7 +235,7 @@ function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}
 export default function App() {
   const [lang,setLangState]=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [stars,setStarsState]=useState(0); const [selectedItem,setSelectedItem]=useState<ContentItem|null>(null); const [isSpeaking,setIsSpeaking]=useState(false);
   const setLang=(next:Language)=>{setLangState(next);AsyncStorage.setItem('niani-language',next).catch(()=>{});};
-  useEffect(()=>{if(!selectedItem){Speech.stop();setIsSpeaking(false);} return ()=>{Speech.stop();};},[selectedItem]);
+  useEffect(()=>{Speech.stop();setIsSpeaking(false);return ()=>{Speech.stop();};},[selectedItem?.id]);
   useEffect(()=>{AsyncStorage.multiGet(['niani-favorites','niani-stars','niani-language']).then(values=>{
     const favoritesValue=values[0][1];
     const starsValue=values[1][1];
