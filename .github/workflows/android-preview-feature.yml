@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - feat/audio-review-preview-2026-10-30
       - feat/niani-kids-modernization-oct-2026
       - feat/niani-media-library-integration-oct-2026
       - feat/senegal-home-and-app-polish
