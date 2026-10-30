@@ -24,6 +24,18 @@ Un actif préexistant du workspace ElevenLabs, `Niani Kids - extrait test 18 sec
 Ce fichier n'a pas été identifié comme l'un des 29 MP3 ou des trois M4A ; ce n'est pas une preuve de transcription d'une chanson du ZIP. La fin diffère du texte du DOCX (« nous émerveille »). Conserver les deux formulations en attente de vérification réelle, sans corriger la source.
 Coût réel de cette transcription : 99 crédits. Trois autres essais de transcription ont échoué pour quota insuffisant ; ne pas relancer de jobs facturés sans budget connu.
 
+## Dérivés AAC-LC pour essai du lecteur mobile
+
+Trois copies de test ont été créées à partir des masters Opus, sans remplacer les sources :
+
+| Master source | Dérivé AAC-LC | Durée dérivée | SHA-256 dérivé |
+|---|---|---:|---|
+| `01 Bonjour Bonjour les amis.m4a` | `01_Bonjour_Bonjour_les_amis_AAC-LC.m4a` | 144,813 s | `6c9e262898bc52642e469a35febb074f1fde97c817ef33f371886e28491406c9` |
+| `02 — Bienvenue chez Niani Kids.m4a` | `02_Bienvenue_chez_Niani_Kids_AAC-LC.m4a` | 60,013 s | `7e577f7d9ee82bfeb1ff71762161a7a9fbf80e0e376d6842829e19ac22677b96` |
+| `03 - NIANI! NIANI! — ÑU NGI FII!.m4a` | `03_NIANI_NIANI_NU_NGI_FII_AAC-LC.m4a` | 60,013 s | `ec89ccc9799641c180c3768f9be3c2a04a883658f1b471244d80db87cfd8b99c` |
+
+Encodage AAC-LC, stéréo, 48 kHz, cible 192 kbit/s avec métadonnées conservées et `faststart`. Les trois dérivés ont été décodés par FFmpeg sans erreur. Le test d'écoute dans l'application sur des appareils réels Android/iOS reste à faire. Les fichiers dérivés ne sont pas des masters éditoriaux validés.
+
 ## Statuts d'approbation
 - Vérification de décodage, formats, durées, empreintes, doublon : terminée.
 - Écoute perceptive intégrale des 29 MP3 et des 3 M4A : non réalisée.
