@@ -1,0 +1,83 @@
+name: Niani Kids - Official Android APK Release
+
+on:
+  workflow_run:
+    workflows: ["Niani Kids - Quality Check"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: niani-kids-official-android-release
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript validation
+        run: npx tsc --noEmit
+
+      - name: Install EAS CLI
+        run: npm install --global eas-cli
+
+      - name: Verify Expo authentication
+        env:
+          EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
+        run: eas whoami
+
+      - name: Build signed installable Android APK
+        env:
+          EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
+        run: eas build --platform android --profile production-apk --non-interactive --wait
+
+      - name: Download APK from EAS
+        env:
+          EXPO_TOKEN: ${{ secrets.EAS_TOKEN }}
+        run: eas build:download --platform android --latest --path ./Niani-Kids.apk
+
+      - name: Verify APK and calculate SHA-256
+        id: apk
+        run: |
+          test -s ./Niani-Kids.apk
+          echo "sha256=$(sha256sum ./Niani-Kids.apk | cut -d ' ' -f 1)" >> "$GITHUB_OUTPUT"
+          echo "version=$(node -p "require('./app.json').expo.version")" >> "$GITHUB_OUTPUT"
+
+      - name: Publish official GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: android-v${{ steps.apk.outputs.version }}
+          name: Niani Kids Android v${{ steps.apk.outputs.version }}
+          target_commitish: main
+          generate_release_notes: true
+          make_latest: true
+          files: ./Niani-Kids.apk
+          body: |
+            Official installable Android APK for Niani Kids.
+
+            - Version: v${{ steps.apk.outputs.version }}
+            - Package: sn.nianikids.app
+            - SHA-256: ${{ steps.apk.outputs.sha256 }}
+
+            Download Niani-Kids.apk and install it on a compatible Android device.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
