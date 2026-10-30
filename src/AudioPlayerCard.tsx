@@ -44,7 +44,8 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
         <Text style={styles.time}>{formatTime(current)}</Text>
         <Text style={styles.time}>{formatTime(duration)}</Text>
       </View>
-      {status.didJustFinish ? <Text accessibilityLiveRegion="polite" style={styles.finished}>{copy.finished}</Text> : null}\n      <View style={styles.controls}>
+      {status.didJustFinish ? <Text accessibilityLiveRegion="polite" style={styles.finished}>{copy.finished}</Text> : null}
+      <View style={styles.controls}>
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={copy.back}
@@ -87,7 +88,8 @@ const styles = StyleSheet.create({
   fill: { height: '100%', backgroundColor: '#27B84A', borderRadius: 8 },
   times: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 6 },
   time: { color: '#806B5D', fontSize: 12, fontVariant: ['tabular-nums'] },
-  finished: { color: '#226D3C', fontSize: 13, fontWeight: '800', textAlign: 'center', marginTop: 12 },\n  controls: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 14 },
+  finished: { color: '#226D3C', fontSize: 13, fontWeight: '800', textAlign: 'center', marginTop: 12 },
+  controls: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 14 },
   skip: { minHeight: 44, minWidth: 54, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFF7D6', borderRadius: 14, paddingHorizontal: 8 },
   skipText: { color: '#432B20', fontWeight: '800' },
   play: { minHeight: 48, minWidth: 132, alignItems: 'center', justifyContent: 'center', backgroundColor: '#27B84A', borderRadius: 16, paddingHorizontal: 16 },
