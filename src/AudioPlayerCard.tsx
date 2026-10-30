@@ -7,6 +7,7 @@ type Props = {
   source: string;
   language: 'FR' | 'WO' | 'FR + WO';
   uiLanguage?: 'fr' | 'wo';
+  reviewMode?: boolean;
 };
 
 const formatTime = (seconds: number) => {
@@ -15,8 +16,8 @@ const formatTime = (seconds: number) => {
   return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`;
 };
 
-/** Render only for a master that passed the editorial and rights gate. */
-export default function AudioPlayerCard({ title, source, language, uiLanguage = 'fr' }: Props) {
+/** Published playback requires approval; reviewMode is reserved for the parent-gated QA panel. */
+export default function AudioPlayerCard({ title, source, language, uiLanguage = 'fr', reviewMode = false }: Props) {
   const player = useAudioPlayer(source, { updateInterval: 500 });
   const status = useAudioPlayerStatus(player);
   const duration = Math.max(0, status.duration || 0);
@@ -27,9 +28,9 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
     : { recorded: 'CHANSON ENREGISTRÉE', progress: 'Progression de la chanson', back: 'Reculer de dix secondes', forward: 'Avancer de dix secondes', pause: 'Mettre la chanson en pause', listen: 'Écouter la chanson', loading: 'Chargement…', pauseButton: 'Ⅱ Pause' };
 
   return (
-    <View style={styles.card} accessibilityLabel={`${copy.recorded} : ${title}`}>
+    <View style={styles.card} accessibilityLabel={`${reviewMode ? 'Préécoute de contrôle non publiée' : copy.recorded} : ${title}`}>
       <View style={styles.heading}>
-        <Text style={styles.kicker}>{copy.recorded} · {language}</Text>
+        <Text style={styles.kicker}>{reviewMode ? 'PRÉÉCOUTE DE CONTRÔLE · NON PUBLIÉE' : copy.recorded} · {language}</Text>
         <Text style={styles.title}>{title}</Text>
       </View>
       <View
@@ -74,6 +75,7 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
           <Text style={styles.skipText}>+10 s</Text>
         </Pressable>
       </View>
+      {reviewMode ? <Text style={styles.reviewNote}>Écoute réservée au contrôle éditorial. Cette piste reste en attente de validation et n’est pas publiée dans la bibliothèque enfant.</Text> : null}
     </View>
   );
 }
@@ -90,7 +92,8 @@ const styles = StyleSheet.create({
   controls: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 14 },
   skip: { minHeight: 44, minWidth: 54, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFF7D6', borderRadius: 14, paddingHorizontal: 8 },
   skipText: { color: '#432B20', fontWeight: '800' },
-  play: { minHeight: 48, minWidth: 132, alignItems: 'center', justifyContent: 'center', backgroundColor: '#27B84A', borderRadius: 16, paddingHorizontal: 16 },
-  playText: { color: '#FFFFFF', fontWeight: '900' },
+  play: { flex: 1, minHeight: 60, minWidth: 148, alignItems: 'center', justifyContent: 'center', backgroundColor: '#27B84A', borderRadius: 18, paddingHorizontal: 12, elevation: 2 },
+  playText: { color: '#FFFFFF', fontWeight: '900', fontSize: 15, letterSpacing: 0.2 },
+  reviewNote: { color: '#806B5D', fontSize: 12, lineHeight: 17, marginTop: 12 },
   disabled: { opacity: 0.55 },
 });

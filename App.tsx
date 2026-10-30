@@ -8,6 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { contents, ContentItem } from './src/content';
 import { Language, translations } from './src/i18n';
 import AudioPlayerCard from './src/AudioPlayerCard';
+import AudioReviewPanel from './src/AudioReviewPanel';
 import { getAudioTrack, isAudioReady } from './src/audioCatalog';
 import { learningThemes, workshopLibrary, eightWeekPath, activityGuides } from './src/program';
 
@@ -198,6 +199,7 @@ function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}
     <Text style={s.pageTitle}>👨‍👩‍👧 {translations[lang].parentTitle}</Text>
     <View style={s.parentCard}><Text style={{fontSize:42}}>💚</Text><Text style={s.heroTitle}>{translations[lang].parentTogether}</Text><Text style={s.cardSubtitle}>{translations[lang].parentBody}</Text></View>
     <Section title={translations[lang].parentSpaceTitle}/>
+    <AudioReviewPanel lang={lang}/>
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(YOUTUBE)}><Text style={{fontSize:26}}>▶️</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].youtube}</Text><Text style={s.cardSubtitle}>{translations[lang].youtubeSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].opening} ↗</Text></Pressable>
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(TIKTOK)}><Text style={{fontSize:26}}>🎬</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].tiktok}</Text><Text style={s.cardSubtitle}>{translations[lang].tiktokSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(FACEBOOK)}><Text style={{fontSize:26}}>📘</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].facebook}</Text><Text style={s.cardSubtitle}>{translations[lang].facebookSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
