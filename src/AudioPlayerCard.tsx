@@ -23,8 +23,8 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
   const current = Math.min(duration, Math.max(0, status.currentTime || 0));
   const progress = duration > 0 ? (current / duration) * 100 : 0;
   const copy = uiLanguage === 'wo'
-    ? { recorded: 'WOY BU ÑU ENREGISTRE', progress: 'Yoonu woy bi', back: 'Delluwaat ci 10 sekond', forward: 'Dem kanam ci 10 sekond', pause: 'Taxawal tuuti woy bi', listen: 'Déglu woy bi', loading: 'Mi ngi yeb', pauseButton: 'Ⅱ Taxawal' }
-    : { recorded: 'CHANSON ENREGISTRÉE', progress: 'Progression de la chanson', back: 'Reculer de dix secondes', forward: 'Avancer de dix secondes', pause: 'Mettre la chanson en pause', listen: 'Écouter la chanson', loading: 'Chargement…', pauseButton: 'Ⅱ Pause' };
+    ? { recorded: 'WOY BU ÑU ENREGISTRE', progress: 'Yoonu woy bi', back: 'Delluwaat ci 10 sekond', forward: 'Dem kanam ci 10 sekond', pause: 'Taxawal tuuti woy bi', listen: 'Déglu woy bi', loading: 'Mi ngi yeb', pauseButton: 'Ⅱ Taxawal', replay: 'Déglu waat', finished: 'Woy bi jeex na' }
+    : { recorded: 'CHANSON ENREGISTRÉE', progress: 'Progression de la chanson', back: 'Reculer de dix secondes', forward: 'Avancer de dix secondes', pause: 'Mettre la chanson en pause', listen: 'Écouter la chanson', loading: 'Chargement…', pauseButton: 'Ⅱ Pause', replay: 'Réécouter', finished: 'Chanson terminée' };
 
   return (
     <View style={styles.card} accessibilityLabel={`${copy.recorded} : ${title}`}>
@@ -44,7 +44,7 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
         <Text style={styles.time}>{formatTime(current)}</Text>
         <Text style={styles.time}>{formatTime(duration)}</Text>
       </View>
-      <View style={styles.controls}>
+      {status.didJustFinish ? <Text accessibilityLiveRegion="polite" style={styles.finished}>{copy.finished}</Text> : null}\n      <View style={styles.controls}>
         <Pressable
           accessibilityRole="button"
           accessibilityLabel={copy.back}
@@ -56,13 +56,13 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
         </Pressable>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={status.playing ? copy.pause : copy.listen}
+          accessibilityLabel={status.playing ? copy.pause : status.didJustFinish ? copy.replay : copy.listen}
           accessibilityState={{ disabled: !status.isLoaded }}
           disabled={!status.isLoaded}
           onPress={() => { if (status.playing) { player.pause(); } else if (status.didJustFinish) { void player.seekTo(0).then(() => player.play()); } else { player.play(); } }}
           style={[styles.play, !status.isLoaded && styles.disabled]}
         >
-          <Text style={styles.playText}>{status.playing ? copy.pauseButton : status.isLoaded ? `▶ ${copy.listen}` : copy.loading}</Text>
+          <Text style={styles.playText}>{status.playing ? copy.pauseButton : status.isLoaded ? (status.didJustFinish ? `↻ ${copy.replay}` : `▶ ${copy.listen}`) : copy.loading}</Text>
         </Pressable>
         <Pressable
           accessibilityRole="button"
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   fill: { height: '100%', backgroundColor: '#27B84A', borderRadius: 8 },
   times: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 6 },
   time: { color: '#806B5D', fontSize: 12, fontVariant: ['tabular-nums'] },
-  controls: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 14 },
+  finished: { color: '#226D3C', fontSize: 13, fontWeight: '800', textAlign: 'center', marginTop: 12 },\n  controls: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 14 },
   skip: { minHeight: 44, minWidth: 54, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFF7D6', borderRadius: 14, paddingHorizontal: 8 },
   skipText: { color: '#432B20', fontWeight: '800' },
   play: { minHeight: 48, minWidth: 132, alignItems: 'center', justifyContent: 'center', backgroundColor: '#27B84A', borderRadius: 16, paddingHorizontal: 16 },
