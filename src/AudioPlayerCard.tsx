@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
   controls: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 14 },
   skip: { minHeight: 44, minWidth: 54, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFF7D6', borderRadius: 14, paddingHorizontal: 8 },
   skipText: { color: '#432B20', fontWeight: '800' },
-  play: { minHeight: 48, minWidth: 132, alignItems: 'center', justifyContent: 'center', backgroundColor: '#27B84A', borderRadius: 16, paddingHorizontal: 16 },
-  playText: { color: '#FFFFFF', fontWeight: '900' },
+  play: { flex: 1, minHeight: 60, minWidth: 148, alignItems: 'center', justifyContent: 'center', backgroundColor: '#27B84A', borderRadius: 18, paddingHorizontal: 12, elevation: 2 },
+  playText: { color: '#FFFFFF', fontWeight: '900', fontSize: 15, letterSpacing: 0.2 },
   reviewNote: { color: '#806B5D', fontSize: 12, lineHeight: 17, marginTop: 12 },
   disabled: { opacity: 0.55 },
 });
