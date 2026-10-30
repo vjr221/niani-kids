@@ -7,7 +7,7 @@
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "scheme": "nianikids",
-    "icon": "./assets/brand/app-icon-source.png",
+    "icon": "./assets/brand/ app-icon-source.png",
     "splash": {
       "image": "./assets/brand/logo-transparent.png",
       "imageWidth": 220,
@@ -18,7 +18,7 @@
       "package": "sn.nianikids.app",
       "versionCode": 2,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/brand/app-icon-source.png",
+        "foregroundImage": "./assets/brand/ app-icon-source.png",
         "backgroundColor": "#FFF7D6"
       }
     },
