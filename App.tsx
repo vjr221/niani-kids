@@ -143,9 +143,37 @@ function GamesScreen({lang,setLang,stars,setStars}:{lang:Language;setLang:(l:Lan
 }
 function WorkshopsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
   const [done,setDone]=useState<string[]>([]);
+  const [progressLoaded,setProgressLoaded]=useState(false);
+  const saveQueue=useRef<Promise<void>>(Promise.resolve());
   const workshopIds=['colors','drum','baobab','story','movement'];
-  useEffect(()=>{AsyncStorage.getItem('niani-workshops-done').then(v=>{if(!v)return;const parsed:unknown=JSON.parse(v);if(Array.isArray(parsed))setDone([...new Set(parsed.filter((id):id is string=>typeof id==='string'&&workshopIds.includes(id)))])}).catch(()=>{});},[]);
-  const toggleDone=(id:string)=>setDone(old=>{const next=old.includes(id)?old.filter(x=>x!==id):[...old,id];AsyncStorage.setItem('niani-workshops-done',JSON.stringify(next)).catch(()=>{});return next});
+  useEffect(()=>{
+    let active=true;
+    AsyncStorage.getItem('niani-workshops-done').then(value=>{
+      if(!active||!value)return;
+      try{
+        const parsed:unknown=JSON.parse(value);
+        if(Array.isArray(parsed)){
+          const valid=parsed.filter((id):id is string=>typeof id==='string'&&workshopIds.includes(id));
+          setDone([...new Set(valid)]);
+        }
+      }catch{
+        // Invalid local progress is ignored; the workshop screen remains usable.
+      }
+    }).catch(()=>{
+      // Storage may be temporarily unavailable; keep the screen usable.
+    }).finally(()=>{if(active)setProgressLoaded(true);});
+    return ()=>{active=false;};
+  },[]);
+  const toggleDone=(id:string)=>setDone(old=>{
+    if(!progressLoaded||!workshopIds.includes(id))return old;
+    const next=old.includes(id)?old.filter(x=>x!==id):[...old,id];
+    // Serialize writes so rapid taps cannot let an older save overwrite a newer one.
+    saveQueue.current=saveQueue.current
+      .catch(()=>{})
+      .then(()=>AsyncStorage.setItem('niani-workshops-done',JSON.stringify(next)))
+      .catch(()=>{});
+    return next;
+  });
   const workshops=[
     {id:'colors',emoji:'🎨',title:translations[lang].workshopColorsTitle,age:translations[lang].workshopColorsAge,desc:translations[lang].workshopColorsDesc,materials:translations[lang].workshopColorsMaterials,steps:[translations[lang].workshopColorsStep1,translations[lang].workshopColorsStep2,translations[lang].workshopColorsStep3]},
     {id:'drum',emoji:'🥁',title:translations[lang].workshopDrumTitle,age:translations[lang].workshopDrumAge,desc:translations[lang].workshopDrumDesc,materials:translations[lang].workshopDrumMaterials,steps:[translations[lang].workshopDrumStep1,translations[lang].workshopDrumStep2,translations[lang].workshopDrumStep3]},
@@ -156,7 +184,9 @@ function WorkshopsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>voi
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}>
     <View style={s.pageIntro}><Text style={{fontSize:35}}>🎨</Text><View style={{flex:1}}><Text style={s.pageTitle}>{translations[lang].workshopTitle}</Text><Text style={s.cardSubtitle}>{translations[lang].workshopIntro}</Text></View></View>
     <View style={s.parentHint}>{translations[lang].workshopSafety}</View>
-    {workshops.map(w=><View key={w.id} style={s.workshop}><View style={s.workshopHead}><Text style={{fontSize:38}}>{w.emoji}</Text><View style={{flex:1}}><Text style={s.cardTitle}>{w.title}</Text><Text style={s.workshopAge}>{w.age}</Text></View><Pressable accessibilityRole="checkbox" accessibilityLabel={`Atelier terminé : ${w.title}`} accessibilityState={{checked:done.includes(w.id)}} hitSlop={8} onPress={()=>toggleDone(w.id)}><Text style={{fontSize:24}}>{done.includes(w.id)?'✅':'⭕'}</Text></Pressable></View><Text style={s.cardSubtitle}>{w.desc}</Text><Text style={s.materials}>🧺 {translations[lang].workshopMaterials} : {w.materials}</Text><Text style={s.stepsTitle}>{translations[lang].workshopSteps}</Text>{w.steps.map((x,i)=><Text key={x} style={s.stepText}>{i+1}. {x}</Text>)}</View>)}
+    <View style={s.starPill}><Text style={{fontWeight:'900',color:C.ink}}>{lang==='fr'?`Progression : ${done.length}/${workshops.length} ateliers terminés`:`Yoonu jëf : ${done.length}/${workshops.length} atelier yi jeex`}</Text></View>
+    {!progressLoaded?<Text style={s.cardSubtitle}>{lang==='fr'?'Récupération de ta progression…':'Ñu ngi delloo sa yoonu jëf…'}</Text>:null}
+    {workshops.map(w=><View key={w.id} style={s.workshop}><View style={s.workshopHead}><Text style={{fontSize:38}}>{w.emoji}</Text><View style={{flex:1}}><Text style={s.cardTitle}>{w.title}</Text><Text style={s.workshopAge}>{w.age}</Text></View><Pressable disabled={!progressLoaded} accessibilityRole="checkbox" accessibilityLabel={`Atelier terminé : ${w.title}`} accessibilityState={{checked:done.includes(w.id),disabled:!progressLoaded}} hitSlop={8} onPress={()=>toggleDone(w.id)}><Text style={{fontSize:24,opacity:progressLoaded?1:0.45}}>{done.includes(w.id)?'✅':'⭕'}</Text></Pressable></View><Text style={s.cardSubtitle}>{w.desc}</Text><Text style={s.materials}>🧺 {translations[lang].workshopMaterials} : {w.materials}</Text><Text style={s.stepsTitle}>{translations[lang].workshopSteps}</Text>{w.steps.map((x,i)=><Text key={x} style={s.stepText}>{i+1}. {x}</Text>)}</View>)}
     <Text style={s.footer}>{translations[lang].workshopFooter}</Text>
   </ScrollView></SafeAreaView>;
 }
