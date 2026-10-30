@@ -44,6 +44,28 @@
 | Bienvenue | `02 — Bienvenue chez Niani Kids.m4a` | 60 s | Référence séparée; identification à comparer au candidat « Bienvenue » de 81 s |
 | Thème | `03 - NIANI! NIANI! — ÑU NGI FII!.m4a` | 60 s | Référence séparée; titre distinct du catalogue officiel de 25 versions |
 
+## Contrôle technique complémentaire du ZIP « Chansons Niani kids.zip »
+
+Contrôle du lot original effectué le 29 octobre 2026 :
+- 29 fichiers MP3 ; 28 empreintes SHA-256 uniques.
+- Doublon exact : `Les couleurs dansent.mp3` et `Les couleurs dansent (2).mp3`.
+- MP3 : stéréo, 48 kHz ; durées mesurées de 60,05 à 147,24 secondes.
+- Niveaux moyens mesurés d'environ -18,3 à -14,0 dBFS ; crêtes jusqu'à 0,0 dBFS. Ces valeurs sont des alertes techniques à écouter, pas une validation de qualité sonore.
+- Quelques pistes présentent un silence détectable de plus d'une seconde en fin de fichier ; vérifier les fins à l'écoute pour exclure une coupure de syllabe ou de musique.
+
+### Comparaison des trois masters séparés avec les exports MP3
+
+Comparaison automatique de l'enveloppe audio décodée (indice de similarité, pas une écoute) :
+
+| Master de référence | MP3 candidat | Similarité | Conclusion |
+|---|---|---:|---|
+| `01 Bonjour Bonjour les amis.m4a` (144,8 s) | `Bonjour Bonjour Niani kids.mp3` (144,84 s) | 0,977 | Très forte ressemblance ; probablement le même rendu exporté dans un autre format. Garder le M4A comme master prioritaire. |
+| Même master Bonjour | `Bonjour Bonjour Niani (Remix).mp3` (147,24 s) | 0,148 | Ne pas assimiler automatiquement au master. |
+| `02 — Bienvenue chez Niani Kids.m4a` (60 s) | `Bienvenue chez Niani Kids V2.mp3` (81,02 s) | 0,143 | Durée et signal différents ; conserver comme variante séparée. |
+| `03 - NIANI! NIANI! — ÑU NGI FII!.m4a` (60 s) | `NIANI! NIANI! — ÑU NGI FII!.mp3` (60,05 s) | 0,210 | Malgré le nom et la durée proches, conserver les deux fichiers séparés jusqu'à écoute comparative. |
+
+Le contrôle technique ne confirme ni les paroles exactes, ni la prononciation wolof, ni les droits. Les masters restent distincts des 25 candidats de préécoute.
+ 
 ## Règles de validation
 1. Écouter chaque candidat avec le lecteur de contrôle et comparer les paroles entendues au DOCX officiel.
 2. Faire relire toute phrase wolof par une personne native/compétente.

@@ -5,13 +5,16 @@ on:
     branches:
       - build/android-local-gradle
       - audio/review-player-catalog-2026-10-29
+      - audio/master-similarity-player-ui
     paths:
       - '.github/workflows/android-gradle-apk.yml'
       - 'app.json'
       - 'package.json'
       - 'package-lock.json'
+      - 'App.tsx'
       - 'app/**'
       - 'src/**'
+      - 'scripts/**'
       - 'assets/**'
   workflow_dispatch:
 
@@ -44,6 +47,9 @@ jobs:
 
       - name: TypeScript check
         run: npx tsc --noEmit
+
+      - name: Validate audio catalog publication gates
+        run: node scripts/validate-audio-catalog.mjs
 
       - name: Generate native Android project
         run: npx expo prebuild --platform android --clean --no-install
