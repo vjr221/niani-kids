@@ -29,10 +29,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate Expo configuration and TypeScript
+      - name: Validate Expo configuration, code and content
         run: |
           npx expo install --check
           npx tsc --noEmit
+          node scripts/validate-translations.mjs
+          node scripts/validate-content.mjs
+          node scripts/audit-wolof-content.mjs
+          node scripts/audit-wolof-program.mjs
+          node scripts/validate-audio-catalog.mjs
 
       - name: Install EAS CLI
         run: npm install --global eas-cli
@@ -57,9 +62,12 @@ jobs:
         shell: bash
         run: |
           test -s ./Niani-Kids.apk
-          echo "sha256=$(sha256sum ./Niani-Kids.apk | cut -d ' ' -f 1)" >> "$GITHUB_OUTPUT"
-          echo "version=$(node -p "require('./app.json').expo.version")" >> "$GITHUB_OUTPUT"
-          echo "version_code=$(node -p "require('./app.json').expo.android.versionCode")" >> "$GITHUB_OUTPUT"
+          version=$(node -p "require('./app.json').expo.version")
+          version_code=$(node -p "require('./app.json').expo.android.versionCode")
+          sha256=$(sha256sum ./Niani-Kids.apk | cut -d ' ' -f 1)
+          echo "sha256=$sha256" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "version_code=$version_code" >> "$GITHUB_OUTPUT"
 
       - name: Publish official GitHub release
         uses: softprops/action-gh-release@v2
