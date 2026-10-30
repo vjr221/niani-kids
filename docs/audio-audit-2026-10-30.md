@@ -10,6 +10,8 @@
 - Doublon exact : `Les couleurs dansent.mp3` et `Les couleurs dansent (2).mp3`.
 - Les 29 MP3 et les trois masters ont été décodés intégralement avec FFmpeg sans erreur.
 - MP3 : stéréo, 48 kHz, 192 kbit/s. Masters M4A : stéréo, 48 kHz, codec Opus dans conteneur M4A. Tester le décodage natif sur les versions iOS/Android ciblées ; créer au besoin un dérivé AAC-LC/MP3 en gardant les originaux immuables.
+- Mesures FFmpeg : les MP3 ont un niveau moyen de -18,3 à -14,0 dBFS et des crêtes de -0,7 à 0,0 dBFS ; 13 pistes atteignent -0,1 dBFS ou plus. Les trois masters ont des niveaux moyens de -18,0 à -16,5 dBFS et des crêtes de -0,2 à 0,0 dBFS. Ce sont des alertes de mixage à écouter, pas une preuve de distorsion.
+- Détection de silence terminal : aucun silence final ≥1 s sous -45 dBFS sur les 29 MP3 et les 3 masters. Les silences internes ne sont pas considérés comme des défauts par défaut.
 
 ## Comparaison technique non perceptive
 Similarité d'enveloppe RMS log, signal mono à 8 kHz, fenêtres de 100 ms, alignement ±10 s. Ces mesures ne prouvent ni identité des fichiers ni correspondance des paroles.
