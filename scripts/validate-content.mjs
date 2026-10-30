@@ -1,29 +1,32 @@
 import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
 
-const source = readFileSync(new URL('../src/content.ts', import.meta.url), 'utf8');
-const entries = [...source.matchAll(/\{id:'([^']+)',title:'([^']+)',subtitle:'([^']+)',category:'([^']+)',emoji:'([^']+)',duration:'([^']+)',language:'([^']+)'/g)];
-assert.ok(entries.length >= 10, `Expected at least 10 content entries; found ${entries.length}`);
+const legacySource = readFileSync(new URL('../src/content.ts', import.meta.url), 'utf8');
+const officialSource = readFileSync(new URL('../src/officialSongCatalog.ts', import.meta.url), 'utf8');
+const legacyEntries = [...legacySource.matchAll(/\{id:'([^']+)',title:'([^']+)',subtitle:'([^']+)',category:'([^']+)',emoji:'([^']+)',duration:'([^']+)',language:'([^']+)'/g)]
+  .map((entry) => ({ id: entry[1], title: entry[2], subtitle: entry[3], category: entry[4], emoji: entry[5], duration: entry[6], language: entry[7] }));
+const retainedEntries = legacyEntries.filter((entry) => entry.category === 'Histoires' || entry.id === 'song-theme');
+const officialJson = officialSource.slice(officialSource.indexOf('=') + 1).trim().replace(/;$/, '');
+const officialEntries = JSON.parse(officialJson);
+const entries = [...retainedEntries, ...officialEntries];
 
-const ids = entries.map((entry) => entry[1]);
-assert.equal(new Set(ids).size, ids.length, 'Content IDs must be unique');
+assert.ok(officialEntries.length === 25, `Expected 25 official WordPress songs; found ${officialEntries.length}`);
+assert.ok(entries.length >= 30, `Expected retained stories plus official songs; found ${entries.length}`);
+const ids = entries.map((entry) => entry.id);
+assert.equal(new Set(ids).size, ids.length, 'Runtime content IDs must be unique');
 
 const allowedCategories = new Set(['Comptines', 'Berceuses', 'J’apprends', 'Histoires']);
 const allowedLanguages = new Set(['FR', 'WO', 'FR + WO']);
 for (const entry of entries) {
-  const [, id, title, subtitle, category, emoji, duration, language] = entry;
-  assert.ok(id.trim(), 'Every content entry needs an ID');
-  assert.ok(title.trim(), `Missing title for ${id}`);
-  assert.ok(subtitle.trim(), `Missing subtitle for ${id}`);
-  assert.ok(allowedCategories.has(category), `Unexpected category "${category}" for ${id}`);
-  assert.ok(emoji.trim(), `Missing visual marker for ${id}`);
-  assert.ok(new RegExp('^[0-9]+ min$').test(duration), `Invalid duration for ${id}: ${duration}`);
-  assert.ok(allowedLanguages.has(language), `Unexpected language "${language}" for ${id}`);
+  assert.ok(entry.id?.trim(), 'Every content entry needs an ID');
+  assert.ok(entry.title?.trim(), `Missing title for ${entry.id}`);
+  assert.ok(entry.subtitle?.trim(), `Missing subtitle for ${entry.id}`);
+  assert.ok(allowedCategories.has(entry.category), `Unexpected category "${entry.category}" for ${entry.id}`);
+  assert.ok(entry.emoji?.trim(), `Missing visual marker for ${entry.id}`);
+  assert.ok(entry.duration === 'À confirmer' || /^[0-9]+ min$/.test(entry.duration), `Invalid duration for ${entry.id}: ${entry.duration}`);
+  assert.ok(allowedLanguages.has(entry.language), `Unexpected language "${entry.language}" for ${entry.id}`);
 }
 
-const wolofStart = source.indexOf("id:'song-jamm'");
-assert.notEqual(wolofStart, -1, 'Expected the Wolof draft to remain catalogued');
-const wolofDraft = source.slice(wolofStart, wolofStart + 1000);
-assert.match(wolofDraft, /locuteur natif/i, 'Wolof draft must retain its native-speaker review warning');
-
-console.log(`Content catalogue validation passed: ${entries.length} entries, unique IDs, required metadata, and Wolof review warning.`);
+assert.match(legacySource, /id:'song-jamm'/, 'Expected the Wolof draft to remain in source history');
+assert.match(legacySource, /locuteur natif/i, 'Wolof draft must retain its native-speaker review warning');
+console.log(`Content catalogue validation passed: ${officialEntries.length} official songs, ${retainedEntries.length} retained stories/reference items.`);
