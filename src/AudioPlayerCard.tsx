@@ -7,6 +7,7 @@ type Props = {
   source: string;
   language: 'FR' | 'WO' | 'FR + WO';
   uiLanguage?: 'fr' | 'wo';
+  reviewMode?: boolean;
 };
 
 const formatTime = (seconds: number) => {
@@ -16,7 +17,7 @@ const formatTime = (seconds: number) => {
 };
 
 /** Render only for a master that passed the editorial and rights gate. */
-export default function AudioPlayerCard({ title, source, language, uiLanguage = 'fr' }: Props) {
+export default function AudioPlayerCard({ title, source, language, uiLanguage = 'fr', reviewMode = false }: Props) {
   const player = useAudioPlayer(source, { updateInterval: 500 });
   const status = useAudioPlayerStatus(player);
   const duration = Math.max(0, status.duration || 0);
@@ -27,9 +28,9 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
     : { recorded: 'CHANSON ENREGISTRÉE', progress: 'Progression de la chanson', back: 'Reculer de dix secondes', forward: 'Avancer de dix secondes', pause: 'Mettre la chanson en pause', listen: 'Écouter la chanson', loading: 'Chargement…', pauseButton: 'Ⅱ Pause' };
 
   return (
-    <View style={styles.card} accessibilityLabel={`${copy.recorded} : ${title}`}>
+    <View style={styles.card} accessibilityLabel={`${reviewMode ? 'Préécoute de contrôle non publiée' : copy.recorded} : ${title}`}>
       <View style={styles.heading}>
-        <Text style={styles.kicker}>{copy.recorded} · {language}</Text>
+        <Text style={styles.kicker}>{reviewMode ? 'PRÉÉCOUTE DE CONTRÔLE · NON PUBLIÉE' : copy.recorded} · {language}</Text>
         <Text style={styles.title}>{title}</Text>
       </View>
       <View
@@ -74,6 +75,7 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
           <Text style={styles.skipText}>+10 s</Text>
         </Pressable>
       </View>
+      {reviewMode ? <Text style={styles.reviewNote}>Écoute réservée au contrôle éditorial. Cette piste reste en attente de validation et n’est pas publiée dans la bibliothèque enfant.</Text> : null}
     </View>
   );
 }
@@ -92,5 +94,6 @@ const styles = StyleSheet.create({
   skipText: { color: '#432B20', fontWeight: '800' },
   play: { minHeight: 48, minWidth: 132, alignItems: 'center', justifyContent: 'center', backgroundColor: '#27B84A', borderRadius: 16, paddingHorizontal: 16 },
   playText: { color: '#FFFFFF', fontWeight: '900' },
+  reviewNote: { color: '#806B5D', fontSize: 12, lineHeight: 17, marginTop: 12 },
   disabled: { opacity: 0.55 },
 });
