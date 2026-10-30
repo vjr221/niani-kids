@@ -11,6 +11,7 @@ on:
       - 'app.json'
       - 'package.json'
       - 'package-lock.json'
+      - 'App.tsx'
       - 'app/**'
       - 'src/**'
       - 'scripts/**'
