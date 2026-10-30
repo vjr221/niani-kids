@@ -24,7 +24,23 @@ const SENTIC_EMAIL = 'senticsn@gmail.com';
 const SENTIC_PHONE = '+221775105636';
 const NIANI_EMAIL = 'nianikids1@gmail.com';
 const C = { ink:'#432B20', cream:'#FFF9E8', yellow:'#FFD52A', orange:'#FF8A16', green:'#27B84A', blue:'#168BE8', red:'#F04444', muted:'#806B5D', lilac:'#EEE9FF', pink:'#FFE5E8' };
-const normalizeText = (value:string) => value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase().trim();
+const normalizeText = (value:string) => value
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g,'')
+  .toLocaleLowerCase()
+  .replace(/[^\p{L}\p{N}]+/gu,' ')
+  .trim();
+const matchesContentSearch = (item:ContentItem, query:string) => {
+  const terms = normalizeText(query).split(/\s+/).filter(Boolean);
+  if (!terms.length) return true;
+  const searchableText = normalizeText([
+    item.title, item.subtitle, item.category, item.language,
+    item.ageBand ?? '', item.learningGoal ?? '', item.storyQuestion ?? '',
+    item.readingTip ?? '', item.afterStoryActivity ?? '',
+    ...(item.keyWords ?? []), item.lyrics ?? '', item.storyText ?? '',
+  ].join(' '));
+  return terms.every(term => searchableText.includes(term));
+};
 const openExternal = (url:string) => {
   // Parental gate: two explicit adult actions plus a randomized arithmetic check.
   // This is a child-safety friction layer, not identity verification.
@@ -91,7 +107,7 @@ function HomeScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Languag
   const navigation = useNavigation<any>();
   const [query,setQuery]=useState('');
   const featured=contents.filter(x=>x.featured).slice(0,3);
-  const filtered=useMemo(()=>contents.filter(x=>normalizeText([x.title,x.subtitle,x.category,x.language].join(' ')).includes(normalizeText(query))),[query]);
+  const filtered=useMemo(()=>contents.filter(item=>matchesContentSearch(item,query)),[query]);
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
     <Hero lang={lang} onVideos={()=>openExternal(YOUTUBE)} onPlay={()=>navigation.navigate('Jouer')}/>
     <View style={s.quickGrid}>
@@ -185,7 +201,7 @@ function ExploreScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}
 function LibraryScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Language;setLang:(l:Language)=>void;favorites:string[];toggleFavorite:(id:string)=>void;onOpen:(item:ContentItem)=>void}) {
   const [filter,setFilter]=useState('Tout'); const [query,setQuery]=useState(''); const [languageFilter,setLanguageFilter]=useState('Toutes'); const [onlyFavorites,setOnlyFavorites]=useState(false);
   const categories=[{value:'Tout',label:translations[lang].allCategories},{value:'Comptines',label:translations[lang].rhymes},{value:'Berceuses',label:translations[lang].lullabies},{value:'J’apprends',label:translations[lang].learn},{value:'Histoires',label:translations[lang].stories}];
-  const list=useMemo(()=>contents.filter(x=>(filter==='Tout'||x.category===filter)&&(languageFilter==='Toutes'||x.language===languageFilter||x.language==='FR + WO')&&(!onlyFavorites||favorites.includes(x.id))&&normalizeText([x.title,x.subtitle,x.category,x.language].join(' ')).includes(normalizeText(query))),[filter,languageFilter,onlyFavorites,favorites,query]);
+  const list=useMemo(()=>contents.filter(item=>(filter==='Tout'||item.category===filter)&&(languageFilter==='Toutes'||item.language===languageFilter||item.language==='FR + WO')&&(!onlyFavorites||favorites.includes(item.id))&&matchesContentSearch(item,query)),[filter,languageFilter,onlyFavorites,favorites,query]);
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}><Text style={s.pageTitle}>🎵 {translations[lang].libraryTitle}</Text><Text style={s.cardSubtitle}>{translations[lang].libraryIntro}</Text><TextInput accessibilityLabel={translations[lang].search} accessibilityRole="search" value={query} onChangeText={setQuery} placeholder={'🔎 '+translations[lang].search+'…'} placeholderTextColor="#947F70" style={s.search} returnKeyType="search" clearButtonMode="while-editing"/><ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{paddingVertical:3}}>{categories.map(x=><Pill key={x.value} active={filter===x.value} onPress={()=>setFilter(x.value)}>{x.label}</Pill>)}</ScrollView><View style={{flexDirection:'row',gap:8,flexWrap:'wrap'}}><Pill active={languageFilter==='Toutes'} onPress={()=>setLanguageFilter('Toutes')}>{translations[lang].allLanguages}</Pill><Pill active={languageFilter==='FR'} onPress={()=>setLanguageFilter('FR')} >{translations[lang].french}</Pill><Pill active={languageFilter==='WO'} onPress={()=>setLanguageFilter('WO')} >{translations[lang].wolof}</Pill><Pill active={onlyFavorites} onPress={()=>setOnlyFavorites(v=>!v)} >❤️ {translations[lang].favoritesFilter}</Pill></View><Text style={s.cardSubtitle}>{list.length} {translations[lang].contentCount}</Text>{list.map(item=><ContentCard key={item.id} item={item} lang={lang} favorite={favorites.includes(item.id)} onFavorite={()=>toggleFavorite(item.id)} onOpen={()=>onOpen(item)}/>)}{!list.length&&<View style={s.empty}><Text style={{fontSize:42}}>🔎</Text><Text style={s.cardTitle}>{translations[lang].noContent}</Text><Text style={s.cardSubtitle}>{translations[lang].tryOtherSearch}</Text><Pressable onPress={()=>{setQuery('');setFilter('Tout');setLanguageFilter('Toutes');setOnlyFavorites(false)}} style={s.playButton}><Text style={s.playText}>{translations[lang].resetFilters}</Text></Pressable></View>}</ScrollView></SafeAreaView>;
 }
 function FavoritesScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Language;setLang:(l:Language)=>void;favorites:string[];toggleFavorite:(id:string)=>void;onOpen:(item:ContentItem)=>void}) {
