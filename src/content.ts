@@ -46,7 +46,7 @@ export const contents:ContentItem[]=[
 // Keep story material, replacing the old placeholder song entries with the 25 official WordPress songs.
 const themeReference = contents.find((item) => item.id === 'song-theme');
 const existingStories = contents.filter((item) => item.category === 'Histoires');
-contents.splice(0, contents.length, ...existingStories, ...officialSongs, ...(themeReference ? [themeReference] : []));
+contents.splice(0, contents.length, ...officialSongs, ...existingStories, ...(themeReference ? [themeReference] : []));
 
 export const songs=contents.filter(x=>x.lyrics || x.isAudioReference);
 export const stories=contents.filter(x=>x.category==='Histoires');
