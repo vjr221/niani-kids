@@ -16,7 +16,6 @@ const candidates = audioCatalog.flatMap((track) => {
 export default function AudioReviewPanel({ lang }: Props) {
   const [unlocked, setUnlocked] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const isFrench = lang === 'fr';
   const selected = candidates.find((item) => item.track.contentId === selectedId);
 
   const requestAccess = () => {
@@ -50,23 +49,19 @@ export default function AudioReviewPanel({ lang }: Props) {
 
   return (
     <View style={styles.panel}>
-      <Text style={styles.heading}>🎧 {isFrench ? 'Préécoute des chansons' : 'Déglu woy yi'}</Text>
+      <Text style={styles.heading}>🎧 Préécoute des chansons</Text>
       <Text style={styles.description}>
-        {isFrench
-          ? 'Espace de contrôle réservé aux parents : écoute les fichiers MP3 hébergés sur le site. Une connexion Internet est nécessaire.'
-          : 'Espace de contrôle parent. Connexion Internet requise pour écouter les fichiers.'}
+        Espace de contrôle réservé aux parents. Les fichiers MP3 sont diffusés depuis nianikids.com ; une connexion Internet est nécessaire.
       </Text>
       {!unlocked ? (
         <Pressable accessibilityRole="button" onPress={requestAccess} style={styles.unlock}>
-          <Text style={styles.unlockText}>{isFrench ? 'Ouvrir la préécoute (contrôle adulte)' : 'Ubbi préécoute (contrôle mag)'}</Text>
+          <Text style={styles.unlockText}>Ouvrir la préécoute (contrôle adulte)</Text>
         </Pressable>
       ) : (
         <>
           <View style={styles.warning}>
             <Text style={styles.warningText}>
-              {isFrench
-                ? 'NON PUBLIÉ — Les 25 pistes restent à écouter, comparer aux paroles, faire relire en wolof si nécessaire et vérifier côté droits.'
-                : 'DUÑU KO SIWAL — Woy yi dañuy xaar déglu, seet ak kàddu yi ak sañ-sañ yi.'}
+              NON PUBLIÉ — Les 25 pistes restent à écouter, comparer aux paroles, faire relire en wolof si nécessaire et vérifier côté droits.
             </Text>
           </View>
           {selected ? (
@@ -80,16 +75,16 @@ export default function AudioReviewPanel({ lang }: Props) {
                 reviewMode
               />
               <Pressable accessibilityRole="button" onPress={() => setSelectedId(null)} style={styles.closePlayer}>
-                <Text style={styles.closePlayerText}>{isFrench ? 'Fermer le lecteur' : 'Tëj lecteur bi'}</Text>
+                <Text style={styles.closePlayerText}>Fermer le lecteur</Text>
               </Pressable>
             </View>
           ) : null}
-          <Text style={styles.subheading}>{isFrench ? 'Catalogue à contrôler' : 'Catalogue bu ñuy seet'}</Text>
+          <Text style={styles.subheading}>Catalogue à contrôler</Text>
           {candidates.map(({ track, song }) => (
             <Pressable
               key={track.contentId}
               accessibilityRole="button"
-              accessibilityLabel={`${isFrench ? 'Préécouter' : 'Déglu'} ${song.title}`}
+              accessibilityLabel={`Préécouter ${song.title}`}
               accessibilityState={{ selected: selectedId === track.contentId }}
               onPress={() => setSelectedId(track.contentId)}
               style={[styles.trackRow, selectedId === track.contentId && styles.trackRowSelected]}
@@ -98,10 +93,10 @@ export default function AudioReviewPanel({ lang }: Props) {
                 <Text style={styles.trackTitle}>{song.title}</Text>
                 <Text style={styles.trackStatus}>
                   {track.reviewStatus === 'approved'
-                    ? (isFrench ? 'Validée' : 'Nangu')
+                    ? 'Validée'
                     : track.reviewStatus === 'needs-identification'
-                      ? (isFrench ? 'À identifier' : 'Ci xalaat')
-                      : (isFrench ? 'À écouter et valider' : 'Déglu te seet')}
+                      ? 'À identifier'
+                      : 'À écouter et valider'}
                   {' · '}{song.language}
                 </Text>
               </View>
@@ -113,7 +108,7 @@ export default function AudioReviewPanel({ lang }: Props) {
             onPress={() => { setSelectedId(null); setUnlocked(false); }}
             style={styles.lock}
           >
-            <Text style={styles.lockText}>{isFrench ? 'Verrouiller la préécoute' : 'Tëj préécoute bi'}</Text>
+            <Text style={styles.lockText}>Verrouiller la préécoute</Text>
           </Pressable>
         </>
       )}
