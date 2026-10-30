@@ -1,9 +1,5 @@
 name: Niani Kids - Android APK (EAS)
 on:
-  workflow_run:
-    workflows: ["Niani Kids - Quality Check"]
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
     inputs:
       profile:
@@ -17,7 +13,6 @@ on:
 
 jobs:
   build:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Récupérer le dépôt
