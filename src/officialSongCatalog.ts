@@ -7,7 +7,7 @@ export const officialSongs: ContentItem[] = [
   {
     "id": "master-reference-bonjour",
     "title": "Niani Kids",
-    "subtitle": "Chanson d’accueil · paroles de référence à confirmer",
+    "subtitle": "Présentation des personnages et découverte de l’univers Niani Kids",
     "category": "Comptines",
     "emoji": "👋🏿",
     "duration": "2 min 25 s",
