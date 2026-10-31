@@ -6,7 +6,7 @@ import type { ContentItem } from './content';
 export const officialSongs: ContentItem[] = [
   {
     "id": "master-reference-bonjour",
-    "title": "Bonjour Bonjour les amis",
+    "title": "Niani Kids",
     "subtitle": "Chanson d’accueil · paroles de référence à confirmer",
     "category": "Comptines",
     "emoji": "👋🏿",
