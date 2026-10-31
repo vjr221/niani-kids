@@ -5,6 +5,43 @@ import type { ContentItem } from './content';
  */
 export const officialSongs: ContentItem[] = [
   {
+    "id": "master-reference-bonjour",
+    "title": "Bonjour Bonjour les amis",
+    "subtitle": "Chanson d’accueil · paroles de référence à confirmer",
+    "category": "Comptines",
+    "emoji": "👋🏿",
+    "duration": "2 min 25 s",
+    "language": "FR + WO",
+    "featured": true,
+    "isAudioReference": true,
+    "lyrics": "[Intro – voix féminine chaleureuse]\nBonjour, bonjour, les amis !\nNanga def ? Maa ngi fi !\n\n[Couplet 1]\nLe soleil se réveille,\nLe baobab nous sourit,\nSamba tape dans ses mains,\nAwa nous dit : « Viens ici ! »\nBobo saute : un, deux, trois,\nOn chante tous à la fois !\n\n[Refrain – réponses des enfants]\nBonjour, bonjour, bienvenue !\nChante avec nous, danse un peu !\nNiani Kids, on est réunis,\nDes chansons pour les petits amis !\n\n[Appel et réponse]\nBonjour Samba ! — Bonjour !\nBonjour Awa ! — Bonjour !\nBonjour Bobo ! — Bonjour !\nJàmm rekk, viens chanter !\n\n[Couplet 2]\nTape des mains, tourne en rond,\nFais un sourire, c’est si bon,\nLe Baobab nous dit tout bas :\n« Chez Niani, on chante avec joie ! »\n\n[Refrain]\nBonjour, bonjour, bienvenue !\nChante avec nous, danse un peu !\nNiani Kids, on est réunis,\nDes chansons pour les petits amis !\n\n[Outro]\nBonjour, bonjour, à très bientôt !\nNiani Kids, jàmm rekk !"
+  },
+  {
+    "id": "master-reference-welcome",
+    "title": "Bienvenue chez Niani Kids",
+    "subtitle": "Chanson signature · paroles de référence à confirmer",
+    "category": "Comptines",
+    "emoji": "🎉",
+    "duration": "1 min",
+    "language": "FR + WO",
+    "featured": true,
+    "isAudioReference": true,
+    "lyrics": "[Intro – voix féminine douce, balafon lumineux]\nBienvenue, bienvenue,\nChez Niani Kids, on est venus !\n\n[Couplet 1]\nIl y a Samba qui vient chanter,\nAwa qui sourit pour t’inviter,\nBobo qui saute et tape des mains,\nEt le Baobab nous montre le chemin.\n\n[Pré-refrain – les enfants répondent]\nTu viens jouer ? — Oui, oui, oui !\nTu viens chanter ? — Oui, oui, oui !\n\n[Refrain – adulte et chœur d’enfants]\nBienvenue chez Niani Kids,\nUn monde de chansons et de sourires !\nBienvenue chez Niani Kids,\nOn apprend, on joue, on grandit !\nJàmm rekk, viens avec nous,\nIl y a de la joie pour chacun de nous !\n\n[Couplet 2]\nDes mots en wolof, des histoires,\nDes couleurs pour remplir nos mémoires,\nDes comptines pour danser ensemble,\nEt des rêves quand le soir descend.\n\n[Pré-refrain]\nTu viens jouer ? — Oui, oui, oui !\nTu viens chanter ? — Oui, oui, oui !\n\n[Refrain]\nBienvenue chez Niani Kids,\nUn monde de chansons et de sourires !\nBienvenue chez Niani Kids,\nOn apprend, on joue, on grandit !\nJàmm rekk, viens avec nous,\nIl y a de la joie pour chacun de nous !\n\n[Outro]\nNiani Kids, sama xarit,\nChante avec nous, sama xarit !\nBienvenue chez Niani Kids !"
+  },
+  {
+    "id": "master-reference-theme",
+    "title": "NIANI! NIANI! — ÑU NGI FII!",
+    "subtitle": "Chanson signature en wolof · paroles fournies le 27 octobre",
+    "category": "Comptines",
+    "emoji": "🥁",
+    "duration": "1 min",
+    "language": "WO",
+    "featured": true,
+    "isAudioReference": true,
+    "lyrics": "[INTRO]\nNiaaaani… Niaaaani…\nHey! Hey!\nNuyoo, nuyoo!\nHey! Hey!\nNañu fecc!\n\n[COUPLET 1]\nTey fan la? Tey fan la?\nTey, bés bu neex la!\nSamba ngi fi, Awa ngi fi,\nBobo itam, ñu ngi fi!\nBët yi neex, kanam yi leer,\nXol yi bépp, mbégte moo reer!\nJël sa loxo, yékkati ko,\nNiani Kids, ñu ngi ci biir!\n\n[PRÉ-REFRAIN]\nNdank-ndank, tàmbali,\nNuyoo, nuyoo, ñu ngi fi!\nCi sa ndijoor, ci sa càmmooñ,\nNañu fecc, nañu ree!\n\n[REFRAIN]\nNiani! Niani! Hey! Hey!\nÑu ngi fii! Ñu ngi fii!\nNiani! Niani! Hey! Hey!\nNañu fecc! Nanu ree!\nLoxo yi kaw! — Hey!\nTànk yi yëngal! — Hey!\nNiani! Niani! Hey! Hey!\nÑu ngi fii! Ñu ngi fii!\n\n[COUPLET 2]\nBaobab bi, nuyoo na!\nMàndargaam, muu ngi ree!\nSamba yëngal, Awa feccal,\nBobo ne: « Ñaata! Ñaata! »\nLoxo yi, tàpp! Tàpp! Tàpp!\nTànk yi, dox! Dox! Dox!\nBëgg naa la, yaw sama xarit,\nNañu bég, ba suba jot!\n\n[POST-REFRAIN]\nNi-ni-ni, Niani!\nNi-ni-ni, Niani!\nHey! Hey! Niani!\nÑu ngi fii!\n\n[PONT]\nSu la neexee, reeel!\nSu la neexee, feccal!\nSu la neexee, tàppal!\nNiani Kids, ñu ngi fii!\n\n[REFRAIN FINAL]\nNiani! Niani! Hey! Hey!\nÑu ngi fii! Ñu ngi fii!\nNiani! Niani! Hey! Hey!\nNañu fecc! Nanu ree!\nLoxo yi kaw! — Hey!\nTànk yi yëngal! — Hey!\nNi-ni-ni, Niani!\nÑu ngi fii! Ñu ngi fii!\n\n[OUTRO]\nNiani?\nNiani!\nÑu ngi fii?\nÑu ngi fii!\nHey! Hey!\nNiani Kids!"
+  },
+
+  {
     "id": "song-bonjour-maquette-01",
     "title": "Bonjour, bonjour ! — Maquette 01",
     "subtitle": "Accueil · Salutations",
