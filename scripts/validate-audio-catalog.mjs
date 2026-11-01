@@ -8,7 +8,7 @@ const explicitRecords = [...audioSource.matchAll(/\{\s*contentId:\s*'([^']+)'[\s
 const approved = [...approvedHelpers, ...explicitRecords.filter((record) => record.status === 'approved').map((record) => record.id)];
 const pending = explicitRecords.filter((record) => record.status !== 'approved').map((record) => record.id);
 const ids = [...approvedHelpers, ...explicitRecords.map((record) => record.id)];
-assert.equal(approved.length, 27, \`Expected 27 owner-approved playable tracks; found \${approved.length}\`);
+assert.equal(approved.length, 27, 'Expected 27 owner-approved playable tracks; found ' + approved.length);
 assert.deepEqual(pending, [], 'No audio tracks should remain pending review after the owner confirmation');
 assert.equal(ids.length, 27, 'Expected 27 audio/content mappings');
 assert.equal(new Set(ids).size, ids.length, 'Audio content IDs must be unique');
