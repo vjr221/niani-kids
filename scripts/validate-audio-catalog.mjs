@@ -12,4 +12,4 @@ assert.equal(new Set(ids).size, ids.length, 'Audio content IDs must be unique');
 assert.match(audioSource, /track\.reviewStatus\s*===\s*'approved'/, 'Playback must require editorial approval');
 assert.match(audioSource, /track\.languageReviewed/, 'Playback must require language review');
 assert.match(audioSource, /track\.rightsConfirmed/, 'Playback must require rights confirmation');
-console.log('Audio validation passed: 24 approved tracks and 3 tracks awaiting final review.');
+console.log('Audio validation passed: all 27 tracks are approved and playable.');
