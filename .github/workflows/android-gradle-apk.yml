@@ -53,4 +53,13 @@ jobs:
           TAG: ${{ steps.apk.outputs.tag }}
           VERSION: ${{ steps.apk.outputs.version }}
         run: |
-          gh release create "$TAG" android/app/build/outputs/apk/release/app-release.apk#Niani-Kids-${VERSION}.apk android/app/build/outputs/apk/release/app-release.apk.sha256#Niani-Kids-${VERSION}.sha256 --target "$GITHUB_SHA" --title "Niani Kids Android v${VERSION}" --notes "APK Android construit avec Expo Prebuild et Gradle, sans EAS. Signature debug Gradle : installable pour test, non destinée à la publication Google Play."
+          APK="android/app/build/outputs/apk/release/app-release.apk"
+          CHECKSUM="$APK.sha256"
+          NOTES="APK Android construit avec Expo Prebuild et Gradle, sans EAS. Signature debug Gradle : installable pour test, non destinée à la publication Google Play."
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists; updating its assets."
+            gh release edit "$TAG" --title "Niani Kids Android v${VERSION}" --notes "$NOTES"
+            gh release upload "$TAG" "$APK#Niani-Kids-${VERSION}.apk" "$CHECKSUM#Niani-Kids-${VERSION}.sha256" --clobber
+          else
+            gh release create "$TAG" "$APK#Niani-Kids-${VERSION}.apk" "$CHECKSUM#Niani-Kids-${VERSION}.sha256" --target "$GITHUB_SHA" --title "Niani Kids Android v${VERSION}" --notes "$NOTES"
+          fi
