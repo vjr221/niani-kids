@@ -6,6 +6,7 @@ const officialSource = readFileSync(new URL('../src/officialSongCatalog.ts', imp
 const legacyEntries = [...legacySource.matchAll(/\{id:'([^']+)',title:'([^']+)',subtitle:'([^']+)',category:'([^']+)',emoji:'([^']+)',duration:'([^']+)',language:'([^']+)'/g)]
   .map((m) => ({ id:m[1], category:m[4] }));
 const retainedStories = legacyEntries.filter((entry) => entry.category === 'Histoires');
+assert.ok(!legacySource.includes("id:'song-bonjour'"), 'Bonjour, bonjour version 1 must be removed from the mobile content list');
 const officialIds = [...officialSource.matchAll(/"id":\s*"([^"]+)"/g)].map((m) => m[1]);
 assert.equal(officialIds.length, 27, `Expected 27 published WordPress songs; found ${officialIds.length}`);
 assert.ok(officialIds.includes('song-theme'), 'Missing NIANI! NIANI! — ÑU NGI FII!');
