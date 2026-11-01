@@ -6,15 +6,15 @@ import type { ContentItem } from './content';
 
 export const officialSongs: ContentItem[] = [
   {
-    "id": "song-bonjour",
-    "title": "Bonjour, bonjour ! (version 1)",
-    "subtitle": "Une comptine pour dire bonjour en français et en wolof, avec Samba, Awa, Bobo et le Baobab.",
+    "id": "song-niani-kids",
+    "title": "Niani Kids",
+    "subtitle": "Une comptine joyeuse pour découvrir Samba, Awa, Bobo et le Baobab, et entrer dans l’univers Niani Kids.",
     "category": "Comptines",
     "emoji": "👋🏿",
-    "duration": "À confirmer",
-    "language": "FR + WO",
+    "duration": "2 min 25 s",
+    "language": "FR",
     "featured": true,
-    "lyrics": "Intro – voix féminine chaleureuse\n\nBonjour, bonjour, les amis !\n\nNanga def ? Maa ngi fi !\n\nCouplet 1\n\nLe soleil se réveille,\n\nLe baobab nous sourit,\n\nSamba tape dans ses mains,\n\nAwa nous dit : « Viens ici ! »\n\nBobo saute : un, deux, trois,\n\nOn chante tous à la fois !\n\nRefrain – réponses des enfants\n\nBonjour, bonjour, bienvenue !\n\nChante avec nous, danse un peu !\n\nNiani Kids, on est réunis,\n\nDes chansons pour les petits amis !\n\nAppel et réponse\n\nBonjour Samba ! — Bonjour !\n\nBonjour Awa ! — Bonjour !\n\nBonjour Bobo ! — Bonjour !\n\nJàmm rekk, viens chanter !\n\nCouplet 2\n\nTape des mains, tourne en rond,\n\nFais un sourire, c'est si bon,\n\nLe Baobab nous dit tout bas :\n\n« Chez Niani, on chante avec joie ! »\n\nRefrain\n\nBonjour, bonjour, bienvenue !\n\nChante avec nous, danse un peu !\n\nNiani Kids, on est réunis,\n\nDes chansons pour les petits amis !\n\nOutro\n\nBonjour, bonjour, à très bientôt !\n\nNiani Kids, jàmm rekk !"
+    "lyrics": "Intro\nBonjour, bonjour, les amis !\nC’est Niani Kids, on est réunis !\n\nCouplet 1\nSamba sourit, Awa danse,\nBobo saute, quelle ambiance !\nLe baobab nous dit tout bas :\nVenez chanter, restez avec moi !\n\nRefrain\nBonjour, bonjour, tape dans tes mains !\nBonjour, bonjour, viens chanter avec nous !\nNiani Kids, on est tous copains !\nOn chante, on danse, on rit comme des fous !\n\nCouplet 2\nTape, tape, un, deux, trois !\nTourne doucement, suis-moi !\nLève les bras vers le ciel,\nFais un sourire arc-en-ciel !\n\nPont\nAvec nos amis, le bonheur rassemble !\nTous ensemble, on grandit ensemble !\n\nRefrain final\nBonjour, bonjour, tape dans tes mains !\nBonjour, bonjour, viens chanter avec nous !\nNiani Kids, on est tous copains !\nChanter, rêver, grandir ensemble !\n\nOutro\nNia-ni Kids !\nÀ bientôt, les amis !"
   },
   {
     "id": "song-bonjour-v2",
