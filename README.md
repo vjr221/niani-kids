@@ -44,3 +44,7 @@ Les paroles de démonstration sont originales pour ce starter. Elles ne remplace
 - Garder des cibles tactiles confortables, avec un libellé explicite pour les boutons à icône.
 - Les activités sont prévues avec un adulte; adapter le matériel à l'âge et ne jamais laisser un tout-petit sans surveillance.
 - Avant publication : valider les traductions wolof, les liens externes, la politique de confidentialité et le parcours Google Play Families.
+
+
+## Build Android sans EAS
+Le workflow `.github/workflows/android-gradle-apk.yml` construit l'APK avec Expo Prebuild et Gradle, vérifie sa signature et publie l'APK ainsi que son SHA-256 dans une GitHub Release. La signature debug Gradle convient aux tests et à l'installation directe, mais pas à la publication Google Play.

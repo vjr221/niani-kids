@@ -11,7 +11,7 @@ const contentIds = new Set([...legacyIds, ...officialEntries.map((entry) => entr
 const catalogMatch = audioSource.match(/audioCatalog:\s*AudioTrackRecord\[\]\s*=\s*(\[[\s\S]*?\]);/);
 assert.ok(catalogMatch, 'Audio catalogue must use the explicit typed array declaration');
 const records = JSON.parse(catalogMatch[1]);
-assert.equal(records.length, 25, 'Expected 25 WordPress MP3 candidates');
+assert.equal(records.length, 27, 'Expected 27 WordPress MP3 tracks');
 const ids = [];
 for (const record of records) {
   assert.ok(record.contentId, 'Every audio record must declare a contentId');

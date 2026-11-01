@@ -279,5 +279,27 @@ export const officialSongs: ContentItem[] = [
     "language": "FR",
     "featured": false,
     "lyrics": "Intro\n\nQui vient danser dans mon panier ?\n\nLes légumes, prêts à chanter !\n\nCouplet 1\n\nLa carotte est orange, regarde sa couleur,\n\nLa tomate est rouge, elle met de bonne humeur.\n\nLes petits pois sont verts, tout ronds, tout mignons,\n\nLa courge est toute douce, quelle jolie chanson !\n\nRefrain\n\nLégumes, légumes, dansez dans le panier,\n\nRouge, vert, orange, on va les regarder !\n\nLégumes, légumes, chacun peut essayer,\n\nOn découvre à son rythme, on peut les goûter !\n\nCouplet 2\n\nJe regarde, je sens, je peux toucher,\n\nUne petite bouchée si j’ai envie d’essayer.\n\nCroquant ou tout doux, chaque goût est différent,\n\nJe découvre petit à petit, tranquillement !\n\nRefrain\n\nLégumes, légumes, dansez dans le panier,\n\nRouge, vert, orange, on va les regarder !\n\nLégumes, légumes, chacun peut essayer,\n\nOn découvre à son rythme, on peut les goûter !\n\nPont – question-réponse\n\nLa carotte ? — Orange !\n\nLa tomate ? — Rouge !\n\nLes petits pois ? — Tout verts !\n\nOn applaudit ? — Clap, clap, clap !\n\nRefrain final\n\nLégumes, légumes, dansez avec nous,\n\nSamba, Awa, Bobo font un petit tour !\n\nLégumes, légumes, quelle belle journée,\n\nOn découvre à son rythme, bravo d’essayer !\n\nOutro\n\nUn panier de couleurs, un sourire heureux,\n\nÀ bientôt les amis, c’était merveilleux !"
+  },
+  {
+    "id": "song-theme",
+    "title": "NIANI! NIANI! — ÑU NGI FII!",
+    "subtitle": "La chanson signature de Niani Kids, un hymne joyeux en wolof pour chanter et danser ensemble.",
+    "category": "Comptines",
+    "emoji": "🎵",
+    "duration": "À confirmer",
+    "language": "WO",
+    "featured": true,
+    "lyrics": "INTRO\nNiani Kids!\nHey, waaw!\nCOUPLET 1\nJant bi génn na ci suba su neex,\nYaay ngi wax, « Ndeyjoor, ñëwal rekk »\nJàngalekat yi tàmbali ndaje,\nÑun ak xarit yi, danuy woy tey.\nPRÉ-REFRAIN\nTàllal sa loxo, bàyyi sa xel,\nBëccëg bu neex, nu bokk ci mbëggeel.\nREFRAIN\nWaaw, waaw, ñëwal, ñëwal,\nBëccëg bi neex na, nu ngi ci mbalax!\nWaaw, waaw, woy ak xam-xam,\nXarit yi, ñëwal, nu bokk ci mbëggeel!\nAPPEL ET RÉPONSE\nLead: Kan moo bëgg a woy?\nChoir: Nun ñépp!\nLead: Kan moo bëgg a fecc?\nChoir: Nun ñépp!\nLead: Jàmm ak mbëggeel!\nChoir: Ci kër gi ak école!\nCOUPLET 2\nBàyyi sa rëdd, jël sa xarit,\nSama loxo ci sa loxo, nu yëngal bopp bi.\nBés bu nekk, jàngal ak jooy,\nSu nu bokkee, xol yi dañuy sedd.\nREFRAIN\nWaaw, waaw, ñëwal, ñëwal,\nBëccëg bi neex na, nu ngi ci mbalax!\nWaaw, waaw, woy ak xam-xam,\nXarit yi, ñëwal, nu bokk ci mbëggeel!\nPAUSE LUDIQUE\nLead: Màggal sa xarit!\nChoir: Màggal sa xarit!\nLead: Woy ci jàmm!\nChoir: Woy ci jàmm!\nREFRAIN FINAL\nWaaw, waaw, ñëwal, ñëwal,\nBëccëg bi neex na, nu ngi ci mbalax!\nWaaw, waaw, woy ak xam-xam,\nXarit yi, ñëwal, nu bokk ci mbëggeel!\nWaaw, waaw, ñëwal, ñëwal,\nÑun ñépp, danuy woy, danuy fecc!\nOUTRO\nNiani Kids!"
+  },
+  {
+    "id": "song-nanu-fecc",
+    "title": "Niani Kids – Nañu fecc !",
+    "subtitle": "Une chanson festive en wolof pour saluer les amis, retrouver Samba, Awa, Bobo et Baobab, puis chanter, rire et danser tous ensemble.",
+    "category": "Comptines",
+    "emoji": "💃🏿",
+    "duration": "À confirmer",
+    "language": "WO",
+    "featured": true,
+    "lyrics": "INTRO\nNiaaaani… Niaaaani…\nNuyoo, nuyoo!\nNañu fecc!\nCOUPLET 1\nTey fan la? Tey fan la?\nTey, bés bu neex la!\nSamba ngi fi, Awa ngi fi,\nBobo itam, ñu ngi fi!\nBët yi neex, kanam yi leer,\nXol yi bépp, mbégte moo reer!\nJël sa loxo, yékkati ko,\nNiani Kids, ñu ngi ci biir!\nPRÉ-REFRAIN\nNdank-ndank, tàmbali,\nNuyoo, nuyoo, ñu ngi fi!\nCi sa ndijoor, ci sa càmmooñ,\nNañu fecc, nañu ree!\nREFRAIN\nNiani! Niani! Hey! Hey!\nÑu ngi fii! Ñu ngi fii!\nNiani! Niani! Hey! Hey!\nNañu fecc! Nanu ree!\nLoxo yi kaw! — Hey!\nTànk yi yëngal! — Hey!\nNiani! Niani! Hey! Hey!\nÑu ngi fii! Ñu ngi fii!\nCOUPLET 2\nBaobab bi, nuyoo na!\nMàndargaam, muu ngi ree!\nSamba yëngal, Awa feccal,\nBobo ne: « Ñaata! Ñaata! »\nLoxo yi, tàpp! Tàpp! Tàpp!\nTànk yi, dox! Dox! Dox!\nBëgg naa la, yaw sama xarit,\nNañu bég, ba suba jot!\nPOST-REFRAIN\nNi-ni-ni, Niani!\nNi-ni-ni, Niani!\nHey! Hey! Niani!\nÑu ngi fii!\nPONT\nSu la neexee, reeel!\nSu la neexee, feccal!\nSu la neexee, tàppal!\nNiani Kids, ñu ngi fii!\nREFRAIN FINAL\nNiani! Niani! Hey! Hey!\nÑu ngi fii! Ñu ngi fii!\nNiani! Niani! Hey! Hey!\nNañu fecc! Nanu ree!\nLoxo yi kaw! — Hey!\nTànk yi yëngal! — Hey!\nNi-ni-ni, Niani!\nÑu ngi fii! Ñu ngi fii!\nOUTRO\nNiani?\nNiani!\nÑu ngi fii?\nÑu ngi fii!\nHey! Hey!\nNiani Kids!"
   }
 ];

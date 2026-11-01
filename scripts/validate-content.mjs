@@ -10,7 +10,7 @@ const officialJson = officialSource.slice(officialSource.indexOf('=') + 1).trim(
 const officialEntries = JSON.parse(officialJson);
 const entries = [...retainedEntries, ...officialEntries];
 
-assert.ok(officialEntries.length === 25, `Expected 25 official WordPress songs; found ${officialEntries.length}`);
+assert.ok(officialEntries.length === 27, `Expected 27 official WordPress songs; found ${officialEntries.length}`);
 assert.ok(entries.length >= 30, `Expected retained stories plus official songs; found ${entries.length}`);
 const ids = entries.map((entry) => entry.id);
 assert.equal(new Set(ids).size, ids.length, 'Runtime content IDs must be unique');
