@@ -61,7 +61,7 @@ export default function AudioReviewPanel({ lang }: Props) {
         <>
           <View style={styles.warning}>
             <Text style={styles.warningText}>
-              NON PUBLIÉ — Les 25 pistes restent à écouter, comparer aux paroles, faire relire en wolof si nécessaire et vérifier côté droits.
+              NON PUBLIÉ — Les pistes candidates restent à écouter, comparer aux paroles et vérifier côté langue et droits avant activation.
             </Text>
           </View>
           {selected ? (

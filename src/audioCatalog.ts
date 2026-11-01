@@ -1,7 +1,7 @@
 /**
- * Official 25-song catalogue approved by the Niani Kids project owner.
- * MP3 files stream from the corresponding public WordPress media records.
- * Three separately supplied M4A masters remain tracked independently.
+ * Audio catalogue for the published Niani Kids songs.
+ * Approved tracks are playable; tracks awaiting language/rights review remain gated.
+ * MP3 files stream from their corresponding public WordPress media records.
  */
 import type { ContentItem } from './content';
 export type AudioReviewStatus = 'needs-identification' | 'needs-editorial-review' | 'approved';
@@ -12,7 +12,13 @@ const approved = (contentId: ContentItem['id'], attachmentId: number, url: strin
   notes: 'Paroles et publication mobile validées par le responsable du projet Niani Kids.'
 });
 export const audioCatalog: AudioTrackRecord[] = [
-  approved('song-bonjour',147,'https://nianikids.com/wp-content/uploads/2026/10/niani-bonjour-maquette-01.mp3'),
+  {
+    contentId: 'song-niani-kids', attachmentId: 229,
+    sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/10/Niani-kids.mp3',
+    assetPath: 'https://nianikids.com/wp-content/uploads/2026/10/Niani-kids.mp3',
+    reviewStatus: 'needs-editorial-review', languageReviewed: false, rightsConfirmed: false,
+    notes: 'Master officiel indiqué sur la fiche WordPress 113 (144,8 s). Validation de la langue et confirmation des droits à synchroniser avant activation dans la bibliothèque enfant.'
+  },
   approved('song-bonjour-v2',148,'https://nianikids.com/wp-content/uploads/2026/10/niani-bonjour-maquette-02.mp3'),
   approved('song-welcome',149,'https://nianikids.com/wp-content/uploads/2026/10/niani-bienvenue.mp3'),
   approved('song-start',150,'https://nianikids.com/wp-content/uploads/2026/10/niani-cest-parti.mp3'),
