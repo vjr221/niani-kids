@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Linking, Modal, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, Image, ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { parseFavorites, toggleFavoriteIds, saveFavorites } from './src/favoritesStorage';
 import * as Speech from 'expo-speech';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -13,6 +14,7 @@ import { getAudioTrack, isAudioReady } from './src/audioCatalog';
 import { learningThemes, workshopLibrary, eightWeekPath, activityGuides } from './src/program';
 
 const Tab = createBottomTabNavigator();
+const validFavoriteIds = new Set(contents.map(item => item.id));
 const YOUTUBE = 'https://youtube.com/@nianikids';
 const TIKTOK = 'https://www.tiktok.com/@niani.kids';
 const FACEBOOK = 'https://www.facebook.com/nianikids/';
@@ -241,7 +243,7 @@ function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}
   </ScrollView></SafeAreaView>;
 }
 export default function App() {
-  const [lang,setLangState]=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [stars,setStarsState]=useState(0); const [selectedItem,setSelectedItem]=useState<ContentItem|null>(null); const [isSpeaking,setIsSpeaking]=useState(false);
+  const [lang,setLangState]=useState<Language>('fr'); const [favorites,setFavorites]=useState<string[]>([]); const [favoritesHydrated,setFavoritesHydrated]=useState(false); const [favoritesRevision,setFavoritesRevision]=useState(0); const favoritesWriteQueue=useRef<Promise<void>>(Promise.resolve()); const [stars,setStarsState]=useState(0); const [selectedItem,setSelectedItem]=useState<ContentItem|null>(null); const [isSpeaking,setIsSpeaking]=useState(false);
   const setLang=(next:Language)=>{setLangState(next);AsyncStorage.setItem('niani-language',next).catch(()=>{});};
   useEffect(()=>{if(!selectedItem){Speech.stop();setIsSpeaking(false);} return ()=>{Speech.stop();};},[selectedItem]);
   useEffect(()=>{AsyncStorage.multiGet(['niani-favorites','niani-stars','niani-language']).then(values=>{
@@ -249,25 +251,25 @@ export default function App() {
     const starsValue=values[1][1];
     const languageValue=values[2][1];
 
-    // A corrupted favorites value must not prevent the language and reward state from loading.
-    if(favoritesValue){
-      try{
-        const parsed:unknown=JSON.parse(favoritesValue);
-        if(Array.isArray(parsed)){
-          const validIds=new Set(contents.map(item=>item.id));
-          setFavorites([...new Set(parsed.filter((id):id is string=>typeof id==='string'&&validIds.has(id)))]);
-        }
-      }catch{
-        // Ignore invalid local data and keep the app usable.
-      }
-    }
+    // Sanitize stored IDs; malformed favorites must not block language or reward restoration.
+    setFavorites(parseFavorites(favoritesValue,validFavoriteIds));
     if(starsValue!==null){
       const parsedStars=Number(starsValue);
       if(Number.isFinite(parsedStars)&&parsedStars>=0)setStarsState(Math.floor(parsedStars));
     }
     if(languageValue==='fr'||languageValue==='wo')setLangState(languageValue);
-  }).catch(()=>{});},[]);
-  const toggleFavorite=(id:string)=>setFavorites(old=>{const next=old.includes(id)?old.filter(x=>x!==id):[...old,id];AsyncStorage.setItem('niani-favorites',JSON.stringify(next)).catch(()=>{});return next});
+  }).catch(()=>{}).finally(()=>setFavoritesHydrated(true));},[]);
+  useEffect(()=>{
+    if(!favoritesHydrated||favoritesRevision===0)return;
+    const snapshot=[...favorites];
+    // Serialize writes so rapid taps cannot let an older AsyncStorage write win last.
+    favoritesWriteQueue.current=favoritesWriteQueue.current.catch(()=>undefined).then(()=>saveFavorites(AsyncStorage,snapshot)).catch(()=>undefined);
+  },[favorites,favoritesHydrated,favoritesRevision]);
+  const toggleFavorite=(id:string)=>{
+    if(!favoritesHydrated||!validFavoriteIds.has(id))return;
+    setFavorites(old=>toggleFavoriteIds(old,id,validFavoriteIds));
+    setFavoritesRevision(old=>old+1);
+  };
   const setStars=(n:number)=>{setStarsState(n);AsyncStorage.setItem('niani-stars',String(n)).catch(()=>{})};
   const onOpen=(item:ContentItem)=>setSelectedItem(item);
   return <NavigationContainer><StatusBar barStyle="dark-content" backgroundColor={C.cream}/><Tab.Navigator screenOptions={{headerShown:false,tabBarActiveTintColor:C.orange,tabBarInactiveTintColor:C.muted,tabBarStyle:{minHeight:68,paddingTop:7,paddingBottom:9,backgroundColor:'#FFFFFF',borderTopColor:'#EFE3D1',borderTopWidth:1,elevation:12,shadowColor:'#6B4C2D',shadowOffset:{width:0,height:-3},shadowOpacity:0.07,shadowRadius:9},tabBarLabelStyle:{fontWeight:'800',fontSize:9,marginTop:1},tabBarHideOnKeyboard:true}}>
