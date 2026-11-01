@@ -1,7 +1,7 @@
 /**
- * Official 25-song catalogue approved by the Niani Kids project owner.
- * MP3 files stream from the corresponding public WordPress media records.
- * Three separately supplied M4A masters remain tracked independently.
+ * Audio catalogue for the published Niani Kids songs.
+ * Approved tracks are playable; tracks awaiting language/rights review remain gated.
+ * MP3 files stream from their corresponding public WordPress media records.
  */
 import type { ContentItem } from './content';
 export type AudioReviewStatus = 'needs-identification' | 'needs-editorial-review' | 'approved';
