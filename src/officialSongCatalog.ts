@@ -8,7 +8,7 @@ export const officialSongs: ContentItem[] = [
   {
     "id": "song-niani-kids",
     "title": "Niani Kids",
-    "subtitle": "Une comptine joyeuse pour découvrir Samba, Awa, Bobo et le Baobab, et entrer dans l’univers Niani Kids.",
+    "subtitle": "Une comptine joyeuse pour découvrir Samba, Awa, Bobo et le Baobab, faire connaissance avec les personnages de Niani Kids et souhaiter la bienvenue aux tout-petits dans leur univers de chansons, de jeux et de découvertes.",
     "category": "Comptines",
     "emoji": "👋🏿",
     "duration": "2 min 25 s",
