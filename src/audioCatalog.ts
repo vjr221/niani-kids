@@ -40,8 +40,8 @@ export const audioCatalog: AudioTrackRecord[] = [
   {
     contentId: 'song-theme', attachmentId: 250,
     sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/NIANI-NIANI-—-NU-NGI-FII.mp3',
-    reviewStatus: 'needs-editorial-review', languageReviewed: false, rightsConfirmed: false,
-    notes: 'Nouvelle piste publiée sur le site ; relecture wolof et vérification des droits avant activation.'
+    reviewStatus: 'needs-editorial-review', languageReviewed: false, rightsConfirmed: true,
+    notes: 'Droits de diffusion confirmés par le responsable du projet ; validation linguistique wolof encore requise.'
   },
   {
     contentId: 'song-nanu-fecc', attachmentId: 252,
