@@ -1,68 +1,56 @@
-name: Android APK (Local Gradle)
-
+name: Niani Kids Android Release (Local Gradle)
 on:
   push:
-    branches:
-      - build/android-local-gradle
-      - audio/review-player-catalog-2026-10-29
-      - content/official-song-publication-2026-10-30
-    paths:
-      - '.github/workflows/android-gradle-apk.yml'
-      - 'app.json'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'app/**'
-      - 'src/**'
-      - 'assets/**'
+    branches: [main]
+    paths: ['.github/workflows/android-gradle-apk.yml','app.json','package.json','package-lock.json','App.tsx','src/**','assets/**','scripts/**']
   workflow_dispatch:
-
 permissions:
-  contents: read
-
+  contents: write
+concurrency:
+  group: niani-kids-android-release
+  cancel-in-progress: false
 jobs:
-  build-android-apk:
-    name: Build installable debug APK
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: 20.19.0, cache: npm}
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: '17'}
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: node scripts/validate-content.mjs
+      - run: node scripts/validate-audio-catalog.mjs
+      - run: node scripts/audit-wolof-content.mjs
+      - run: npx expo prebuild --platform android --clean --no-install
+      - run: npx expo export:embed --platform android --dev false --entry-file node_modules/expo/AppEntry.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+      - working-directory: android
+        run: ./gradlew --no-daemon assembleRelease
+      - name: Verify APK and checksum
+        id: apk
+        shell: bash
+        run: |
+          APK="android/app/build/outputs/apk/release/app-release.apk"
+          test -s "$APK"
+          APKSIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
+          "$APKSIGNER" verify --verbose "$APK"
+          sha256sum "$APK" > "$APK.sha256"
+          echo "version=$(node -p "require('./app.json').expo.version")" >> "$GITHUB_OUTPUT"
+          echo "tag=android-v$(node -p "require('./app.json').expo.version")-${GITHUB_SHA:0:7}" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@v4
         with:
-          node-version: 20.19.0
-          cache: npm
-
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: TypeScript check
-        run: npx tsc --noEmit
-
-      - name: Generate native Android project
-        run: npx expo prebuild --platform android --clean --no-install
-
-      - name: Embed JavaScript bundle and assets
-        run: npx expo export:embed --platform android --dev false --entry-file node_modules/expo/AppEntry.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
-
-      - name: Build APK with Gradle
-        working-directory: android
-        run: ./gradlew --no-daemon assembleDebug
-
-      - name: Verify APK exists
-        run: test -s android/app/build/outputs/apk/debug/app-debug.apk
-
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: niani-kids-android-debug-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: niani-kids-android-v${{ steps.apk.outputs.version }}
+          path: |
+            android/app/build/outputs/apk/release/app-release.apk
+            android/app/build/outputs/apk/release/app-release.apk.sha256
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 30
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.apk.outputs.tag }}
+          VERSION: ${{ steps.apk.outputs.version }}
+        run: |
+          gh release create "$TAG" android/app/build/outputs/apk/release/app-release.apk#Niani-Kids-${VERSION}.apk android/app/build/outputs/apk/release/app-release.apk.sha256#Niani-Kids-${VERSION}.sha256 --target "$GITHUB_SHA" --title "Niani Kids Android v${VERSION}" --notes "APK Android construit avec Expo Prebuild et Gradle, sans EAS. Signature debug Gradle : installable pour test, non destinée à la publication Google Play."
