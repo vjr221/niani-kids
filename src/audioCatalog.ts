@@ -40,14 +40,16 @@ export const audioCatalog: AudioTrackRecord[] = [
   {
     contentId: 'song-theme', attachmentId: 250,
     sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/NIANI-NIANI-—-NU-NGI-FII.mp3',
-    reviewStatus: 'needs-editorial-review', languageReviewed: false, rightsConfirmed: false,
-    notes: 'Nouvelle piste publiée sur le site ; relecture wolof et vérification des droits avant activation.'
+    assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/NIANI-NIANI-—-NU-NGI-FII.mp3',
+    reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
+    notes: 'Droits de diffusion, paroles et prononciation wolof validés par le responsable du projet Niani Kids.'
   },
   {
     contentId: 'song-nanu-fecc', attachmentId: 252,
     sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-–-Nanu-fecc-Dansons-.mp3',
-    reviewStatus: 'needs-editorial-review', languageReviewed: false, rightsConfirmed: false,
-    notes: 'Nouvelle piste publiée sur le site ; relecture wolof et vérification des droits avant activation.'
+    assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-–-Nanu-fecc-Dansons-.mp3',
+    reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
+    notes: 'Droits de diffusion, paroles et prononciation wolof validés par le responsable du projet Niani Kids.'
   }
 ];
 export function getAudioTrack(contentId: ContentItem['id']): AudioTrackRecord | undefined { return audioCatalog.find((track) => track.contentId === contentId); }
