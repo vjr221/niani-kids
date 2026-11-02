@@ -1,5 +1,5 @@
 /**
- * Official lyrics for the 25 song pages already published on Niani Kids.
+ * Official lyrics for the 27 song pages already published on Niani Kids.
  * Lyrics are copied from the live WordPress records; durations remain to be checked.
  */
 import type { ContentItem } from './content';
