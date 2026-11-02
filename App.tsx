@@ -87,7 +87,7 @@ function ContentCard({item,favorite,onFavorite,onOpen,lang}:{item:ContentItem;fa
   const bg = item.category==='Berceuses'?'#E9E9FF':item.category==='J’apprends'?'#DDF8E6':item.category==='Histoires'?'#FFF0D7':'#DDF4FF';
   const [imageFailed, setImageFailed] = useState(false);
   return <View style={s.contentCard}>
-    <Pressable accessibilityRole="button" accessibilityLabel={`${t.discover} ${item.title}, ${category}, ${item.duration}`} onPress={onOpen} style={[s.art,{backgroundColor:bg,overflow:'hidden'}]}>{item.imageUrl && !imageFailed ? <Image source={{uri:item.imageUrl}} resizeMode="cover" style={[StyleSheet.absoluteFillObject,{borderRadius:15}]} onError={()=>setImageFailed(true)} accessible={false} /> : <Text style={{fontSize:42}}>{item.emoji}</Text>}<Text style={s.duration}>{item.duration}</Text></Pressable>
+    <Pressable accessibilityRole="button" accessibilityLabel={`${t.discover} ${item.title}, ${category}${item.duration && !/^à confirmer$/i.test(item.duration.trim()) ? `, ${item.duration}` : ''}`} onPress={onOpen} style={[s.art,{backgroundColor:bg,overflow:'hidden'}]}>{item.imageUrl && !imageFailed ? <Image source={{uri:item.imageUrl}} resizeMode="cover" style={[StyleSheet.absoluteFillObject,{borderRadius:15}]} onError={()=>setImageFailed(true)} accessible={false} /> : <Text style={{fontSize:42}}>{item.emoji}</Text>}{item.duration && !/^à confirmer$/i.test(item.duration.trim()) ? <Text style={s.duration}>{item.duration}</Text> : null}</Pressable>
     <View style={s.cardInfo}><Text style={s.cardCategory}>{category.toUpperCase()} · {item.language}</Text><Text style={s.cardTitle}>{item.title}</Text><Text style={s.cardSubtitle}>{item.subtitle}</Text>
       <View style={s.cardActions}><Pressable accessibilityRole="button" accessibilityLabel={`${t.discover} ${item.title}`} onPress={onOpen} style={s.playButton}><Text style={s.playText}>📖 {t.discover}</Text></Pressable><Pressable accessibilityRole="button" accessibilityLabel={favorite?`${t.removeFavorite} ${item.title}`:`${t.addFavorite} ${item.title}`} accessibilityState={{selected:favorite}} hitSlop={8} onPress={onFavorite}><Text style={{fontSize:22}}>{favorite?'❤️':'🤍'}</Text></Pressable></View>
     </View>
@@ -289,7 +289,7 @@ export default function App() {
         {selectedItem&&<ScrollView contentContainerStyle={s.readerScroll}>
           <View style={[s.readerArt,{backgroundColor:selectedItem.category==='Berceuses'?'#E9E9FF':selectedItem.category==='Histoires'?'#FFF0D7':'#DDF4FF'}]}>
             <Text style={{fontSize:58}}>{selectedItem.emoji}</Text>
-            <Text style={s.readerMeta}>{selectedItem.category} · {selectedItem.duration} · {selectedItem.language}</Text>
+            <Text style={s.readerMeta}>{[selectedItem.category, selectedItem.duration && !/^à confirmer$/i.test(selectedItem.duration.trim()) ? selectedItem.duration : null, selectedItem.language].filter(Boolean).join(' · ')}</Text>
           </View>
           <Text style={s.readerTitle}>{selectedItem.title}</Text>
           <Text style={s.readerSubtitle}>{selectedItem.subtitle}</Text>
