@@ -51,7 +51,7 @@ export const audioCatalog: AudioTrackRecord[] = [
     notes: 'Droits de diffusion, paroles et prononciation wolof validés par le responsable du projet Niani Kids.'
   },
   {
-    contentId: 'song-nanu-fecc', attachmentId: 252,
+    contentId: 'song-nanu-fecc', attachmentId: 286,
     sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-–-Nanu-fecc-Dansons-.mp3',
     assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-–-Nanu-fecc-Dansons-.mp3',
     reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
