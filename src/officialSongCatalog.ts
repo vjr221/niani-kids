@@ -1,21 +1,10 @@
 /**
- * Official lyrics for the 25 song pages already published on Niani Kids.
+ * Official lyrics for the 26 song pages currently published in the Niani Kids mobile catalogue.
  * Lyrics are copied from the live WordPress records; durations remain to be checked.
  */
 import type { ContentItem } from './content';
 
 export const officialSongs: ContentItem[] = [
-  {
-    "id": "song-niani-kids",
-    "title": "Bonjour, bonjour",
-    "subtitle": "Une comptine joyeuse pour saluer, taper des mains et commencer la journée avec Samba, Awa, Bobo et le Baobab.",
-    "category": "Comptines",
-    "emoji": "👋🏿",
-    "duration": "2 min 25 s",
-    "language": "FR",
-    "featured": true,
-    "lyrics": "Intro\nBonjour, bonjour, les amis !\nC’est Niani Kids, on est réunis !\n\nCouplet 1\nSamba sourit, Awa danse,\nBobo saute, quelle ambiance !\nLe baobab nous dit tout bas :\nVenez chanter, restez avec moi !\n\nRefrain\nBonjour, bonjour, tape dans tes mains !\nBonjour, bonjour, viens chanter avec nous !\nNiani Kids, on est tous copains !\nOn chante, on danse, on rit comme des fous !\n\nCouplet 2\nTape, tape, un, deux, trois !\nTourne doucement, suis-moi !\nLève les bras vers le ciel,\nFais un sourire arc-en-ciel !\n\nPont\nAvec nos amis, le bonheur rassemble !\nTous ensemble, on grandit ensemble !\n\nRefrain final\nBonjour, bonjour, tape dans tes mains !\nBonjour, bonjour, viens chanter avec nous !\nNiani Kids, on est tous copains !\nChanter, rêver, grandir ensemble !\n\nOutro\nNia-ni Kids !\nÀ bientôt, les amis !"
-  },
   {
     "id": "song-bonjour-v2",
     "title": "Bonjour, bonjour ! (version 2)",
