@@ -24,8 +24,8 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
   const current = Math.min(duration, Math.max(0, status.currentTime || 0));
   const progress = duration > 0 ? (current / duration) * 100 : 0;
   const copy = uiLanguage === 'wo'
-    ? { recorded: 'WOY BU ÑU ENREGISTRE', progress: 'Yoonu woy bi', back: 'Delluwaat ci 10 sekond', forward: 'Dem kanam ci 10 sekond', pause: 'Taxawal tuuti woy bi', listen: 'Déglu woy bi', loading: 'Mi ngi yeb', pauseButton: 'Ⅱ Taxawal' }
-    : { recorded: 'CHANSON ENREGISTRÉE', progress: 'Progression de la chanson', back: 'Reculer de dix secondes', forward: 'Avancer de dix secondes', pause: 'Mettre la chanson en pause', listen: 'Écouter la chanson', loading: 'Chargement…', pauseButton: 'Ⅱ Pause' };
+    ? { recorded: 'WOY BU ÑU ENREGISTRE', progress: 'Yoonu woy bi', back: 'Delluwaat ci 10 sekond', forward: 'Dem kanam ci 10 sekond', pause: 'Taxawal tuuti woy bi', listen: 'Déglu woy bi', loading: 'Mi ngi yeb', error: 'Woy wi mënees koo yeb. Seetal internet bi te jéemaat.', pauseButton: 'Ⅱ Taxawal' }
+    : { recorded: 'CHANSON ENREGISTRÉE', progress: 'Progression de la chanson', back: 'Reculer de dix secondes', forward: 'Avancer de dix secondes', pause: 'Mettre la chanson en pause', listen: 'Écouter la chanson', loading: 'Chargement…', error: 'La chanson ne peut pas être chargée. Vérifiez la connexion Internet puis réessayez.', pauseButton: 'Ⅱ Pause' };
 
   return (
     <View style={styles.card} accessibilityLabel={`${reviewMode ? 'Préécoute de contrôle non publiée' : copy.recorded} : ${title}`}>
@@ -75,6 +75,7 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
           <Text style={styles.skipText}>+10 s</Text>
         </Pressable>
       </View>
+      {status.error ? <Text accessibilityRole="alert" style={styles.errorNote}>{copy.error}</Text> : null}
       {reviewMode ? <Text style={styles.reviewNote}>Écoute réservée au contrôle éditorial. Cette piste reste en attente de validation et n’est pas publiée dans la bibliothèque enfant.</Text> : null}
     </View>
   );
@@ -95,5 +96,6 @@ const styles = StyleSheet.create({
   play: { flex: 1, minHeight: 60, minWidth: 148, alignItems: 'center', justifyContent: 'center', backgroundColor: '#27B84A', borderRadius: 18, paddingHorizontal: 12, elevation: 2 },
   playText: { color: '#FFFFFF', fontWeight: '900', fontSize: 15, letterSpacing: 0.2 },
   reviewNote: { color: '#806B5D', fontSize: 12, lineHeight: 17, marginTop: 12 },
+  errorNote: { color: '#A12D22', backgroundColor: '#FFF0ED', borderRadius: 12, padding: 10, fontSize: 12, lineHeight: 17, marginTop: 12 },
   disabled: { opacity: 0.55 },
 });
