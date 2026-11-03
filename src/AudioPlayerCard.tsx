@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
 
@@ -20,6 +20,13 @@ const formatTime = (seconds: number) => {
 export default function AudioPlayerCard({ title, source, language, uiLanguage = 'fr', reviewMode = false }: Props) {
   const player = useAudioPlayer(source, { updateInterval: 500 });
   const status = useAudioPlayerStatus(player);
+  const [loadTimedOut, setLoadTimedOut] = useState(false);
+  useEffect(() => {
+    setLoadTimedOut(false);
+    if (status.isLoaded) return;
+    const timeout = setTimeout(() => setLoadTimedOut(true), 15000);
+    return () => clearTimeout(timeout);
+  }, [source, status.isLoaded]);
   const duration = Math.max(0, status.duration || 0);
   const current = Math.min(duration, Math.max(0, status.currentTime || 0));
   const progress = duration > 0 ? (current / duration) * 100 : 0;
@@ -75,7 +82,7 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
           <Text style={styles.skipText}>+10 s</Text>
         </Pressable>
       </View>
-      {status.error ? <Text accessibilityRole="alert" style={styles.errorNote}>{copy.error}</Text> : null}
+      {loadTimedOut && !status.isLoaded ? <Text accessibilityRole="alert" style={styles.errorNote}>{copy.error}</Text> : null}
       {reviewMode ? <Text style={styles.reviewNote}>Écoute réservée au contrôle éditorial. Cette piste reste en attente de validation et n’est pas publiée dans la bibliothèque enfant.</Text> : null}
     </View>
   );
