@@ -12,13 +12,6 @@ const approved = (contentId: ContentItem['id'], attachmentId: number, url: strin
   notes: 'Paroles et publication mobile validées par le responsable du projet Niani Kids.'
 });
 export const audioCatalog: AudioTrackRecord[] = [
-  {
-    contentId: 'song-niani-kids', attachmentId: 229,
-    sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/10/Niani-kids.mp3',
-    assetPath: 'https://nianikids.com/wp-content/uploads/2026/10/Niani-kids.mp3',
-    reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
-    notes: 'Paroles et master audio validés explicitement par le responsable du projet Niani Kids le 1er novembre 2026. Droits de diffusion confirmés.'
-  },
   approved('song-bonjour-v2',148,'https://nianikids.com/wp-content/uploads/2026/10/niani-bonjour-maquette-02.mp3'),
   approved('song-welcome',149,'https://nianikids.com/wp-content/uploads/2026/10/niani-bienvenue.mp3'),
   approved('song-start',150,'https://nianikids.com/wp-content/uploads/2026/10/niani-cest-parti.mp3'),
