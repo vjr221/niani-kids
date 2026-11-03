@@ -239,7 +239,6 @@ function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}
       <Text style={s.cardSubtitle}>{label?'Consultez la politique de confidentialité pour connaître les informations relatives aux données et à leur utilisation.':'Jàngal politigu sutura bi ngir xam ni ñuy jëfandikoo say xibaar.'}</Text>
     </View>
     <View style={s.safety}><Text style={s.cardTitle}>{translations[lang].parentSafetyTitle}</Text><Text style={s.cardSubtitle}>{translations[lang].parentSafetyBody} {label?'Les plateformes externes appliquent leurs propres règles. Un adulte doit accompagner l’enfant.':'Platform yu biti am nañu seen yoon. Mag war na ànd ak xale bi.'}</Text></View>
-    <Text style={s.footer}>{translations[lang].prelaunchNote}</Text>
   </ScrollView></SafeAreaView>;
 }
 export default function App() {
