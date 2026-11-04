@@ -8,11 +8,15 @@ const explicitRecords = [...audioSource.matchAll(/\{\s*contentId:\s*'([^']+)'[\s
 const approved = [...approvedHelpers, ...explicitRecords.filter((record) => record.status === 'approved').map((record) => record.id)];
 const pending = explicitRecords.filter((record) => record.status !== 'approved').map((record) => record.id);
 const ids = [...approvedHelpers, ...explicitRecords.map((record) => record.id)];
-assert.equal(approved.length, 26, 'Expected 26 owner-approved playable tracks; found ' + approved.length);
-assert.deepEqual(pending, [], 'No audio tracks should remain pending review after the owner confirmation');
 assert.equal(ids.length, 26, 'Expected 26 audio/content mappings');
 assert.equal(new Set(ids).size, ids.length, 'Audio content IDs must be unique');
+assert.equal(approved.length, 25, 'Expected 25 approved playable tracks; found ' + approved.length);
+assert.deepEqual(pending, ['song-nanu-fecc'], 'Only Nañu fecc may remain pending while its master intro is checked');
 assert.match(audioSource, /track\.reviewStatus\s*===\s*'approved'/, 'Playback must require editorial approval');
 assert.match(audioSource, /track\.languageReviewed/, 'Playback must require language review');
 assert.match(audioSource, /track\.rightsConfirmed/, 'Playback must require rights confirmation');
-console.log('Audio validation passed: all 26 tracks are approved and playable.');
+const feccRecord = audioSource.match(/contentId:\s*'song-nanu-fecc'[\s\S]*?\n\s*\}/)?.[0] ?? '';
+assert.match(feccRecord, /reviewStatus:\s*'needs-editorial-review'/, 'Nañu fecc must stay gated pending master review');
+assert.match(feccRecord, /languageReviewed:\s*false/, 'Nañu fecc must not be marked language-reviewed');
+assert.match(feccRecord, /rightsConfirmed:\s*true/, 'Owner-confirmed rights must be preserved');
+console.log('Audio validation passed: 25 tracks playable; Nañu fecc safely held for master review.');
