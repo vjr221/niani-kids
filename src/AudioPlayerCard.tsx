@@ -32,8 +32,8 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
   const current = Math.min(duration, Math.max(0, status.currentTime || 0));
   const progress = duration > 0 ? (current / duration) * 100 : 0;
   const copy = uiLanguage === 'wo'
-    ? { recorded: 'WOY BU ÑU ENREGISTRE', progress: 'Yoonu woy bi', back: 'Delluwaat ci 10 sekond', forward: 'Dem kanam ci 10 sekond', pause: 'Taxawal tuuti woy bi', listen: 'Déglu woy bi', loading: 'Mi ngi yeb', error: 'Woy wi mënees koo yeb. Seetal internet bi te jéemaat.', pauseButton: 'Ⅱ Taxawal' }
-    : { recorded: 'CHANSON ENREGISTRÉE', progress: 'Progression de la chanson', back: 'Reculer de dix secondes', forward: 'Avancer de dix secondes', pause: 'Mettre la chanson en pause', listen: 'Écouter la chanson', loading: 'Chargement…', error: 'La chanson ne peut pas être chargée. Vérifiez la connexion Internet puis réessayez.', pauseButton: 'Ⅱ Pause' };
+    ? { recorded: 'WOY BU ÑU ENREGISTRE', progress: 'Yoonu woy bi', back: 'Delluwaat ci 10 sekond', forward: 'Dem kanam ci 10 sekond', pause: 'Taxawal tuuti woy bi', listen: 'Déglu woy bi', loading: 'Mi ngi yeb', error: 'Woy wi mënees koo yeb. Seetal internet bi te jéemaat.', retry: 'Jéemaat', pauseButton: 'Ⅱ Taxawal' }
+    : { recorded: 'CHANSON ENREGISTRÉE', progress: 'Progression de la chanson', back: 'Reculer de dix secondes', forward: 'Avancer de dix secondes', pause: 'Mettre la chanson en pause', listen: 'Écouter la chanson', loading: 'Chargement…', error: 'La chanson ne peut pas être chargée. Vérifiez la connexion Internet puis réessayez.', retry: 'Réessayer', pauseButton: 'Ⅱ Pause' };
 
   return (
     <View style={styles.card} accessibilityLabel={`${reviewMode ? 'Préécoute de contrôle non publiée' : copy.recorded} : ${title}`}>
