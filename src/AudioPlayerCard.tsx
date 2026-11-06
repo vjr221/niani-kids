@@ -21,12 +21,13 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
   const player = useAudioPlayer(source, { updateInterval: 500 });
   const status = useAudioPlayerStatus(player);
   const [loadTimedOut, setLoadTimedOut] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
   useEffect(() => {
     setLoadTimedOut(false);
-    if (status.isLoaded) return;
+    if (status.isLoaded || status.error) return;
     const timeout = setTimeout(() => setLoadTimedOut(true), 15000);
     return () => clearTimeout(timeout);
-  }, [source, status.isLoaded]);
+  }, [source, status.isLoaded, status.error, retryCount]);
   const duration = Math.max(0, status.duration || 0);
   const current = Math.min(duration, Math.max(0, status.currentTime || 0));
   const progress = duration > 0 ? (current / duration) * 100 : 0;
@@ -82,7 +83,19 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
           <Text style={styles.skipText}>+10 s</Text>
         </Pressable>
       </View>
-      {loadTimedOut && !status.isLoaded ? <Text accessibilityRole="alert" style={styles.errorNote}>{copy.error}</Text> : null}
+      {(status.error || loadTimedOut) && !status.isLoaded ? (
+        <View style={styles.errorBox}>
+          <Text accessibilityRole="alert" style={styles.errorNote}>{copy.error}</Text>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={copy.retry}
+            onPress={() => { setLoadTimedOut(false); player.replace(source); setRetryCount((count) => count + 1); }}
+            style={styles.retryButton}
+          >
+            <Text style={styles.retryText}>↻ {copy.retry}</Text>
+          </Pressable>
+        </View>
+      ) : null}
       {reviewMode ? <Text style={styles.reviewNote}>Écoute réservée au contrôle éditorial. Cette piste reste en attente de validation et n’est pas publiée dans la bibliothèque enfant.</Text> : null}
     </View>
   );
@@ -103,6 +116,9 @@ const styles = StyleSheet.create({
   play: { flex: 1, minHeight: 60, minWidth: 148, alignItems: 'center', justifyContent: 'center', backgroundColor: '#27B84A', borderRadius: 18, paddingHorizontal: 12, elevation: 2 },
   playText: { color: '#FFFFFF', fontWeight: '900', fontSize: 15, letterSpacing: 0.2 },
   reviewNote: { color: '#806B5D', fontSize: 12, lineHeight: 17, marginTop: 12 },
-  errorNote: { color: '#A12D22', backgroundColor: '#FFF0ED', borderRadius: 12, padding: 10, fontSize: 12, lineHeight: 17, marginTop: 12 },
+  errorBox: { marginTop: 12, gap: 8 },
+  errorNote: { color: '#A12D22', backgroundColor: '#FFF0ED', borderRadius: 12, padding: 10, fontSize: 12, lineHeight: 17 },
+  retryButton: { alignSelf: 'flex-start', minHeight: 44, justifyContent: 'center', backgroundColor: '#FFF0C7', borderRadius: 12, paddingHorizontal: 16, paddingVertical: 10 },
+  retryText: { color: '#81500B', fontWeight: '900', fontSize: 14 },
   disabled: { opacity: 0.55 },
 });
