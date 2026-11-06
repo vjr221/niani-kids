@@ -24,10 +24,10 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
   const [retryCount, setRetryCount] = useState(0);
   useEffect(() => {
     setLoadTimedOut(false);
-    if (status.isLoaded || status.error) return;
+    if (status.isLoaded) return;
     const timeout = setTimeout(() => setLoadTimedOut(true), 15000);
     return () => clearTimeout(timeout);
-  }, [source, status.isLoaded, status.error, retryCount]);
+  }, [source, status.isLoaded, retryCount]);
   const duration = Math.max(0, status.duration || 0);
   const current = Math.min(duration, Math.max(0, status.currentTime || 0));
   const progress = duration > 0 ? (current / duration) * 100 : 0;
@@ -83,7 +83,7 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
           <Text style={styles.skipText}>+10 s</Text>
         </Pressable>
       </View>
-      {(status.error || loadTimedOut) && !status.isLoaded ? (
+      {loadTimedOut && !status.isLoaded ? (
         <View style={styles.errorBox}>
           <Text accessibilityRole="alert" style={styles.errorNote}>{copy.error}</Text>
           <Pressable
