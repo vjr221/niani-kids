@@ -3,8 +3,7 @@ const { withAppBuildGradle } = require("@expo/config-plugins");
 /**
  * Applies a stable, private Android release keystore to the Gradle release
  * build. Preview/debug builds remain unchanged when no signing environment
- * is present. The release workflow validates all required secrets before
- * invoking Expo Prebuild.
+ * is present. The release workflow validates all required secrets first.
  */
 module.exports = function withAndroidReleaseSigning(config) {
   return withAppBuildGradle(config, (config) => {
@@ -31,10 +30,6 @@ module.exports = function withAndroidReleaseSigning(config) {
       throw new Error("Could not locate buildTypes in generated android/app/build.gradle");
     }
 
-    if (!contents.includes("signingConfig signingConfigs.debug")) {
-      throw new Error("Expected Expo's default debug signing declaration was not found");
-    }
-
     const signingConfig = `
     signingConfigs {
         release {
@@ -48,7 +43,7 @@ module.exports = function withAndroidReleaseSigning(config) {
 `;
 
     let updated = contents.replace("buildTypes {", signingConfig + "buildTypes {");
-    const releaseSigning = /(release\\s*\\{[\\s\\S]*?signingConfig\\s+)signingConfigs\\.debug/;
+    const releaseSigning = /(release\s*\{[\s\S]*?signingConfig\s+)signingConfigs\.debug/;
     if (!releaseSigning.test(updated)) {
       throw new Error("Could not locate the release build signing configuration");
     }
