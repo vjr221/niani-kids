@@ -47,8 +47,8 @@ export const audioCatalog: AudioTrackRecord[] = [
     contentId: 'song-nanu-fecc', attachmentId: 286,
     sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-–-Nanu-fecc-Dansons-.mp3',
     assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-–-Nanu-fecc-Dansons-.mp3',
-    reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
-    notes: 'Droits de diffusion, paroles et prononciation wolof validés par le responsable du projet Niani Kids.'
+    reviewStatus: 'needs-editorial-review', languageReviewed: false, rightsConfirmed: true,
+    notes: 'Master mis en attente de vérification : les paroles intégrées au fichier audio mentionnent encore Hey! Hey! dans l’introduction, contrairement à la version validée. Ne pas diffuser dans l’application avant contrôle du master.'
   }
 ];
 export function getAudioTrack(contentId: ContentItem['id']): AudioTrackRecord | undefined { return audioCatalog.find((track) => track.contentId === contentId); }
