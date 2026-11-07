@@ -10,9 +10,7 @@ module.exports = function withAndroidReleaseSigning(config) {
     const contents = config.modResults.contents;
     const keystorePath = process.env.ANDROID_KEYSTORE_PATH;
 
-    if (!keystorePath) {
-      return config;
-    }
+    if (!keystorePath) return config;
 
     const required = [
       "ANDROID_KEYSTORE_PASSWORD",
@@ -22,7 +20,8 @@ module.exports = function withAndroidReleaseSigning(config) {
     const missing = required.filter((name) => !process.env[name]);
     if (missing.length) {
       throw new Error(
-        \`Android release signing is incomplete. Missing environment variables: \${missing.join(", ")}\`
+        "Android release signing is incomplete. Missing environment variables: " +
+          missing.join(", ")
       );
     }
 
@@ -31,17 +30,19 @@ module.exports = function withAndroidReleaseSigning(config) {
       throw new Error("Could not locate buildTypes in generated android/app/build.gradle");
     }
 
-    const signingConfig = \`
-    signingConfigs {
-        release {
-            storeFile file(System.getenv("ANDROID_KEYSTORE_PATH"))
-            storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
-            keyAlias System.getenv("ANDROID_KEY_ALIAS")
-            keyPassword System.getenv("ANDROID_KEY_PASSWORD")
-        }
-    }
-
-\`;
+    const signingConfig = [
+      "",
+      "    signingConfigs {",
+      "        release {",
+      '            storeFile file(System.getenv("ANDROID_KEYSTORE_PATH"))',
+      '            storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")',
+      '            keyAlias System.getenv("ANDROID_KEY_ALIAS")',
+      '            keyPassword System.getenv("ANDROID_KEY_PASSWORD")',
+      "        }",
+      "    }",
+      "",
+      "",
+    ].join("\n");
 
     const beforeBuildTypes = contents.slice(0, buildTypesIndex);
     const buildTypesAndAfter = contents.slice(buildTypesIndex);
