@@ -3,7 +3,7 @@
     "name": "Niani Kids",
     "slug": "niani-kids",
     "owner": "vjr221s-team",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "scheme": "nianikids",
@@ -16,7 +16,7 @@
     },
     "android": {
       "package": "sn.nianikids.app",
-      "versionCode": 2,
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/brand/app-icon-source.png",
         "backgroundColor": "#FFF7D6"
@@ -32,7 +32,8 @@
           "recordAudioAndroid": false,
           "microphonePermission": false
         }
-      ]
+      ],
+      "./plugins/withAndroidReleaseSigning"
     ]
   }
 }
