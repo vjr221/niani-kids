@@ -24,7 +24,7 @@ base64 -w 0 niani-kids-release.jks
 
 macOS :
 ```bash
-base64 niani-kids-release.jks | tr -d '\\n'
+base64 niani-kids-release.jks | tr -d '\n'
 ```
 
 Copier le résultat directement dans le secret GitHub correspondant. Ne pas l'ajouter au dépôt et ne pas l'envoyer dans une conversation.
