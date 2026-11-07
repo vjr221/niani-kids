@@ -22,7 +22,7 @@ module.exports = function withAndroidReleaseSigning(config) {
     const missing = required.filter((name) => !process.env[name]);
     if (missing.length) {
       throw new Error(
-        `Android release signing is incomplete. Missing environment variables: ${missing.join(", ")}`
+        \`Android release signing is incomplete. Missing environment variables: \${missing.join(", ")}\`
       );
     }
 
@@ -31,7 +31,7 @@ module.exports = function withAndroidReleaseSigning(config) {
       throw new Error("Could not locate buildTypes in generated android/app/build.gradle");
     }
 
-    const signingConfig = `
+    const signingConfig = \`
     signingConfigs {
         release {
             storeFile file(System.getenv("ANDROID_KEYSTORE_PATH"))
@@ -41,11 +41,11 @@ module.exports = function withAndroidReleaseSigning(config) {
         }
     }
 
-`;
+\`;
 
     const beforeBuildTypes = contents.slice(0, buildTypesIndex);
     const buildTypesAndAfter = contents.slice(buildTypesIndex);
-    const releaseSigning = /(release\\s*\\{[\\s\\S]*?signingConfig\\s+)signingConfigs\\.debug/;
+    const releaseSigning = /(release\s*\{[\s\S]*?signingConfig\s+)signingConfigs\.debug/;
     if (!releaseSigning.test(buildTypesAndAfter)) {
       throw new Error("Could not locate the release build signing configuration");
     }
