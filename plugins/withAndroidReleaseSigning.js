@@ -1,0 +1,60 @@
+const { withAppBuildGradle } = require("@expo/config-plugins");
+
+/**
+ * Applies a stable, private Android release keystore to the Gradle release
+ * build. Preview/debug builds remain unchanged when no signing environment
+ * is present. The release workflow validates all required secrets before
+ * invoking Expo Prebuild.
+ */
+module.exports = function withAndroidReleaseSigning(config) {
+  return withAppBuildGradle(config, (config) => {
+    const contents = config.modResults.contents;
+    const keystorePath = process.env.ANDROID_KEYSTORE_PATH;
+
+    if (!keystorePath) {
+      return config;
+    }
+
+    const required = [
+      "ANDROID_KEYSTORE_PASSWORD",
+      "ANDROID_KEY_ALIAS",
+      "ANDROID_KEY_PASSWORD",
+    ];
+    const missing = required.filter((name) => !process.env[name]);
+    if (missing.length) {
+      throw new Error(
+        `Android release signing is incomplete. Missing environment variables: ${missing.join(", ")}`
+      );
+    }
+
+    if (!contents.includes("buildTypes {")) {
+      throw new Error("Could not locate buildTypes in generated android/app/build.gradle");
+    }
+
+    if (!contents.includes("signingConfig signingConfigs.debug")) {
+      throw new Error("Expected Expo's default debug signing declaration was not found");
+    }
+
+    const signingConfig = `
+    signingConfigs {
+        release {
+            storeFile file(System.getenv("ANDROID_KEYSTORE_PATH"))
+            storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("ANDROID_KEY_ALIAS")
+            keyPassword System.getenv("ANDROID_KEY_PASSWORD")
+        }
+    }
+
+`;
+
+    let updated = contents.replace("buildTypes {", signingConfig + "buildTypes {");
+    const releaseSigning = /(release\\s*\\{[\\s\\S]*?signingConfig\\s+)signingConfigs\\.debug/;
+    if (!releaseSigning.test(updated)) {
+      throw new Error("Could not locate the release build signing configuration");
+    }
+    updated = updated.replace(releaseSigning, "$1signingConfigs.release");
+
+    config.modResults.contents = updated;
+    return config;
+  });
+};
