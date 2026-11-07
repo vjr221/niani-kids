@@ -26,7 +26,8 @@ module.exports = function withAndroidReleaseSigning(config) {
       );
     }
 
-    if (!contents.includes("buildTypes {")) {
+    const buildTypesIndex = contents.indexOf("buildTypes {");
+    if (buildTypesIndex < 0) {
       throw new Error("Could not locate buildTypes in generated android/app/build.gradle");
     }
 
@@ -42,14 +43,19 @@ module.exports = function withAndroidReleaseSigning(config) {
 
 `;
 
-    let updated = contents.replace("buildTypes {", signingConfig + "buildTypes {");
-    const releaseSigning = /(release\s*\{[\s\S]*?signingConfig\s+)signingConfigs\.debug/;
-    if (!releaseSigning.test(updated)) {
+    const beforeBuildTypes = contents.slice(0, buildTypesIndex);
+    const buildTypesAndAfter = contents.slice(buildTypesIndex);
+    const releaseSigning = /(release\\s*\\{[\\s\\S]*?signingConfig\\s+)signingConfigs\\.debug/;
+    if (!releaseSigning.test(buildTypesAndAfter)) {
       throw new Error("Could not locate the release build signing configuration");
     }
-    updated = updated.replace(releaseSigning, "$1signingConfigs.release");
 
-    config.modResults.contents = updated;
+    const updatedBuildTypes = buildTypesAndAfter.replace(
+      releaseSigning,
+      "$1signingConfigs.release"
+    );
+    config.modResults.contents =
+      beforeBuildTypes + signingConfig + updatedBuildTypes;
     return config;
   });
 };
