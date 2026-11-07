@@ -1,8 +1,5 @@
 name: Niani Kids Android Release (Local Gradle)
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/android-gradle-apk.yml','app.json','package.json','package-lock.json','App.tsx','src/**','assets/**','scripts/**','plugins/**']
   workflow_dispatch:
 permissions:
   contents: write
