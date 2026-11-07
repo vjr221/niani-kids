@@ -1,8 +1,5 @@
 name: Niani Kids Android Release (Local Gradle)
 on:
-  push:
-    branches: [main]
-    paths: ['.github/workflows/android-gradle-apk.yml','app.json','package.json','package-lock.json','App.tsx','src/**','assets/**','scripts/**']
   workflow_dispatch:
 permissions:
   contents: write
@@ -24,18 +21,41 @@ jobs:
       - run: node scripts/validate-content.mjs
       - run: node scripts/validate-audio-catalog.mjs
       - run: node scripts/audit-wolof-content.mjs
+      - name: Configure private Android release signing
+        shell: bash
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          for name in ANDROID_KEYSTORE_BASE64 ANDROID_KEYSTORE_PASSWORD ANDROID_KEY_ALIAS ANDROID_KEY_PASSWORD; do
+            if [[ -z "${!name:-}" ]]; then
+              echo "::error::Missing GitHub Actions secret: $name. Configure the four Android signing secrets before building a public APK."
+              exit 1
+            fi
+          done
+          KEYSTORE_PATH="$RUNNER_TEMP/niani-kids-release.jks"
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$KEYSTORE_PATH"
+          test -s "$KEYSTORE_PATH"
+          chmod 600 "$KEYSTORE_PATH"
+          echo "ANDROID_KEYSTORE_PATH=$KEYSTORE_PATH" >> "$GITHUB_ENV"
+          echo "ANDROID_KEYSTORE_PASSWORD=$ANDROID_KEYSTORE_PASSWORD" >> "$GITHUB_ENV"
+          echo "ANDROID_KEY_ALIAS=$ANDROID_KEY_ALIAS" >> "$GITHUB_ENV"
+          echo "ANDROID_KEY_PASSWORD=$ANDROID_KEY_PASSWORD" >> "$GITHUB_ENV"
       - run: npx expo prebuild --platform android --clean --no-install
       - run: npx expo export:embed --platform android --dev false --entry-file node_modules/expo/AppEntry.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
       - working-directory: android
         run: ./gradlew --no-daemon assembleRelease
-      - name: Verify APK and checksum
+      - name: Verify production APK and checksum
         id: apk
         shell: bash
         run: |
           APK="android/app/build/outputs/apk/release/app-release.apk"
           test -s "$APK"
           APKSIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
-          "$APKSIGNER" verify --verbose "$APK"
+          "$APKSIGNER" verify --verbose --print-certs "$APK"
           sha256sum "$APK" > "$APK.sha256"
           echo "version=$(node -p "require('./app.json').expo.version")" >> "$GITHUB_OUTPUT"
           echo "tag=android-v$(node -p "require('./app.json').expo.version")-${GITHUB_SHA:0:7}" >> "$GITHUB_OUTPUT"
@@ -55,7 +75,7 @@ jobs:
         run: |
           APK="android/app/build/outputs/apk/release/app-release.apk"
           CHECKSUM="$APK.sha256"
-          NOTES="APK Android construit avec Expo Prebuild et Gradle, sans EAS. Signature debug Gradle : installable pour test, non destinée à la publication Google Play."
+          NOTES="APK Android Niani Kids v${VERSION}, signée avec le keystore privé de production. Distribution directe depuis nianikids.com (hors Google Play). Empreinte SHA-256 fournie."
           if gh release view "$TAG" >/dev/null 2>&1; then
             echo "Release $TAG already exists; updating its assets."
             gh release edit "$TAG" --title "Niani Kids Android v${VERSION}" --notes "$NOTES"
