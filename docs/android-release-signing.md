@@ -45,7 +45,7 @@ Ne jamais afficher ni partager les valeurs de ces secrets.
 
 ## 4. Construire et publier
 
-Après configuration des secrets, lancer le workflow **Niani Kids Android Release (Local Gradle)** depuis l'onglet Actions, ou pousser une modification prise en charge sur `main`.
+Après configuration des secrets, lancer le workflow **Niani Kids Android Release (Local Gradle)** depuis l'onglet Actions, depuis **Actions → Niani Kids Android Release (Local Gradle) → Run workflow**.
 
 Le workflow :
 - vérifie TypeScript, le catalogue, les contenus et l'audit Wolof ;
