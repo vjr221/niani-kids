@@ -12,6 +12,7 @@ import AudioPlayerCard from './src/AudioPlayerCard';
 import AudioReviewPanel from './src/AudioReviewPanel';
 import { getAudioTrack, isAudioReady } from './src/audioCatalog';
 import { learningThemes, workshopLibrary, eightWeekPath, activityGuides } from './src/program';
+import { getPublishedVideos, getYouTubeThumbnail, getYouTubeWatchUrl } from './src/videoCatalog';
 
 const Tab = createBottomTabNavigator();
 const validFavoriteIds = new Set(contents.map(item => item.id));
@@ -117,7 +118,7 @@ function HomeScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Languag
   const featured=contents.filter(x=>x.featured).slice(0,3);
   const filtered=useMemo(()=>contents.filter(x=>normalizeText([x.title,x.subtitle,x.category,x.language].join(' ')).includes(normalizeText(query))),[query]);
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
-    <Hero lang={lang} onVideos={()=>openExternal(YOUTUBE)} onPlay={()=>navigation.navigate('Jouer')}/>
+    <Hero lang={lang} onVideos={()=>navigation.navigate('Vidéos')} onPlay={()=>navigation.navigate('Jouer')}/>
     <View style={s.quickGrid}>
       <Pressable accessibilityRole="button" accessibilityLabel="Ouvrir les jeux éducatifs" onPress={()=>navigation.navigate('Jouer')} style={[s.quickCard,{backgroundColor:'#E4F0DD'}]}><Text style={s.quickEmoji}>🎮</Text><Text style={s.quickTitle}>{translations[lang].quickGames}</Text><Text style={s.quickSub}>{translations[lang].quickLearn}</Text></Pressable>
       <Pressable accessibilityRole="button" accessibilityLabel="Ouvrir les ateliers créatifs" onPress={()=>navigation.navigate('Atelier')} style={[s.quickCard,{backgroundColor:'#FBE5DF'}]}><Text style={s.quickEmoji}>🎨</Text><Text style={s.quickTitle}>{translations[lang].quickWorkshop}</Text><Text style={s.quickSub}>{translations[lang].quickCreate}</Text></Pressable>
@@ -138,6 +139,36 @@ function HomeScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Languag
     <Pressable accessibilityRole="button" accessibilityLabel={`${translations[lang].discover} : ${translations[lang].baobabSecret}`} onPress={()=>{const story=contents.find(item=>item.id==="story-secret");if(story)onOpen(story);}} style={s.storyBanner}><Text style={{fontSize:36}}>📚</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].baobabSecret}</Text><Text style={s.cardSubtitle}>{translations[lang].sharingFriendship}</Text></View><Text style={{fontSize:23}}>✨</Text></Pressable>
     <View style={s.mission}><Text style={{fontSize:30}}>💚</Text><Text style={s.missionTitle}>{translations[lang].growSmile}</Text><Text style={s.missionText}>{translations[lang].missionText}</Text></View>
     <Text style={s.footer}>Niani Kids • Chanter, rêver, grandir ❤️</Text>
+  </ScrollView></SafeAreaView>;
+}
+function VideosScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
+  const videos=getPublishedVideos();
+  const fr=lang==='fr';
+  return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
+    <View style={[s.parentCard,{backgroundColor:'#E4F5E7'}]}>
+      <Text style={s.cardCategory}>{fr?'LA CHAÎNE NIANI KIDS':'KANAALU NIANI KIDS'}</Text>
+      <Text style={s.pageTitle}>🎬 {fr?'Nos vidéos':'Sunu widewo'}</Text>
+      <Text style={s.cardSubtitle}>{fr?'Retrouve les clips, comptines animées, histoires et découvertes de Samba, Awa, Bobo et Baobab.':'Seetal clip yi, woy yi, nettali yi ak xam-xam ak Samba, Awa, Bobo ak Baobab.'}</Text>
+    </View>
+    {videos.length===0?<View style={s.quizCard}>
+      <Text style={{fontSize:48,textAlign:'center'}}>🌳</Text>
+      <Text style={s.quizTitle}>{fr?'Les premières vidéos arrivent bientôt !':'Widewo yi jëkk dinañu ñëw léegi !'}</Text>
+      <Text style={s.cardSubtitle}>{fr?'Cette bibliothèque est prête. Les vidéos apparaîtront ici après leur publication et leur vérification.':'Dencukaay bii waajal na. Widewo yi dinañu feeñ fii bu ñu leen génnee te seetlu leen.'}</Text>
+      <Text style={s.parentHint}>{fr?'Un parent peut ouvrir la chaîne officielle pour retrouver les publications.':'Sàmmkat bi mën na ubbi kanaal bu dëgg bi ngir gis widewo yi.'}</Text>
+      <Pressable accessibilityRole="button" style={s.nextButton} onPress={()=>openExternal(YOUTUBE)}><Text style={s.nextText}>{fr?'Ouvrir la chaîne officielle ↗':'Ubbi kanaal bi ↗'}</Text></Pressable>
+    </View>:videos.map(video=>{
+      const watchUrl=getYouTubeWatchUrl(video.youtubeVideoId);
+      const thumbnail=getYouTubeThumbnail(video);
+      if(!watchUrl)return null;
+      return <Pressable key={video.id} accessibilityRole="button" accessibilityLabel={(fr?'Ouvrir la vidéo : ':'Ubbi widewo bi : ')+video.title} style={s.workshop} onPress={()=>openExternal(watchUrl)}>
+        {thumbnail?<Image source={{uri:thumbnail}} style={{width:'100%',aspectRatio:16/9,borderRadius:16,backgroundColor:'#E8E5D8'}} resizeMode="cover"/>:<View style={{height:180,alignItems:'center',justifyContent:'center',backgroundColor:'#E8F5D5',borderRadius:16}}><Text style={{fontSize:48}}>▶️</Text></View>}
+        <Text style={s.cardTitle}>{video.title}</Text>
+        <Text style={s.cardSubtitle}>{video.category} · {video.language} · {video.ageBand}{video.duration?' · '+video.duration:''}</Text>
+        <Text style={s.cardSubtitle}>{video.description}</Text>
+        <Text style={s.sectionAction}>{fr?'Voir sur YouTube ↗':'Seet ci YouTube ↗'}</Text>
+      </Pressable>;
+    })}
+    <View style={s.safety}><Text style={s.cardTitle}>{fr?'Espace Parents':'Wàllu way-jur'}</Text><Text style={s.cardSubtitle}>{fr?'Les vidéos sont hébergées par YouTube. Un adulte accompagne l’ouverture de la plateforme externe.':'YouTube moo denc widewo yi. Mag war na ànd ak xale bi bu ñuy ubbi platform bi.'}</Text></View>
   </ScrollView></SafeAreaView>;
 }
 function GamesScreen({lang,setLang,stars,setStars}:{lang:Language;setLang:(l:Language)=>void;stars:number;setStars:(n:number)=>void}) {
@@ -273,6 +304,7 @@ export default function App() {
   const onOpen=(item:ContentItem)=>setSelectedItem(item);
   return <NavigationContainer><StatusBar barStyle="dark-content" backgroundColor={C.cream}/><Tab.Navigator screenOptions={{headerShown:false,tabBarActiveTintColor:C.orange,tabBarInactiveTintColor:C.muted,tabBarStyle:{minHeight:68,paddingTop:7,paddingBottom:9,backgroundColor:'#FFFFFF',borderTopColor:'#EFE3D1',borderTopWidth:1,elevation:12,shadowColor:'#6B4C2D',shadowOffset:{width:0,height:-3},shadowOpacity:0.07,shadowRadius:9},tabBarLabelStyle:{fontWeight:'800',fontSize:9,marginTop:1},tabBarHideOnKeyboard:true}}>
     <Tab.Screen name="Accueil" options={{tabBarLabel:translations[lang].home,tabBarAccessibilityLabel:translations[lang].home,tabBarIcon:({color})=><Text style={{fontSize:19}}>🏡</Text>}}>{()=> <HomeScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen>
+    <Tab.Screen name="Vidéos" options={{tabBarLabel:lang==='fr'?'Vidéos':'Widewo',tabBarAccessibilityLabel:lang==='fr'?'Vidéos Niani Kids':'Widewo Niani Kids',tabBarIcon:()=> <Text style={{fontSize:19}}>🎬</Text>}}>{()=> <VideosScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
     <Tab.Screen name="Bibliothèque" options={{tabBarLabel:translations[lang].library,tabBarAccessibilityLabel:translations[lang].library,tabBarIcon:()=> <Text style={{fontSize:19}}>🎵</Text>}}>{()=> <LibraryScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen>
     <Tab.Screen name="Jouer" options={{tabBarLabel:translations[lang].play,tabBarAccessibilityLabel:translations[lang].play,tabBarIcon:()=> <Text style={{fontSize:19}}>🎮</Text>}}>{()=> <GamesScreen lang={lang} setLang={setLang} stars={stars} setStars={setStars}/>}</Tab.Screen>
     <Tab.Screen name="Explorer" options={{tabBarLabel:lang==='fr'?'Explorer':'Seet',tabBarAccessibilityLabel:lang==='fr'?'Explorer les thèmes éducatifs':'Seet ci jàng',tabBarIcon:()=> <Text style={{fontSize:19}}>🧭</Text>}}>{()=> <ExploreScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
