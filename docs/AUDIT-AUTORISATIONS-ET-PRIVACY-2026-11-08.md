@@ -5,7 +5,7 @@ Date de vérification : 8 novembre 2026
 
 - WordPress 7.1.4, PHP 8.3.36, HTTPS actif.
 - Inscriptions publiques désactivées ; rôle par défaut : subscriber.
-- Un compte utilisateur recensé, avec identifiant de connexion générique « admin » et rôle administrateur.
+- Un seul compte utilisateur recensé avec rôle administrateur ; vérifier en interne que son identifiant de connexion n'est pas générique et protéger le compte par une authentification forte.
 - Le rôle administrateur conserve les capacités WordPress habituelles de gestion complète. Ne pas réduire ni renommer ce compte sans créer et tester d'abord un compte administrateur de remplacement et vérifier l'accès de récupération.
 - L'endpoint REST public `/wp/v2/users` renvoie 404 ; XML-RPC n'est pas accessible (405).
 - `DISALLOW_FILE_EDIT` est activé ; les commentaires sur l'accueil sont fermés.
