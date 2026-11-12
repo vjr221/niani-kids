@@ -10,6 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    env:
+      EXPO_PUBLIC_AUDIO_REVIEW: "false"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
