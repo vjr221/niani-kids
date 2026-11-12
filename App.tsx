@@ -292,7 +292,10 @@ export default function App() {
           </View>
           <Text style={s.readerTitle}>{selectedItem.title}</Text>
           <Text style={s.readerSubtitle}>{selectedItem.subtitle}</Text>
-          {selectedItem.lyrics&&isAudioReady(getAudioTrack(selectedItem.id)) ? <AudioPlayerCard key={selectedItem.id} title={selectedItem.title} source={getAudioTrack(selectedItem.id)?.assetPath ?? ''} language={selectedItem.language} uiLanguage={lang} /> : null}
+          {selectedItem.lyrics&&isAudioReady(getAudioTrack(selectedItem.id)) ? <>
+            <AudioPlayerCard key={selectedItem.id} title={selectedItem.title} source={getAudioTrack(selectedItem.id)?.assetPath ?? ''} language={selectedItem.language} uiLanguage={lang} />
+            {getAudioTrack(selectedItem.id)?.alternateSources?.filter(v=>v.reviewStatus==='approved'&&v.languageReviewed&&v.rightsConfirmed).map((version,index)=><View key={version.title} style={{marginTop:12}}><Text style={{fontSize:14,fontWeight:'800',color:C.ink,marginBottom:6}}>{version.title}</Text><AudioPlayerCard key={version.title} title={version.title} source={version.sourceUrl} language={selectedItem.language} uiLanguage={lang}/></View>)}
+          </> : null}
           {selectedItem.lyrics&&!isAudioReady(getAudioTrack(selectedItem.id)) ? <View style={s.readerNotice}><Text style={s.readerNotice}>{lang==='fr'?'🎵 Enregistrement musical en préparation. Tu peux écouter le texte avec la synthèse vocale ci-dessous.':'🎵 Woy bu dëgg-dëgg mi ngi ci waajal. Mën nga déglu mbind mi ak baat bu ordinatëër ci suuf.'}</Text></View> : null}
           {(selectedItem.lyrics||selectedItem.storyText)&&<View style={s.readerAudioRow}>
             <Pressable accessibilityRole="button" accessibilityLabel={isSpeaking?translations[lang].playText:translations[lang].listen} accessibilityState={{selected:isSpeaking}} style={[s.readerListenButton,{flexGrow:1,flexBasis:220}]} onPress={()=>{if(isSpeaking){Speech.stop();setIsSpeaking(false);return;} const spokenText=[selectedItem.lyrics,selectedItem.storyText].filter(Boolean).join('\n\n').replace(/^.*Note : paroles wolof de travail.*$/m,'').trim();Speech.stop();setIsSpeaking(true);Speech.speak(spokenText,{language:selectedItem.language==='WO'?'wo-SN':'fr-FR',rate:0.82,pitch:1.05,onDone:()=>setIsSpeaking(false),onStopped:()=>setIsSpeaking(false),onError:()=>setIsSpeaking(false)});}}>
