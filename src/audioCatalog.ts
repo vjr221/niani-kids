@@ -50,13 +50,20 @@ export const audioCatalog: AudioTrackRecord[] = [
     coverUrl: 'https://nianikids.com/wp-content/uploads/2026/11/04_Nianu_fecc.jpg',
     sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-–-Nanu-fecc-Dansons-.mp3',
     assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-–-Nanu-fecc-Dansons-.mp3',
-    reviewStatus: 'needs-editorial-review', languageReviewed: false, rightsConfirmed: true,
-    notes: 'Master mis en attente de vérification : les paroles intégrées au fichier audio mentionnent encore Hey! Hey! dans l’introduction, contrairement à la version validée. Ne pas diffuser dans l’application avant contrôle du master.'
+    reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
+    notes: 'Version Nañu fecc ! validée par le responsable du projet. Introduction corrigée : Niaaaani… Niaaaani… / Nuyoo, nuyoo! / Nañu fecc!.'
   },
   approved('song-yaaye-sama-yaay',770,'https://nianikids.com/wp-content/uploads/2026/11/Yaaye-Sama-Yaay.mp3','Yaaye_Sama_Yaay_Miniature_YouTube_16-9.jpg'),
   approved('song-nene-touti',767,'https://nianikids.com/wp-content/uploads/2026/11/Nene-Touti.mp3','01_Nene_Touti.jpg'),
   approved('song-dors-mon-petit-bebe',761,'https://nianikids.com/wp-content/uploads/2026/11/Dors-mon-petit-bebe.mp3','02_Dors_mon_petit_bebe.jpg'),
-  approved('song-nelawal-sama-nene',763,'https://nianikids.com/wp-content/uploads/2026/11/Nelawal-Sama-Nene.mp3','03_Nelawal_Sama_Nene.jpg'),
+  {
+    contentId: 'song-nelawal-sama-nene', attachmentId: 763,
+    coverUrl: 'https://nianikids.com/wp-content/uploads/2026/11/03_Nelawal_Sama_Nene.jpg',
+    sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/Nelawal-Sama-Nene.mp3',
+    assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/Nelawal-Sama-Nene.mp3',
+    reviewStatus: 'needs-editorial-review', languageReviewed: false, rightsConfirmed: true,
+    notes: 'Audio disponible, mais validation linguistique wolof à confirmer avant diffusion dans l’application.'
+  },
 ];
 const yaayeTrack = audioCatalog.find((track) => track.contentId === 'song-yaaye-sama-yaay');
 if (yaayeTrack) yaayeTrack.alternateSources = [{
