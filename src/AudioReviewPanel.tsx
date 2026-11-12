@@ -70,6 +70,7 @@ export default function AudioReviewPanel({ lang }: Props) {
                 key={selected.track.contentId}
                 title={selected.song.title}
                 source={selected.source}
+                coverUrl={selected.track.coverUrl}
                 language={selected.song.language}
                 uiLanguage={lang}
                 reviewMode

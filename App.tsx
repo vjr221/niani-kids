@@ -6,7 +6,8 @@ import * as Speech from 'expo-speech';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { contents, ContentItem } from './src/content';
+import { contents as starterContents, ContentItem } from './src/content';
+import { officialSongs } from './src/officialSongCatalog';
 import { Language, translations } from './src/i18n';
 import AudioPlayerCard from './src/AudioPlayerCard';
 import AudioReviewPanel from './src/AudioReviewPanel';
@@ -14,7 +15,13 @@ import { getAudioTrack, isAudioReady } from './src/audioCatalog';
 import { learningThemes, workshopLibrary, eightWeekPath, activityGuides } from './src/program';
 
 const Tab = createBottomTabNavigator();
-const validFavoriteIds = new Set(contents.map(item => item.id));
+// Published WordPress songs are the source of truth for the mobile music library.
+// Keep the locally authored story collection alongside them.
+const contents: ContentItem[] = [...officialSongs, ...starterContents.filter(item => item.category === 'Histoires')];
+const favoriteContentMap = new Map(starterContents.map(item => [item.id, item]));
+officialSongs.forEach(item => favoriteContentMap.set(item.id, item));
+const allKnownContents = [...favoriteContentMap.values()];
+const validFavoriteIds = new Set(allKnownContents.map(item => item.id));
 const YOUTUBE = 'https://youtube.com/@nianikids';
 const TIKTOK = 'https://www.tiktok.com/@niani.kids';
 const FACEBOOK = 'https://www.facebook.com/nianikids/';
@@ -87,7 +94,7 @@ function ContentCard({item,favorite,onFavorite,onOpen,lang}:{item:ContentItem;fa
   const bg = item.category==='Berceuses'?'#E9E9FF':item.category==='J’apprends'?'#DDF8E6':item.category==='Histoires'?'#FFF0D7':'#DDF4FF';
   const [imageFailed, setImageFailed] = useState(false);
   return <View style={s.contentCard}>
-    <Pressable accessibilityRole="button" accessibilityLabel={`${t.discover} ${item.title}, ${category}${item.duration && !/^à confirmer$/i.test(item.duration.trim()) ? `, ${item.duration}` : ''}`} onPress={onOpen} style={[s.art,{backgroundColor:bg,overflow:'hidden'}]}>{item.imageUrl && !imageFailed ? <Image source={{uri:item.imageUrl}} resizeMode="cover" style={[StyleSheet.absoluteFillObject,{borderRadius:15}]} onError={()=>setImageFailed(true)} accessible={false} /> : <Text style={{fontSize:42}}>{item.emoji}</Text>}{item.duration && !/^à confirmer$/i.test(item.duration.trim()) ? <Text style={s.duration}>{item.duration}</Text> : null}</Pressable>
+    <Pressable accessibilityRole="button" accessibilityLabel={`${t.discover} ${item.title}, ${category}${item.duration && !/^à confirmer$/i.test(item.duration.trim()) ? `, ${item.duration}` : ''}`} onPress={onOpen} style={[s.art,{backgroundColor:bg,overflow:'hidden'}]}>{(getAudioTrack(item.id)?.coverUrl ?? item.imageUrl) && !imageFailed ? <Image source={{uri:getAudioTrack(item.id)?.coverUrl ?? item.imageUrl!}} resizeMode="cover" style={[StyleSheet.absoluteFillObject,{borderRadius:15}]} onError={()=>setImageFailed(true)} accessible={false} /> : <Text style={{fontSize:42}}>{item.emoji}</Text>}{item.duration && !/^à confirmer$/i.test(item.duration.trim()) ? <Text style={s.duration}>{item.duration}</Text> : null}</Pressable>
     <View style={s.cardInfo}><Text style={s.cardCategory}>{category.toUpperCase()} · {item.language}</Text><Text style={s.cardTitle}>{item.title}</Text><Text style={s.cardSubtitle}>{item.subtitle}</Text>
       <View style={s.cardActions}><Pressable accessibilityRole="button" accessibilityLabel={`${t.discover} ${item.title}`} onPress={onOpen} style={s.playButton}><Text style={s.playText}>📖 {t.discover}</Text></Pressable><Pressable accessibilityRole="button" accessibilityLabel={favorite?`${t.removeFavorite} ${item.title}`:`${t.addFavorite} ${item.title}`} accessibilityState={{selected:favorite}} hitSlop={8} onPress={onFavorite}><Text style={{fontSize:22}}>{favorite?'❤️':'🤍'}</Text></Pressable></View>
     </View>
@@ -213,7 +220,7 @@ function LibraryScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Lang
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}><Text style={s.pageTitle}>🎵 {translations[lang].libraryTitle}</Text><Text style={s.cardSubtitle}>{translations[lang].libraryIntro}</Text><TextInput accessibilityLabel={translations[lang].search} accessibilityRole="search" value={query} onChangeText={setQuery} placeholder={'🔎 '+translations[lang].search+'…'} placeholderTextColor="#947F70" style={s.search} returnKeyType="search" clearButtonMode="while-editing"/><ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{paddingVertical:3}}>{categories.map(x=><Pill key={x.value} active={filter===x.value} onPress={()=>setFilter(x.value)}>{x.label}</Pill>)}</ScrollView><View style={{flexDirection:'row',gap:8,flexWrap:'wrap'}}><Pill active={languageFilter==='Toutes'} onPress={()=>setLanguageFilter('Toutes')}>{translations[lang].allLanguages}</Pill><Pill active={languageFilter==='FR'} onPress={()=>setLanguageFilter('FR')} >{translations[lang].french}</Pill><Pill active={languageFilter==='WO'} onPress={()=>setLanguageFilter('WO')} >{translations[lang].wolof}</Pill><Pill active={onlyFavorites} onPress={()=>setOnlyFavorites(v=>!v)} >❤️ {translations[lang].favoritesFilter}</Pill></View><Text style={s.cardSubtitle}>{list.length} {translations[lang].contentCount}</Text>{list.map(item=><ContentCard key={item.id} item={item} lang={lang} favorite={favorites.includes(item.id)} onFavorite={()=>toggleFavorite(item.id)} onOpen={()=>onOpen(item)}/>)}{!list.length&&<View style={s.empty}><Text style={{fontSize:42}}>🔎</Text><Text style={s.cardTitle}>{translations[lang].noContent}</Text><Text style={s.cardSubtitle}>{translations[lang].tryOtherSearch}</Text><Pressable onPress={()=>{setQuery('');setFilter('Tout');setLanguageFilter('Toutes');setOnlyFavorites(false)}} style={s.playButton}><Text style={s.playText}>{translations[lang].resetFilters}</Text></Pressable></View>}</ScrollView></SafeAreaView>;
 }
 function FavoritesScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Language;setLang:(l:Language)=>void;favorites:string[];toggleFavorite:(id:string)=>void;onOpen:(item:ContentItem)=>void}) {
-  return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}><Text style={s.pageTitle}>❤️ {translations[lang].favorites}</Text>{contents.filter(x=>favorites.includes(x.id)).map(item=><ContentCard key={item.id} item={item} lang={lang} favorite onFavorite={()=>toggleFavorite(item.id)} onOpen={()=>onOpen(item)}/>)}{!favorites.length&&<View style={s.empty}><Text style={{fontSize:45}}>⭐</Text><Text style={s.cardTitle}>{translations[lang].treasuresHere}</Text><Text style={s.cardSubtitle}>{translations[lang].favoriteHint}</Text></View>}</ScrollView></SafeAreaView>;
+  return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}><Text style={s.pageTitle}>❤️ {translations[lang].favorites}</Text>{allKnownContents.filter(x=>favorites.includes(x.id)).map(item=><ContentCard key={item.id} item={item} lang={lang} favorite onFavorite={()=>toggleFavorite(item.id)} onOpen={()=>onOpen(item)}/>)}{!favorites.length&&<View style={s.empty}><Text style={{fontSize:45}}>⭐</Text><Text style={s.cardTitle}>{translations[lang].treasuresHere}</Text><Text style={s.cardSubtitle}>{translations[lang].favoriteHint}</Text></View>}</ScrollView></SafeAreaView>;
 }
 function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
   const showAudioReview = __DEV__ || process.env.EXPO_PUBLIC_AUDIO_REVIEW === 'true';
@@ -287,14 +294,14 @@ export default function App() {
         </View>
         {selectedItem&&<ScrollView contentContainerStyle={s.readerScroll}>
           <View style={[s.readerArt,{backgroundColor:selectedItem.category==='Berceuses'?'#E9E9FF':selectedItem.category==='Histoires'?'#FFF0D7':'#DDF4FF'}]}>
-            <Text style={{fontSize:58}}>{selectedItem.emoji}</Text>
+            {(!isAudioReady(getAudioTrack(selectedItem.id)) && (getAudioTrack(selectedItem.id)?.coverUrl ?? selectedItem.imageUrl)) ? <Image source={{uri:getAudioTrack(selectedItem.id)?.coverUrl ?? selectedItem.imageUrl}} resizeMode="cover" style={{width:'100%',height:190,borderRadius:18}} accessible accessibilityLabel={`Pochette de ${selectedItem.title}`} /> : <Text style={{fontSize:58}}>{selectedItem.emoji}</Text>}
             <Text style={s.readerMeta}>{[selectedItem.category, selectedItem.duration && !/^à confirmer$/i.test(selectedItem.duration.trim()) ? selectedItem.duration : null, selectedItem.language].filter(Boolean).join(' · ')}</Text>
           </View>
           <Text style={s.readerTitle}>{selectedItem.title}</Text>
           <Text style={s.readerSubtitle}>{selectedItem.subtitle}</Text>
           {selectedItem.lyrics&&isAudioReady(getAudioTrack(selectedItem.id)) ? <>
-            <AudioPlayerCard key={selectedItem.id} title={selectedItem.title} source={getAudioTrack(selectedItem.id)?.assetPath ?? ''} language={selectedItem.language} uiLanguage={lang} />
-            {getAudioTrack(selectedItem.id)?.alternateSources?.filter(v=>v.reviewStatus==='approved'&&v.languageReviewed&&v.rightsConfirmed).map((version,index)=><View key={version.title} style={{marginTop:12}}><Text style={{fontSize:14,fontWeight:'800',color:C.ink,marginBottom:6}}>{version.title}</Text><AudioPlayerCard key={version.title} title={version.title} source={version.sourceUrl} language={selectedItem.language} uiLanguage={lang}/></View>)}
+            <AudioPlayerCard key={selectedItem.id} title={selectedItem.title} source={getAudioTrack(selectedItem.id)?.assetPath ?? ''} coverUrl={getAudioTrack(selectedItem.id)?.coverUrl} language={selectedItem.language} uiLanguage={lang} />
+            {getAudioTrack(selectedItem.id)?.alternateSources?.filter(v=>v.reviewStatus==='approved'&&v.languageReviewed&&v.rightsConfirmed).map((version,index)=><View key={version.title} style={{marginTop:12}}><Text style={{fontSize:14,fontWeight:'800',color:C.ink,marginBottom:6}}>{version.title}</Text><AudioPlayerCard key={version.title} title={version.title} source={version.sourceUrl} coverUrl={getAudioTrack(selectedItem.id)?.coverUrl} language={selectedItem.language} uiLanguage={lang}/></View>)}
           </> : null}
           {selectedItem.lyrics&&!isAudioReady(getAudioTrack(selectedItem.id)) ? <View style={s.readerNotice}><Text style={s.readerNotice}>{lang==='fr'?'🎵 Enregistrement musical en préparation. Tu peux écouter le texte avec la synthèse vocale ci-dessous.':'🎵 Woy bu dëgg-dëgg mi ngi ci waajal. Mën nga déglu mbind mi ak baat bu ordinatëër ci suuf.'}</Text></View> : null}
           {(selectedItem.lyrics||selectedItem.storyText)&&<View style={s.readerAudioRow}>
