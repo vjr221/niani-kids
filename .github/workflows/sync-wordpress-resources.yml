@@ -38,4 +38,3 @@ jobs:
             - Liens externes ouverts dans l'application derrière le contrôle parental existant.
             - Traduction wolof des titres non revendiquée : les titres originaux sont conservés.
             - Vérifier l'éditorial et les liens avant fusion.
-          labels: content-sync
