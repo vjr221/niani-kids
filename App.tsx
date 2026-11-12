@@ -152,34 +152,34 @@ function HomeScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Languag
 
 function VideosScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
   const videos = getPublishedVideos();
+  const t = translations[lang];
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
     <View style={[s.parentCard,{backgroundColor:'#E4F5E7'}]}>
-      <Text style={s.cardCategory}>LA CHAÎNE NIANI KIDS</Text>
-      <Text style={s.pageTitle}>🎬 Nos vidéos</Text>
-      <Text style={s.cardSubtitle}>Retrouve les clips, comptines animées, histoires et découvertes de Samba, Awa, Bobo et Baobab.</Text>
+      <Text style={s.cardCategory}>{t.videosChannelEyebrow}</Text>
+      <Text style={s.pageTitle}>🎬 {t.videosTitle}</Text>
+      <Text style={s.cardSubtitle}>{t.videosIntro}</Text>
     </View>
     {videos.length===0?<View style={s.quizCard}>
       <Text style={{fontSize:48,textAlign:'center'}}>🌳</Text>
-      <Text style={s.quizTitle}>Les premières vidéos arrivent bientôt !</Text>
-      <Text style={s.cardSubtitle}>Cette bibliothèque est prête. Les vidéos apparaîtront ici après leur publication et leur vérification.</Text>
-      <Text style={s.parentHint}>Un parent peut ouvrir la chaîne officielle pour retrouver les publications.</Text>
-      <Pressable accessibilityRole="button" style={s.nextButton} onPress={()=>openExternal(YOUTUBE)}><Text style={s.nextText}>Ouvrir la chaîne officielle ↗</Text></Pressable>
+      <Text style={s.quizTitle}>{t.videosEmptyTitle}</Text>
+      <Text style={s.cardSubtitle}>{t.videosEmptyBody}</Text>
+      <Text style={s.parentHint}>{t.videosParentHint}</Text>
+      <Pressable accessibilityRole="button" accessibilityLabel={t.videosOpenChannel} style={s.nextButton} onPress={()=>openExternal(YOUTUBE)}><Text style={s.nextText}>{t.videosOpenChannel} ↗</Text></Pressable>
     </View>:videos.map(video=>{
       const watchUrl=getYouTubeWatchUrl(video.youtubeVideoId);
       const thumbnail=getYouTubeThumbnail(video);
       if(!watchUrl)return null;
-      return <Pressable key={video.id} accessibilityRole="button" accessibilityLabel={'Ouvrir la vidéo : '+video.title} style={s.workshop} onPress={()=>openExternal(watchUrl)}>
+      return <Pressable key={video.id} accessibilityRole="button" accessibilityLabel={t.videosWatch+' : '+video.title} style={s.workshop} onPress={()=>openExternal(watchUrl)}>
         {thumbnail?<Image source={{uri:thumbnail}} style={{width:'100%',aspectRatio:16/9,borderRadius:16,backgroundColor:'#E8E5D8'}} resizeMode="cover"/>:<View style={{height:180,alignItems:'center',justifyContent:'center',backgroundColor:'#E8F5D5',borderRadius:16}}><Text style={{fontSize:48}}>▶️</Text></View>}
         <Text style={s.cardTitle}>{video.title}</Text>
         <Text style={s.cardSubtitle}>{video.category} · {video.language} · {video.ageBand}{video.duration?' · '+video.duration:''}</Text>
         <Text style={s.cardSubtitle}>{video.description}</Text>
-        <Text style={s.sectionAction}>Voir sur YouTube ↗</Text>
+        <Text style={s.sectionAction}>{t.videosWatch} ↗</Text>
       </Pressable>;
     })}
-    <View style={s.safety}><Text style={s.cardTitle}>Espace Parents</Text><Text style={s.cardSubtitle}>Les vidéos sont hébergées par YouTube. Un adulte accompagne l’ouverture de la plateforme externe.</Text></View>
+    <View style={s.safety}><Text style={s.cardTitle}>{t.videosSafetyTitle}</Text><Text style={s.cardSubtitle}>{t.videosSafetyBody}</Text></View>
   </ScrollView></SafeAreaView>;
 }
-
 function GamesScreen({lang,setLang,stars,setStars}:{lang:Language;setLang:(l:Language)=>void;stars:number;setStars:(n:number)=>void}) {
   const [game,setGame]=useState<'menu'|'colors'|'count'|'nature'>('menu');
   const [round,setRound]=useState(0); const [feedback,setFeedback]=useState(''); const [answerCorrect,setAnswerCorrect]=useState(false);
