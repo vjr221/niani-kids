@@ -6,7 +6,8 @@ import * as Speech from 'expo-speech';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { contents, ContentItem } from './src/content';
+import { contents as starterContents, ContentItem } from './src/content';
+import { officialSongs } from './src/officialSongCatalog';
 import { Language, translations } from './src/i18n';
 import AudioPlayerCard from './src/AudioPlayerCard';
 import AudioReviewPanel from './src/AudioReviewPanel';
@@ -14,6 +15,9 @@ import { getAudioTrack, isAudioReady } from './src/audioCatalog';
 import { learningThemes, workshopLibrary, eightWeekPath, activityGuides } from './src/program';
 
 const Tab = createBottomTabNavigator();
+// Published WordPress songs are the source of truth for the mobile music library.
+// Keep the locally authored story collection alongside them.
+const contents: ContentItem[] = [...officialSongs, ...starterContents.filter(item => item.category === 'Histoires')];
 const validFavoriteIds = new Set(contents.map(item => item.id));
 const YOUTUBE = 'https://youtube.com/@nianikids';
 const TIKTOK = 'https://www.tiktok.com/@niani.kids';
@@ -287,7 +291,7 @@ export default function App() {
         </View>
         {selectedItem&&<ScrollView contentContainerStyle={s.readerScroll}>
           <View style={[s.readerArt,{backgroundColor:selectedItem.category==='Berceuses'?'#E9E9FF':selectedItem.category==='Histoires'?'#FFF0D7':'#DDF4FF'}]}>
-            <Text style={{fontSize:58}}>{selectedItem.emoji}</Text>
+            {(getAudioTrack(selectedItem.id)?.coverUrl ?? selectedItem.imageUrl) ? <Image source={{uri:getAudioTrack(selectedItem.id)?.coverUrl ?? selectedItem.imageUrl}} resizeMode="cover" style={{width:'100%',height:190,borderRadius:18}} accessible accessibilityLabel={`Pochette de ${selectedItem.title}`} /> : <Text style={{fontSize:58}}>{selectedItem.emoji}</Text>}
             <Text style={s.readerMeta}>{[selectedItem.category, selectedItem.duration && !/^à confirmer$/i.test(selectedItem.duration.trim()) ? selectedItem.duration : null, selectedItem.language].filter(Boolean).join(' · ')}</Text>
           </View>
           <Text style={s.readerTitle}>{selectedItem.title}</Text>
