@@ -23,6 +23,6 @@ assert.match(audioSource, /Yaaye-Sama-Yaay-Version-Masculine\.mp3/, 'Yaaye mascu
 assert.match(audioSource, /coverUrl:\s*`https:\/\/nianikids\.com\/wp-content\/uploads\/2026\/11\//, 'Approved audio records must expose official cover art');
 assert.equal((audioSource.match(/approved\('[^']+',\d+,'[^']+','[^']+\.jpg'\)/g) ?? []).length, 27, 'All helper-based approved tracks must have a 16:9 cover mapping');
 assert.match(audioSource, /coverUrl:\s*'https:\/\/nianikids\.com\/wp-content\/uploads\/2026\/11\/05_Nu_ngi_fii\.jpg'/, 'The Niani theme song must have its official cover');
-assert.equal((audioSource.match(/coverUrl:\s*'https:\/\/nianikids\.com\/wp-content\/uploads\/2026\/11\//g) ?? []).length, 3, 'All three explicit records must include their official covers');
+assert.equal((audioSource.match(/coverUrl:\s*'https:\/\/nianikids\.com\/wp-content\/uploads\/2026\/11\//g) ?? []).length, 2, 'All production explicit records must include their official covers');
 assert.match(audioSource, /coverUrl:\s*'https:\/\/nianikids\.com\/wp-content\/uploads\/2026\/11\/04_Nianu_fecc\.jpg'/, 'Nañu fecc must retain its published cover');
 console.log('Production audio validation passed: 29 approved tracks, all with official covers; no pending review files.');
