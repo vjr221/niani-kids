@@ -1,0 +1,40 @@
+name: Sync published WordPress resources
+
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: wordpress-resource-sync
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Refresh public WordPress articles
+        run: node scripts/sync-wordpress-resources.mjs
+      - name: Open update pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore(content): sync published WordPress resources'
+          branch: automation/wordpress-resource-sync
+          delete-branch: true
+          title: 'chore(content): synchroniser les nouveautés du site'
+          body: |
+            Mise à jour automatique du flux de ressources publiques WordPress.
+            - Articles publiés uniquement, sans contenus brouillons.
+            - Liens externes ouverts dans l'application derrière le contrôle parental existant.
+            - Traduction wolof des titres non revendiquée : les titres originaux sont conservés.
+            - Vérifier l'éditorial et les liens avant fusion.

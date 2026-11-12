@@ -13,6 +13,7 @@ import AudioPlayerCard from './src/AudioPlayerCard';
 import AudioReviewPanel from './src/AudioReviewPanel';
 import { getAudioTrack, isAudioReady } from './src/audioCatalog';
 import { learningThemes, workshopLibrary, eightWeekPath, activityGuides } from './src/program';
+import { siteResources } from './src/siteResources';
 
 const Tab = createBottomTabNavigator();
 // Published WordPress songs are the source of truth for the mobile music library.
@@ -235,6 +236,9 @@ function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(TIKTOK)}><Text style={{fontSize:26}}>🎬</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].tiktok}</Text><Text style={s.cardSubtitle}>{translations[lang].tiktokSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(FACEBOOK)}><Text style={{fontSize:26}}>📘</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].facebook}</Text><Text style={s.cardSubtitle}>{translations[lang].facebookSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(INSTAGRAM)}><Text style={{fontSize:26}}>📸</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].instagram}</Text><Text style={s.cardSubtitle}>{translations[lang].instagramSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
+    <Section title={label?'Ressources et nouveautés':'Jumtukaay ak yeesal'} />
+    <Text style={s.cardSubtitle}>{label?'Retrouvez les nouvelles fiches, idées de jeux et ressources gratuites publiées sur le site Niani Kids.':'Gis fiches yu bees, xalaat yu po ak jumtukaay yu amul njëg ci dalub Niani Kids.'}</Text>
+    {siteResources.map(resource=><Pressable key={resource.id} accessibilityRole="link" accessibilityLabel={label?resource.titleFr:resource.titleWo} style={s.externalLink} onPress={()=>openExternal(resource.url)}><Text style={{fontSize:25}}>{resource.icon}</Text><View style={{flex:1}}><Text style={s.cardTitle}>{label?resource.titleFr:resource.titleWo}</Text><Text style={s.cardSubtitle}>{label?resource.descriptionFr:resource.descriptionWo}</Text></View><Text style={s.sectionAction}>↗</Text></Pressable>)}
     <View style={s.safety}><Text style={s.cardTitle}>{label?'Informations légales et confidentialité':'Xibaar yu yoon ak sutura'}</Text>
       <Text style={s.cardSubtitle}>{label?'Niani Kids est édité et hébergé par Sentic, situé à Yoff, Dakar, Sénégal. Responsable de publication : Sentic.':'Sentic moo yor ak di héberge Niani Kids. Dakar, Senegaal.'}</Text>
       <Text style={s.cardSubtitle}>{label?'Contact Niani Kids : '+NIANI_EMAIL:'Jokkoo Niani Kids : '+NIANI_EMAIL}</Text>
