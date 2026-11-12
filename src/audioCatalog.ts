@@ -5,7 +5,8 @@
  */
 import type { ContentItem } from './content';
 export type AudioReviewStatus = 'needs-identification' | 'needs-editorial-review' | 'approved';
-export type AudioAlternateRecord = { title: string; sourceUrl: string; reviewStatus: AudioReviewStatus; languageReviewed: boolean; rightsConfirmed: boolean };\nexport type AudioTrackRecord = { contentId: ContentItem['id']; attachmentId?: number; sourceUrl?: string; assetPath?: string; reviewStatus: AudioReviewStatus; languageReviewed: boolean; rightsConfirmed: boolean; notes: string; alternateSources?: AudioAlternateRecord[] };
+export type AudioAlternateRecord = { title: string; sourceUrl: string; reviewStatus: AudioReviewStatus; languageReviewed: boolean; rightsConfirmed: boolean };
+export type AudioTrackRecord = { contentId: ContentItem['id']; attachmentId?: number; sourceUrl?: string; assetPath?: string; reviewStatus: AudioReviewStatus; languageReviewed: boolean; rightsConfirmed: boolean; notes: string; alternateSources?: AudioAlternateRecord[] };
 const approved = (contentId: ContentItem['id'], attachmentId: number, url: string): AudioTrackRecord => ({
   contentId, attachmentId, sourceUrl: url, assetPath: url,
   reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
