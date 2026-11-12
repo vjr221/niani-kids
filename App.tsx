@@ -294,7 +294,7 @@ export default function App() {
         </View>
         {selectedItem&&<ScrollView contentContainerStyle={s.readerScroll}>
           <View style={[s.readerArt,{backgroundColor:selectedItem.category==='Berceuses'?'#E9E9FF':selectedItem.category==='Histoires'?'#FFF0D7':'#DDF4FF'}]}>
-            {(getAudioTrack(selectedItem.id)?.coverUrl ?? selectedItem.imageUrl) ? <Image source={{uri:getAudioTrack(selectedItem.id)?.coverUrl ?? selectedItem.imageUrl}} resizeMode="cover" style={{width:'100%',height:190,borderRadius:18}} accessible accessibilityLabel={`Pochette de ${selectedItem.title}`} /> : <Text style={{fontSize:58}}>{selectedItem.emoji}</Text>}
+            {(!isAudioReady(getAudioTrack(selectedItem.id)) && (getAudioTrack(selectedItem.id)?.coverUrl ?? selectedItem.imageUrl)) ? <Image source={{uri:getAudioTrack(selectedItem.id)?.coverUrl ?? selectedItem.imageUrl}} resizeMode="cover" style={{width:'100%',height:190,borderRadius:18}} accessible accessibilityLabel={`Pochette de ${selectedItem.title}`} /> : <Text style={{fontSize:58}}>{selectedItem.emoji}</Text>}
             <Text style={s.readerMeta}>{[selectedItem.category, selectedItem.duration && !/^à confirmer$/i.test(selectedItem.duration.trim()) ? selectedItem.duration : null, selectedItem.language].filter(Boolean).join(' · ')}</Text>
           </View>
           <Text style={s.readerTitle}>{selectedItem.title}</Text>
