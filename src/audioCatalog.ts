@@ -50,8 +50,8 @@ export const audioCatalog: AudioTrackRecord[] = [
     coverUrl: 'https://nianikids.com/wp-content/uploads/2026/11/04_Nianu_fecc.jpg',
     sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-–-Nanu-fecc-Dansons-.mp3',
     assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-–-Nanu-fecc-Dansons-.mp3',
-    reviewStatus: 'needs-editorial-review', languageReviewed: false, rightsConfirmed: true,
-    notes: 'Master mis en attente de vérification : les paroles intégrées au fichier audio mentionnent encore Hey! Hey! dans l’introduction, contrairement à la version validée. Ne pas diffuser dans l’application avant contrôle du master.'
+    reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
+    notes: 'Master et version éditoriale validés par le responsable du projet Niani Kids le 12 novembre 2026. Intégré au catalogue mobile officiel.'
   },
   approved('song-yaaye-sama-yaay',770,'https://nianikids.com/wp-content/uploads/2026/11/Yaaye-Sama-Yaay.mp3','Yaaye_Sama_Yaay_Miniature_YouTube_16-9.jpg'),
   approved('song-nene-touti',767,'https://nianikids.com/wp-content/uploads/2026/11/Nene-Touti.mp3','01_Nene_Touti.jpg'),
