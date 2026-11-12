@@ -8,7 +8,7 @@ const legacyEntries = [...legacySource.matchAll(/\{id:'([^']+)',title:'([^']+)',
 const retainedStories = legacyEntries.filter((entry) => entry.category === 'Histoires');
 assert.ok(!legacySource.includes("id:'song-bonjour'"), 'Bonjour, bonjour version 1 must be removed from the mobile content list');
 const officialIds = [...officialSource.matchAll(/"id":\s*"([^"]+)"/g)].map((m) => m[1]);
-assert.equal(officialIds.length, 26, `Expected 26 published songs after excluding Bonjour version 1; found ${officialIds.length}`);
+assert.equal(officialIds.length, 30, `Expected 30 published songs after excluding Bonjour version 1; found ${officialIds.length}`);
 assert.ok(officialIds.includes('song-theme'), 'Missing NIANI! NIANI! — ÑU NGI FII!');
 assert.ok(officialIds.includes('song-nanu-fecc'), 'Missing Niani Kids – Nañu fecc !');
 assert.ok(!officialIds.includes('song-niani-kids'), 'Bonjour, bonjour version 1 must stay out of the mobile catalogue');
