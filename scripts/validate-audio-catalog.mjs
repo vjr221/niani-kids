@@ -8,9 +8,9 @@ const explicitRecords = [...audioSource.matchAll(/\{\s*contentId:\s*'([^']+)'[\s
 const approved = [...approvedHelpers, ...explicitRecords.filter((record) => record.status === 'approved').map((record) => record.id)];
 const pending = explicitRecords.filter((record) => record.status !== 'approved').map((record) => record.id);
 const ids = [...approvedHelpers, ...explicitRecords.map((record) => record.id)];
-assert.equal(ids.length, 30, 'Expected 30 audio/content mappings');
+assert.equal(ids.length, 31, 'Expected 31 audio/content mappings');
 assert.equal(new Set(ids).size, ids.length, 'Audio content IDs must be unique');
-assert.equal(approved.length, 29, 'Expected 29 approved playable tracks; found ' + approved.length);
+assert.equal(approved.length, 30, 'Expected 30 approved playable tracks; found ' + approved.length);
 assert.deepEqual(pending, ['song-nanu-fecc'], 'Only Nañu fecc may remain pending while its master intro is checked');
 assert.match(audioSource, /track\.reviewStatus\s*===\s*'approved'/, 'Playback must require editorial approval');
 assert.match(audioSource, /track\.languageReviewed/, 'Playback must require language review');
@@ -20,4 +20,7 @@ assert.match(feccRecord, /reviewStatus:\s*'needs-editorial-review'/, 'Nañu fecc
 assert.match(feccRecord, /languageReviewed:\s*false/, 'Nañu fecc must not be marked language-reviewed');
 assert.match(feccRecord, /rightsConfirmed:\s*true/, 'Owner-confirmed rights must be preserved');
 assert.match(audioSource, /Yaaye-Sama-Yaay-Version-Masculine\.mp3/, 'Yaaye masculine alternative must be present');
-console.log('Audio validation passed: 29 approved tracks; Nañu fecc safely held for master review.');
+assert.match(audioSource, /coverUrl:\s*`https:\/\/nianikids\.com\/wp-content\/uploads\/2026\/11\//, 'Approved audio records must expose official cover art');
+assert.equal((audioSource.match(/approved\('[^']+',\d+,'[^']+','[^']+\.jpg'\)/g) ?? []).length, 29, 'All helper-based approved tracks must have a 16:9 cover mapping');
+assert.match(audioSource, /coverUrl:\s*'https:\/\/nianikids\.com\/wp-content\/uploads\/2026\/11\/04_Nianu_fecc\.jpg'/, 'Pending Nañu fecc still needs its published cover');
+console.log('Audio validation passed: 30 approved tracks, all with official covers; Nañu fecc safely held for master review.');
