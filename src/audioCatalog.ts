@@ -13,7 +13,6 @@ const approved = (contentId: ContentItem['id'], attachmentId: number, url: strin
   notes: 'Paroles et publication mobile validées par le responsable du projet Niani Kids.'
 });
 export const audioCatalog: AudioTrackRecord[] = [
-  approved('song-niani-kids',229,'https://nianikids.com/wp-content/uploads/2026/10/Niani-kids.mp3','30_Bonjour_bonjour_original.jpg'),
   approved('song-bonjour-v2',148,'https://nianikids.com/wp-content/uploads/2026/10/niani-bonjour-maquette-02.mp3','29_Bonjour_bonjour_version_2.jpg'),
   approved('song-welcome',149,'https://nianikids.com/wp-content/uploads/2026/10/niani-bienvenue.mp3','28_Bienvenue_chez_Niani_Kids.jpg'),
   approved('song-start',150,'https://nianikids.com/wp-content/uploads/2026/10/niani-cest-parti.mp3','27_Niani_Kids_c_est_parti.jpg'),
