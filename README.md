@@ -8,7 +8,7 @@
 - Ateliers parent-enfant : arts, rythme, baobab des gentillesses, conte en images, danse.
 - Favoris enregistrés sur l'appareil.
 - Espace Parents avec accès aux chaînes officielles.
-- Interface français/wolof en cours; faire valider les traductions wolof avant diffusion.
+- Interface français/wolof; les paroles publiées suivent les fiches WordPress, et les champs wolof restent soumis à validation éditoriale.
 - GitHub Actions pour contrôle TypeScript et export Android.
 
 ## Démarrer
@@ -25,7 +25,7 @@ Installe Expo Go sur le téléphone puis scanne le QR code.
 - Les références de marque officielles sont dans la médiathèque Niani Kids : logo circulaire avec bordure jaune, logo 3D typographique, planches de personnages et storyboard du village. Les quatre personnages sont définis ainsi : Samba (sweat bleu et cheveux courts bouclés), Awa (longues tresses avec perles colorées et tenue d'inspiration sénégalaise), Bobo (casquette rouge à l'envers, tee-shirt jaune), Baobab (arbre vivant sage). Ajouter les fichiers individuels optimisés dans `assets/characters/` quand les PNG séparés sont disponibles; ne pas découper automatiquement une planche d'illustrations pour en faire des personnages sans vérification.
 
 ## Contenus
-Les paroles de démonstration sont originales pour ce starter. Elles ne remplacent pas les masters audio ni les vidéos finalisées. Les paroles wolof doivent être validées par un locuteur natif. Relier chaque fiche à sa vidéo YouTube exacte avant publication.
+Le catalogue mobile reprend les fiches chansons publiées sur WordPress. Les masters audio restent soumis à leur statut de validation avant lecture. Les paroles wolof doivent être validées par un locuteur natif. Relier chaque fiche à sa vidéo YouTube exacte avant publication.
 
 ## Sécurité et publication
 - Ajouter une politique de confidentialité publique et une adresse de contact.
