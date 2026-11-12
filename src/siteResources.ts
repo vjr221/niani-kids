@@ -11,6 +11,8 @@ export type SiteResource = {
   descriptionWo: string;
   url: string;
 };
+import { generatedSiteResources } from './generatedSiteResources';
+
 export const siteResources: SiteResource[] = [
   { id:'printable-kit', icon:'🎁', titleFr:'Kit pédagogique gratuit · 8 activités', titleWo:'Kit jàngale bu amul njëg · 8 jëf', descriptionFr:'Huit fiches à imprimer pour la maison, la classe ou les ateliers.', descriptionWo:'Fiches ngir kër, klas walla atelier.', url:'https://nianikids.com/kit-pedagogique/' },
   { id:'educators', icon:'🏫', titleFr:'Espace éducateurs', titleWo:'Wàllu jàngalekat yi', descriptionFr:'Parcours, séances et ressources pour écoles, crèches et associations.', descriptionWo:'Parcours ak jumtukaay yu école, crèche ak association.', url:'https://nianikids.com/espace-educateurs/' },
