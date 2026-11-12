@@ -5,7 +5,7 @@
  */
 import type { ContentItem } from './content';
 export type AudioReviewStatus = 'needs-identification' | 'needs-editorial-review' | 'approved';
-export type AudioTrackRecord = { contentId: ContentItem['id']; attachmentId?: number; sourceUrl?: string; assetPath?: string; reviewStatus: AudioReviewStatus; languageReviewed: boolean; rightsConfirmed: boolean; notes: string };
+export type AudioAlternateRecord = { title: string; sourceUrl: string; reviewStatus: AudioReviewStatus; languageReviewed: boolean; rightsConfirmed: boolean };\nexport type AudioTrackRecord = { contentId: ContentItem['id']; attachmentId?: number; sourceUrl?: string; assetPath?: string; reviewStatus: AudioReviewStatus; languageReviewed: boolean; rightsConfirmed: boolean; notes: string; alternateSources?: AudioAlternateRecord[] };
 const approved = (contentId: ContentItem['id'], attachmentId: number, url: string): AudioTrackRecord => ({
   contentId, attachmentId, sourceUrl: url, assetPath: url,
   reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
@@ -50,6 +50,18 @@ export const audioCatalog: AudioTrackRecord[] = [
     reviewStatus: 'needs-editorial-review', languageReviewed: false, rightsConfirmed: true,
     notes: 'Master mis en attente de vérification : les paroles intégrées au fichier audio mentionnent encore Hey! Hey! dans l’introduction, contrairement à la version validée. Ne pas diffuser dans l’application avant contrôle du master.'
   }
+  approved('song-yaaye-sama-yaay',770,'https://nianikids.com/wp-content/uploads/2026/11/Yaaye-Sama-Yaay.mp3'),
+  approved('song-nene-touti',767,'https://nianikids.com/wp-content/uploads/2026/11/Nene-Touti.mp3'),
+  approved('song-dors-mon-petit-bebe',761,'https://nianikids.com/wp-content/uploads/2026/11/Dors-mon-petit-bebe.mp3'),
+  approved('song-nelawal-sama-nene',763,'https://nianikids.com/wp-content/uploads/2026/11/Nelawal-Sama-Nene.mp3'),
 ];
+const yaayeTrack = audioCatalog.find((track) => track.contentId === 'song-yaaye-sama-yaay');
+if (yaayeTrack) yaayeTrack.alternateSources = [{
+  title: 'Yaaye (Sama Yaay) – voix masculine',
+  sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/Yaaye-Sama-Yaay-Version-Masculine.mp3',
+  reviewStatus: 'approved',
+  languageReviewed: true,
+  rightsConfirmed: true,
+}];
 export function getAudioTrack(contentId: ContentItem['id']): AudioTrackRecord | undefined { return audioCatalog.find((track) => track.contentId === contentId); }
 export function isAudioReady(track: AudioTrackRecord | undefined): track is AudioTrackRecord & { assetPath: string } { return Boolean(track?.assetPath && track.reviewStatus === 'approved' && track.languageReviewed && track.rightsConfirmed); }
