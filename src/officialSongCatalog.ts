@@ -1,5 +1,5 @@
 /**
- * Official lyrics for the 26 song pages currently published in the Niani Kids mobile catalogue.
+ * Official lyrics for the 30 song pages currently published in the Niani Kids mobile catalogue.
  * Lyrics are copied from the live WordPress records; durations remain to be checked.
  */
 import type { ContentItem } from './content';
@@ -291,4 +291,53 @@ export const officialSongs: ContentItem[] = [
     "featured": true,
     "lyrics": "INTRO\nNiaaaani… Niaaaani…\nNuyoo, nuyoo!\nNañu fecc!\nCOUPLET 1\nTey fan la? Tey fan la?\nTey, bés bu neex la!\nSamba ngi fi, Awa ngi fi,\nBobo itam, ñu ngi fi!\nBët yi neex, kanam yi leer,\nXol yi bépp, mbégte moo reer!\nJël sa loxo, yékkati ko,\nNiani Kids, ñu ngi ci biir!\nPRÉ-REFRAIN\nNdank-ndank, tàmbali,\nNuyoo, nuyoo, ñu ngi fi!\nCi sa ndijoor, ci sa càmmooñ,\nNañu fecc, nañu ree!\nREFRAIN\nNiani! Niani! Hey! Hey!\nÑu ngi fii! Ñu ngi fii!\nNiani! Niani! Hey! Hey!\nNañu fecc! Nanu ree!\nLoxo yi kaw! — Hey!\nTànk yi yëngal! — Hey!\nNiani! Niani! Hey! Hey!\nÑu ngi fii! Ñu ngi fii!\nCOUPLET 2\nBaobab bi, nuyoo na!\nMàndargaam, muu ngi ree!\nSamba yëngal, Awa feccal,\nBobo ne: « Ñaata! Ñaata! »\nLoxo yi, tàpp! Tàpp! Tàpp!\nTànk yi, dox! Dox! Dox!\nBëgg naa la, yaw sama xarit,\nNañu bég, ba suba jot!\nPOST-REFRAIN\nNi-ni-ni, Niani!\nNi-ni-ni, Niani!\nHey! Hey! Niani!\nÑu ngi fii!\nPONT\nSu la neexee, reeel!\nSu la neexee, feccal!\nSu la neexee, tàppal!\nNiani Kids, ñu ngi fii!\nREFRAIN FINAL\nNiani! Niani! Hey! Hey!\nÑu ngi fii! Ñu ngi fii!\nNiani! Niani! Hey! Hey!\nNañu fecc! Nanu ree!\nLoxo yi kaw! — Hey!\nTànk yi yëngal! — Hey!\nNi-ni-ni, Niani!\nÑu ngi fii! Ñu ngi fii!\nOUTRO\nNiani?\nNiani!\nÑu ngi fii?\nÑu ngi fii!\nHey! Hey!\nNiani Kids!"
   }
+,
+{
+  "id": "song-yaaye-sama-yaay",
+  "title": "Yaaye (Sama Yaay)",
+  "subtitle": "Un hommage vibrant à toutes les mamans, en français et en wolof. Écoutez la version principale à voix féminine ou découvrez son interprétation alternative à voix masculine.",
+  "category": "Comptines",
+  "emoji": "💛",
+  "duration": "À confirmer",
+  "language": "FR + WO",
+  "featured": true,
+  "lyrics": "\\n\\n\nINTRO – Kora douce, voix seule\\n\\n\nYaaye… Yaaye…\\n\nSama Yaay… sama Yaay…\\n\nYaaye, sama yaram…\\n\nYaaye, sama xol…\\n\nMaman… oh maman…\\n\\n\n\nCOUPLET 1 – Français\\n\\n\nAvant même mes premiers mots,\\n\nTu connaissais déjà mes pleurs.\\n\nTu me berçais tout contre ta peau,\\n\nEt tu m'apprenais le langage du cœur.\\n\nTant de nuits à veiller sur moi,\\n\nTant de fatigue cachée dans tes yeux.\\n\nTu portais mes peines dans tes bras,\\n\nEt tu priais pour mes jours heureux.\\n\nTu as séché toutes mes larmes,\\n\nTu as éloigné tant de mes peurs.\\n\nMême quand la vie perdait son charme,\\n\nTu me donnais encore le meilleur.\\n\\n\n\nCOUPLET 2 – Wolof\\n\\n\nJuróom-ñent weer nga ma ëmb,\\n\nCi sa biir nga ma sàmm.\\n\nNga ma yor ci sa loxo,\\n\nNga ma fegal tiis ak njàqare.\\n\nSa loxo yu nooy ñoo ma yékkati,\\n\nSa baat bu neex moo ma dalal.\\n\nSa xol bu rafet moo ma yar,\\n\nYaay, yaw nga may jàngal bëgg-bëgg.\\n\nSa ñaan mooy sama kaaraange,\\n\nSa mbëggeel mooy sama doole.\\n\nFu ma nekk, fu ma dem,\\n\nSama Yaay, danga nekk ci sama xol.\\n\\n\n\nPRÉ-REFRAIN – Français et wolof\\n\\n\nMême si je pars au bout du monde,\\n\nTa voix résonne au fond de moi.\\n\nDem naa fu sori, waaye…\\n\nSa baat daf may delloo kër gi.\\n\nEt quand je ferme les yeux,\\n\nC'est ton visage que je vois…\\n\nMaman, tu es mon premier amour,\\n\nMon premier refuge, ma première maison.\\n\\n\n\nREFRAIN\\n\\n\nYaaye, Yaaye, Sama Yaay !\\n\nMaman d'amour, maman de lumière.\\n\nYaaye, Yaaye, Sama Yaay !\\n\nTu es mon soleil, ma vie entière.\\n\nDama la bëgg, dama la bëgg,\\n\nJërëjëf, jërëjëf, Sama Yaay.\\n\nPour tout l'amour que tu m'as donné,\\n\nYal na la Yàlla may gudd fan !\\n\\n\n\nCOUPLET 3 – Hommage à toutes les mamans\\n\\n\nÀ toutes les mamans qui se lèvent tôt,\\n\nCelles qui travaillent sans jamais compter,\\n\nCelles qui partagent le dernier morceau,\\n\nPour que leurs enfants puissent manger.\\n\nÀ celles qui prient dans le silence,\\n\nCelles qui cachent leurs propres douleurs,\\n\nCelles qui nous donnent leur espérance,\\n\nEt qui nous apprennent à garder le cœur.\\n\nYaay yi nekk ci kër ak ci dëkk,\\n\nYaay yi liggéey guddi ak bëccëg,\\n\nYaay yi yor seen doom ci mbëggeel,\\n\nYéen ñépp, yéenay ñu sant.\\n\nÀ celles qui sont loin, à celles qui nous manquent,\\n\nÀ celles qui veillent du haut des cieux,\\n\nVotre amour ne connaît pas la distance,\\n\nIl vit pour toujours au fond de nos yeux.\\n\\n\n\nPRÉ-REFRAIN 2\\n\\n\nJ'aurais voulu te donner le monde,\\n\nPour te rendre un peu de tout ce que tu fais.\\n\nMais aucun trésor, aucune richesse,\\n\nNe vaut l'amour que tu m'as donné.\\n\\n\n\nREFRAIN\\n\\n\nYaaye, Yaaye, Sama Yaay !\\n\nMaman d'amour, maman de lumière.\\n\nYaaye, Yaaye, Sama Yaay !\\n\nTu es mon soleil, ma vie entière.\\n\nDama la bëgg, dama la bëgg,\\n\nJërëjëf, jërëjëf, Sama Yaay.\\n\nPour tout l'amour que tu m'as donné,\\n\nYal na la Yàlla may gudd fan !\\n\\n\n\nPONT – Parlé, musique en retrait\\n\\n\nYaay…\\n\nPeut-être que je ne te le dis pas assez.\\n\nPeut-être que parfois, j'oublie de te remercier.\\n\nPeut-être que je ne vois pas toutes les nuits\\n\noù tu as prié pour moi.\\n\nMais aujourd'hui, je veux te dire…\\n\nMerci pour la vie.\\n\nMerci pour tes sacrifices.\\n\nMerci pour tes prières.\\n\nMerci pour ton amour, même dans les moments difficiles.\\n\nYaay, bu ma la tooñ, baal ma.\\n\nBaal ma ci li ma la bañ a wax.\\n\nDama la bëgg, sama Yaay.\\n\nTe du ma fàtte sa mbëggeel.\\n\\n\n\nREFRAIN FINAL – Grand chœur\\n\\n\nYaaye, Yaaye, Sama Yaay !\\n\nMaman d'amour, maman de lumière.\\n\nYaaye, Yaaye, Sama Yaay !\\n\nTu es mon soleil, ma vie entière.\\n\nYaaye yépp, ñu ngi leen sant !\\n\nYaaye yépp, ñu ngi leen bëgg !\\n\nPour vos sacrifices, pour vos prières,\\n\nVous êtes les trésors de cette terre.\\n\nJërëjëf, jërëjëf, Yaay yi !\\n\nDama leen bëgg, dama leen bëgg !\\n\nYal na leen Yàlla may jàmm ak xeewal,\\n\nYal na leen Yàlla fey seen mbëggeel !\\n\\n\n\nOUTRO – Kora seule\\n\\n\nSama Yaay… sama Yaay…\\n\nDama la bëgg…\\n\nJërëjëf, Yaay…\\n\nYaaye… Yaaye…\\n\nToutes les mamans…\\n\nNous vous aimons…\\n\nSama Yaay…\\n\\n",
+  "imageUrl": "https://nianikids.com/wp-content/uploads/2026/11/Yaaye-Sama-Yaay-mp3-image.jpg"
+},
+{
+  "id": "song-nene-touti",
+  "title": "Néné Touti",
+  "subtitle": "Une berceuse douce en wolof et en français, portée par la kora, pour accompagner bébé vers le sommeil.",
+  "category": "Berceuses",
+  "emoji": "🌙",
+  "duration": "À confirmer",
+  "language": "FR + WO",
+  "featured": true,
+  "lyrics": "[Intro]\n[soft kora, humming]\n\n[Chorus]\nNelawal, nelawal, sama néné\nNdank-ndank, la nuit est douce\nBobo veille, les étoiles aussi\nFanaan ak jamm, néné touti\n\n[Verse 1]\nLa lune se pose sur le baobab\nLe vent s'endort dans les feuilles\nSamba bâille, Awa sourit\nTout le village fait doucement dodo\n\n[Chorus]\nNelawal, nelawal, sama néné\nNdank-ndank, la nuit est douce\nBobo veille, les étoiles aussi\nFanaan ak jamm, néné touti\n\n[Verse 2]\nLes petites étoiles clignent des yeux\nUne, deux, trois, elles s'éteignent\nFerme tes yeux, ferme tes mains\nYaaye est là, tout près de toi\n\n[Bridge]\n[whispered]\nSama xol, sama néné\nJamm ak jamm, nelawal\nBeg naa la, néné touti\n\n[Verse 3]\nLes rêves arrivent sur le dos du vent\nIls portent des fleurs de baobab\nTu voles au-dessus du fleuve\nEt le matin te sourit déjà\n\n[Final Chorus]\n[very soft, whispered]\nNelawal, nelawal, sama néné\nNdank-ndank… ndank-ndank…\nFanaan ak jamm\n\n[Outro]\n[instrumental, kora fades out]",
+  "imageUrl": "https://nianikids.com/wp-content/uploads/2026/11/file_000000003df481f4aceff8eaf27995ea-1024x576.png"
+},
+{
+  "id": "song-dors-mon-petit-bebe",
+  "title": "Dors, mon petit bébé",
+  "subtitle": "Une berceuse tendre en français, portée par la kora, pour accompagner le coucher des tout-petits.",
+  "category": "Berceuses",
+  "emoji": "🌙",
+  "duration": "À confirmer",
+  "language": "FR",
+  "featured": false,
+  "lyrics": "[Intro]\n[soft kora, humming]\n\n[Chorus]\nDors, dors, mon petit bébé\nTout doucement, la nuit est douce\nBobo veille, les étoiles aussi\nFais de beaux rêves, mon tout-petit\n\n[Verse 1]\nLa lune se pose sur le baobab\nLe vent s'endort dans les feuilles\nSamba bâille, Awa sourit\nTout le village fait doucement dodo\n\n[Chorus]\nDors, dors, mon petit bébé\nTout doucement, la nuit est douce\nBobo veille, les étoiles aussi\nFais de beaux rêves, mon tout-petit\n\n[Verse 2]\nLes petites étoiles clignent des yeux\nUne, deux, trois, elles s'éteignent\nFerme tes yeux, ferme tes mains\nMaman est là, tout près de toi\n\n[Bridge - whispered]\nMon petit cœur, mon bébé\nPaix et douceur, dors tranquille\nJe t'aime, mon tout-petit\n\n[Verse 3]\nLes rêves arrivent sur le dos du vent\nIls portent des fleurs de baobab\nTu voles au-dessus du fleuve\nEt le matin te sourit déjà\n\n[Final Chorus - very soft, whispered]\nDors, dors, mon petit bébé\nTout doucement… tout doucement…\nFais de beaux rêves\n\n[Outro]\n[instrumental, kora fades out]",
+  "imageUrl": "https://nianikids.com/wp-content/uploads/2026/11/file_000000001e148243bdd982c74f697e54-1024x576.png"
+},
+{
+  "id": "song-nelawal-sama-nene",
+  "title": "Nelawal, Sama Néné",
+  "subtitle": "Une berceuse douce en wolof et en français, portée par la kora, pour accompagner les tout-petits vers le sommeil.",
+  "category": "Berceuses",
+  "emoji": "🌙",
+  "duration": "À confirmer",
+  "language": "FR + WO",
+  "featured": false,
+  "lyrics": "[Intro]\n[soft kora, humming]\n\n[Chorus]\nNelawal, nelawal, sama néné\nNdank-ndank, la nuit est douce\nBobo veille, les étoiles aussi\nFanaan ak jamm, néné touti\n\n[Verse 1]\nLa lune se pose sur le baobab\nLe vent s'endort dans les feuilles\nSamba bâille, Awa sourit\nTout le village fait doucement dodo\n\n[Chorus]\nNelawal, nelawal, sama néné\nNdank-ndank, la nuit est douce\nBobo veille, les étoiles aussi\nFanaan ak jamm, néné touti\n\n[Verse 2]\nLes petites étoiles clignent des yeux\nUne, deux, trois, elles s'éteignent\nFerme tes yeux, ferme tes mains\nNdey est là, tout près de toi\n\n[Bridge - whispered]\nSama xol, sama néné\nJamm ak jamm, nelawal\nBeg naa la, néné touti\n\n[Verse 3]\nLes rêves arrivent sur le dos du vent\nIls portent des fleurs de baobab\nTu voles au-dessus du fleuve\nEt le matin te sourit déjà\n\n[Final Chorus - very soft, whispered]\nNelawal, nelawal, sama néné\nNdank-ndank… ndank-ndank…\nFanaan ak jamm\n\n[Outro]\n[instrumental, kora fades out]",
+  "imageUrl": "https://nianikids.com/wp-content/uploads/2026/11/file_0000000009bc8210a6dda9ea89fcfcc5-1024x576.png"
+}
 ];
