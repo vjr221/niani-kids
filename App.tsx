@@ -14,6 +14,7 @@ import AudioReviewPanel from './src/AudioReviewPanel';
 import { getAudioTrack, isAudioReady } from './src/audioCatalog';
 import { learningThemes, workshopLibrary, eightWeekPath, activityGuides } from './src/program';
 import { siteResources } from './src/siteResources';
+import { getPublishedVideos, getYouTubeThumbnail, getYouTubeWatchUrl } from './src/videoCatalog';
 
 const Tab = createBottomTabNavigator();
 // Published WordPress songs are the source of truth for the mobile music library.
@@ -125,7 +126,7 @@ function HomeScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Languag
   const featured=contents.filter(x=>x.featured).slice(0,3);
   const filtered=useMemo(()=>contents.filter(x=>normalizeText([x.title,x.subtitle,x.category,x.language].join(' ')).includes(normalizeText(query))),[query]);
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
-    <Hero lang={lang} onVideos={()=>openExternal(YOUTUBE)} onPlay={()=>navigation.navigate('Jouer')}/>
+    <Hero lang={lang} onVideos={()=>navigation.navigate('Vidéos')} onPlay={()=>navigation.navigate('Jouer')}/>
     <View style={s.quickGrid}>
       <Pressable accessibilityRole="button" accessibilityLabel="Ouvrir les jeux éducatifs" onPress={()=>navigation.navigate('Jouer')} style={[s.quickCard,{backgroundColor:'#E4F0DD'}]}><Text style={s.quickEmoji}>🎮</Text><Text style={s.quickTitle}>{translations[lang].quickGames}</Text><Text style={s.quickSub}>{translations[lang].quickLearn}</Text></Pressable>
       <Pressable accessibilityRole="button" accessibilityLabel="Ouvrir les ateliers créatifs" onPress={()=>navigation.navigate('Atelier')} style={[s.quickCard,{backgroundColor:'#FBE5DF'}]}><Text style={s.quickEmoji}>🎨</Text><Text style={s.quickTitle}>{translations[lang].quickWorkshop}</Text><Text style={s.quickSub}>{translations[lang].quickCreate}</Text></Pressable>
@@ -148,6 +149,37 @@ function HomeScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Languag
     <Text style={s.footer}>Niani Kids • Chanter, rêver, grandir ❤️</Text>
   </ScrollView></SafeAreaView>;
 }
+
+function VideosScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
+  const videos = getPublishedVideos();
+  return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
+    <View style={[s.parentCard,{backgroundColor:'#E4F5E7'}]}>
+      <Text style={s.cardCategory}>LA CHAÎNE NIANI KIDS</Text>
+      <Text style={s.pageTitle}>🎬 Nos vidéos</Text>
+      <Text style={s.cardSubtitle}>Retrouve les clips, comptines animées, histoires et découvertes de Samba, Awa, Bobo et Baobab.</Text>
+    </View>
+    {videos.length===0?<View style={s.quizCard}>
+      <Text style={{fontSize:48,textAlign:'center'}}>🌳</Text>
+      <Text style={s.quizTitle}>Les premières vidéos arrivent bientôt !</Text>
+      <Text style={s.cardSubtitle}>Cette bibliothèque est prête. Les vidéos apparaîtront ici après leur publication et leur vérification.</Text>
+      <Text style={s.parentHint}>Un parent peut ouvrir la chaîne officielle pour retrouver les publications.</Text>
+      <Pressable accessibilityRole="button" style={s.nextButton} onPress={()=>openExternal(YOUTUBE)}><Text style={s.nextText}>Ouvrir la chaîne officielle ↗</Text></Pressable>
+    </View>:videos.map(video=>{
+      const watchUrl=getYouTubeWatchUrl(video.youtubeVideoId);
+      const thumbnail=getYouTubeThumbnail(video);
+      if(!watchUrl)return null;
+      return <Pressable key={video.id} accessibilityRole="button" accessibilityLabel={'Ouvrir la vidéo : '+video.title} style={s.workshop} onPress={()=>openExternal(watchUrl)}>
+        {thumbnail?<Image source={{uri:thumbnail}} style={{width:'100%',aspectRatio:16/9,borderRadius:16,backgroundColor:'#E8E5D8'}} resizeMode="cover"/>:<View style={{height:180,alignItems:'center',justifyContent:'center',backgroundColor:'#E8F5D5',borderRadius:16}}><Text style={{fontSize:48}}>▶️</Text></View>}
+        <Text style={s.cardTitle}>{video.title}</Text>
+        <Text style={s.cardSubtitle}>{video.category} · {video.language} · {video.ageBand}{video.duration?' · '+video.duration:''}</Text>
+        <Text style={s.cardSubtitle}>{video.description}</Text>
+        <Text style={s.sectionAction}>Voir sur YouTube ↗</Text>
+      </Pressable>;
+    })}
+    <View style={s.safety}><Text style={s.cardTitle}>Espace Parents</Text><Text style={s.cardSubtitle}>Les vidéos sont hébergées par YouTube. Un adulte accompagne l’ouverture de la plateforme externe.</Text></View>
+  </ScrollView></SafeAreaView>;
+}
+
 function GamesScreen({lang,setLang,stars,setStars}:{lang:Language;setLang:(l:Language)=>void;stars:number;setStars:(n:number)=>void}) {
   const [game,setGame]=useState<'menu'|'colors'|'count'|'nature'>('menu');
   const [round,setRound]=useState(0); const [feedback,setFeedback]=useState(''); const [answerCorrect,setAnswerCorrect]=useState(false);
@@ -284,6 +316,7 @@ export default function App() {
   const onOpen=(item:ContentItem)=>setSelectedItem(item);
   return <NavigationContainer><StatusBar barStyle="dark-content" backgroundColor={C.cream}/><Tab.Navigator screenOptions={{headerShown:false,tabBarActiveTintColor:C.orange,tabBarInactiveTintColor:C.muted,tabBarStyle:{minHeight:72,paddingTop:8,paddingBottom:10,backgroundColor:'#FFFEFB',borderTopColor:'#F0E8DA',borderTopWidth:1,elevation:12,shadowColor:'#486657',shadowOffset:{width:0,height:-3},shadowOpacity:0.07,shadowRadius:10},tabBarLabelStyle:{fontWeight:'900',fontSize:9,marginTop:2},tabBarHideOnKeyboard:true}}>
     <Tab.Screen name="Accueil" options={{tabBarLabel:translations[lang].home,tabBarAccessibilityLabel:translations[lang].home,tabBarIcon:({color})=><Text style={{fontSize:19}}>🏡</Text>}}>{()=> <HomeScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen>
+    <Tab.Screen name="Vidéos" options={{tabBarLabel:'Vidéos',tabBarAccessibilityLabel:'Vidéos Niani Kids',tabBarIcon:()=> <Text style={{fontSize:19}}>🎬</Text>}}>{()=> <VideosScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
     <Tab.Screen name="Bibliothèque" options={{tabBarLabel:translations[lang].library,tabBarAccessibilityLabel:translations[lang].library,tabBarIcon:()=> <Text style={{fontSize:19}}>🎵</Text>}}>{()=> <LibraryScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen>
     <Tab.Screen name="Jouer" options={{tabBarLabel:translations[lang].play,tabBarAccessibilityLabel:translations[lang].play,tabBarIcon:()=> <Text style={{fontSize:19}}>🎮</Text>}}>{()=> <GamesScreen lang={lang} setLang={setLang} stars={stars} setStars={setStars}/>}</Tab.Screen>
     <Tab.Screen name="Explorer" options={{tabBarLabel:lang==='fr'?'Explorer':'Seet',tabBarAccessibilityLabel:lang==='fr'?'Explorer les thèmes éducatifs':'Seet ci jàng',tabBarIcon:()=> <Text style={{fontSize:19}}>🧭</Text>}}>{()=> <ExploreScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
