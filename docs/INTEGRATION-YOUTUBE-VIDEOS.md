@@ -1,6 +1,13 @@
 # Intégration vidéo YouTube — Niani Kids
 Mise à jour : 8 novembre 2026
 
+## État réel du lancement (12 novembre 2026)
+- La chaîne YouTube Niani Kids n'a encore publié aucune vidéo.
+- Le catalogue mobile `src/videoCatalog.ts` doit donc rester vide jusqu'à la première publication réelle et à sa validation éditoriale.
+- Les idées de premiers clips (présentation de la marque, « Nañu fecc ! », « Ñu ngi fii ! ») sont des pistes de production, pas des vidéos publiées ni des liens à intégrer.
+- Ne jamais créer de fiche vidéo, miniature, date ou ID YouTube à partir d'un projet de clip non publié.
+- La page WordPress `/videos/` doit conserver son état d'attente et son message « Aucune vidéo validée pour le moment » tant qu'aucune vidéo ne satisfait les critères.
+
 ## Source éditoriale unique
 - Application : `src/videoCatalog.ts`.
 - Site : page WordPress `/videos/`, à compléter au fil des publications.
