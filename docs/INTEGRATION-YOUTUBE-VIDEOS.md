@@ -8,6 +8,41 @@ Mise à jour : 8 novembre 2026
 - Ne jamais créer de fiche vidéo, miniature, date ou ID YouTube à partir d'un projet de clip non publié.
 - La page WordPress `/videos/` doit conserver son état d'attente et son message « Aucune vidéo validée pour le moment » tant qu'aucune vidéo ne satisfait les critères.
 
+## Préparation du premier clip — « Niani Kids, c'est parti ! »
+Cette fiche est un brief de préparation, pas une publication ni une entrée du catalogue.
+
+### Positionnement
+- Rôle : présenter l'univers Niani Kids et installer le nom de la marque.
+- Public : enfants de 0 à 6 ans, avec les parents comme accompagnateurs.
+- Langues : français et wolof uniquement si les paroles finales ont été relues.
+- Format principal : 16:9, 24 images/s, cible 5 à 8 secondes par plan ; 4K si les sources le permettent.
+- Direction visuelle : animation 3D chaleureuse, couleurs lumineuses, gestes doux et lisibles ; conserver strictement les modèles de Samba, Awa, Bobo et Baobab.
+
+### Contrôle avant export
+- [ ] Master audio final choisi et écouté du début à la fin.
+- [ ] Paroles affichées conformes au master, accents et caractères wolof vérifiés.
+- [ ] Identité des quatre personnages cohérente d'un plan à l'autre.
+- [ ] Aucun logo déformé, texte illisible ou élément parasite.
+- [ ] Aucun flash rapide, mouvement brusque, peur ou surcharge visuelle.
+- [ ] Montage final en 16:9 ; niveau sonore homogène ; début et fin propres.
+- [ ] Miniature lisible sur téléphone, sans promesse trompeuse.
+- [ ] Droits des images, voix, musique et éléments graphiques vérifiés.
+
+### Métadonnées à préparer (à compléter après validation du master)
+- Titre de travail : « Niani Kids, c'est parti ! | Chanson de bienvenue »
+- Description de travail : « Bienvenue dans l'univers Niani Kids ! Des chansons, comptines, berceuses et activités pour apprendre, chanter et grandir en famille, en français et en wolof. »
+- Playlist envisagée : « Comptines et chansons ».
+- Langue : à confirmer selon le master final (FR ou FR + WO).
+- Audience YouTube : déclarer précisément si la vidéo est conçue pour les enfants, dans YouTube Studio.
+- Tags, durée, date, URL et ID YouTube : à renseigner uniquement après publication réelle.
+
+### Après publication
+1. Copier l'URL publique depuis YouTube Studio.
+2. Vérifier l'ID extrait de l'URL et l'état public de la vidéo.
+3. Vérifier manuellement l'autorisation d'intégration.
+4. Faire une revue parent/enfant sur téléphone et ordinateur.
+5. Seulement ensuite, créer l'entrée correspondante dans src/videoCatalog.ts et sur /videos/.
+
 ## Source éditoriale unique
 - Application : `src/videoCatalog.ts`.
 - Site : page WordPress `/videos/`, à compléter au fil des publications.
