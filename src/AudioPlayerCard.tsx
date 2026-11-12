@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useAudioPlayer, useAudioPlayerStatus } from 'expo-audio';
 
 type Props = {
   title: string;
   source: string;
+  coverUrl?: string;
   language: 'FR' | 'WO' | 'FR + WO';
   uiLanguage?: 'fr' | 'wo';
   reviewMode?: boolean;
@@ -17,7 +18,7 @@ const formatTime = (seconds: number) => {
 };
 
 /** Published playback requires approval; reviewMode is reserved for the parent-gated QA panel. */
-export default function AudioPlayerCard({ title, source, language, uiLanguage = 'fr', reviewMode = false }: Props) {
+export default function AudioPlayerCard({ title, source, coverUrl, language, uiLanguage = 'fr', reviewMode = false }: Props) {
   const player = useAudioPlayer(source, { updateInterval: 500 });
   const status = useAudioPlayerStatus(player);
   const [loadTimedOut, setLoadTimedOut] = useState(false);
@@ -37,6 +38,7 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
 
   return (
     <View style={styles.card} accessibilityLabel={`${reviewMode ? 'Préécoute de contrôle non publiée' : copy.recorded} : ${title}`}>
+      {coverUrl ? <Image source={{ uri: coverUrl }} style={styles.cover} resizeMode="cover" accessibilityLabel={`Pochette de ${title}`} /> : null}
       <View style={styles.heading}>
         <Text style={styles.kicker}>{reviewMode ? 'PRÉÉCOUTE DE CONTRÔLE · NON PUBLIÉE' : copy.recorded} · {language}</Text>
         <Text style={styles.title}>{title}</Text>
@@ -103,6 +105,7 @@ export default function AudioPlayerCard({ title, source, language, uiLanguage = 
 
 const styles = StyleSheet.create({
   card: { backgroundColor: '#FFFFFF', borderRadius: 20, padding: 16, marginVertical: 10, borderWidth: 1, borderColor: '#F1E5D1' },
+  cover: { width: '100%', aspectRatio: 16 / 9, borderRadius: 14, marginBottom: 14, backgroundColor: '#F3E8D6' },
   heading: { marginBottom: 14 },
   kicker: { color: '#806B5D', fontSize: 10, fontWeight: '900', letterSpacing: 0.8 },
   title: { color: '#432B20', fontSize: 17, fontWeight: '900', marginTop: 5 },
