@@ -8,7 +8,7 @@ const response = await fetch(`${API}?status=publish&per_page=20&page=1&orderby=d
 if (!response.ok) throw new Error(`WordPress REST API returned HTTP ${response.status}`);
 const posts = await response.json();
 if (!Array.isArray(posts)) throw new Error('Unexpected WordPress REST response');
-const clean = (value = '') => String(value).replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&#8217;/g, '’').replace(/&amp;/g, '&').replace(/\\s+/g, ' ').trim();
+const clean = (value = '') => String(value).replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&#8217;/g, '’').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
 const resources = posts
   .filter((post) => post?.id && post?.link && post?.slug && post?.title?.rendered)
   .map((post) => ({
