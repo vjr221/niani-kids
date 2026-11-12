@@ -6,18 +6,6 @@ import type { ContentItem } from './content';
 
 export const officialSongs: ContentItem[] = [
   {
-    "id": "song-niani-kids",
-    "title": "Bonjour, bonjour",
-    "subtitle": "Une comptine joyeuse pour dire bonjour, chanter et taper des mains avec Samba, Awa, Bobo et le Baobab.",
-    "category": "Comptines",
-    "emoji": "👋🏾",
-    "duration": "2:25",
-    "language": "FR",
-    "featured": false,
-    "lyrics": "Bonjour, bonjour, les amis !\nC’est Niani Kids, on est réunis !\n\n[Couplet 1]\nSamba sourit, Awa danse,\nBobo saute, quelle ambiance !\nLe baobab nous dit tout bas :\nVenez chanter, restez avec moi !\n\n[Refrain]\nBonjour, bonjour, tape dans tes mains !\nBonjour, bonjour, viens chanter avec nous !\nNiani Kids, on est tous copains !\nOn chante, on danse, on rit comme des fous !\n\n[Couplet 2]\nTape, tape, un, deux, trois !\nTourne doucement, suis-moi !\nLève les bras vers le ciel,\nFais un sourire arc-en-ciel !\n\n[Pont]\nAvec nos amis, le bonheur rassemble !\nTous ensemble, on grandit ensemble !\n\n[Refrain final]\nBonjour, bonjour, tape dans tes mains !\nBonjour, bonjour, viens chanter avec nous !\nNiani Kids, on est tous copains !\nChanter, rêver, grandir ensemble !\n\n[Outro]\nNia-ni Kids !\nÀ bientôt, les amis !",
-    "imageUrl": "https://nianikids.com/wp-content/uploads/2026/11/30_Bonjour_bonjour_original.jpg"
-  },
-  {
     "id": "song-bonjour-v2",
     "title": "Bonjour, bonjour ! (version 2)",
     "subtitle": "Une deuxième version de la comptine « Bonjour, bonjour ! », pour dire bonjour en français et en wolof.",
