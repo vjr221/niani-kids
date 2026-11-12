@@ -86,7 +86,7 @@ function Pill({children,active,onPress}:{children:React.ReactNode;active?:boolea
   return <Pressable accessibilityRole="button" accessibilityState={{selected:!!active}} onPress={onPress} style={[s.pill,active&&s.pillActive]}><Text style={[s.pillText,active&&{color:'#fff'}]}>{children}</Text></Pressable>;
 }
 function Section({title,action,onAction}:{title:string;action?:string;onAction?:()=>void}) {
-  return <View style={s.sectionRow}><Text style={s.sectionTitle}>{title}</Text>{action&&<Pressable onPress={onAction}><Text style={s.sectionAction}>{action} →</Text></Pressable>}</View>;
+  return <View style={s.sectionRow}><Text accessibilityRole="header" style={s.sectionTitle}>{title}</Text>{action&&<Pressable accessibilityRole="button" accessibilityLabel={`${action} : ${title}`} accessibilityHint={title} hitSlop={6} onPress={onAction} style={{minHeight:44,minWidth:44,justifyContent:'center',alignItems:'flex-end'}}><Text style={s.sectionAction}>{action} →</Text></Pressable>}</View>;
 }
 function ContentCard({item,favorite,onFavorite,onOpen,lang}:{item:ContentItem;favorite:boolean;onFavorite:()=>void;onOpen:()=>void;lang:Language}) {
   const t=translations[lang];
