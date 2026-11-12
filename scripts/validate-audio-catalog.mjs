@@ -19,4 +19,5 @@ const feccRecord = audioSource.match(/contentId:\s*'song-nanu-fecc'[\s\S]*?\n\s*
 assert.match(feccRecord, /reviewStatus:\s*'needs-editorial-review'/, 'Nañu fecc must stay gated pending master review');
 assert.match(feccRecord, /languageReviewed:\s*false/, 'Nañu fecc must not be marked language-reviewed');
 assert.match(feccRecord, /rightsConfirmed:\s*true/, 'Owner-confirmed rights must be preserved');
-assert.match(audioSource, /Yaaye-Sama-Yaay-Version-Masculine\\.mp3/, 'Yaaye masculine alternative must be present');\nconsole.log('Audio validation passed: 29 approved tracks; Nañu fecc safely held for master review.');
+assert.match(audioSource, /Yaaye-Sama-Yaay-Version-Masculine\\.mp3/, 'Yaaye masculine alternative must be present');
+console.log('Audio validation passed: 29 approved tracks; Nañu fecc safely held for master review.');
