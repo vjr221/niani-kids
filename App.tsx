@@ -130,20 +130,20 @@ function HomeScreen({lang,setLang,favorites,toggleFavorite,onOpen,lastContent,st
     {lastContent?<View style={{gap:9}}><Section title={lang==='fr'?'REPRENDRE':'DEKKI CI KANAM'}/><Pressable accessibilityRole="button" accessibilityLabel={(lang==='fr'?'Reprendre ':'Dellu ci ')+lastContent.title} onPress={()=>onOpen(lastContent)} style={[s.contentCard,{alignItems:'center',borderColor:'#E8D9B6',backgroundColor:'#FFFCF4'}]}><View style={[s.art,{width:64,minHeight:64,backgroundColor:'#FFF0C7'}]}>{(getAudioTrack(lastContent.id)?.coverUrl??lastContent.imageUrl)?<Image source={{uri:getAudioTrack(lastContent.id)?.coverUrl??lastContent.imageUrl!}} style={{width:'100%',height:'100%',borderRadius:15}} resizeMode="cover"/>:<Text style={{fontSize:30}}>{lastContent.emoji}</Text>}</View><View style={s.cardInfo}><Text style={s.cardCategory}>{lang==='fr'?'DERNIÈRE CONSULTATION':'BI MUJJ GI'}</Text><Text style={s.cardTitle} numberOfLines={1}>{lastContent.title}</Text><Text style={s.cardSubtitle}>{lang==='fr'?'Retrouver ce contenu':'Dellu ci lii'}</Text></View><Text style={{fontSize:24,color:C.orange}}>▶</Text></Pressable></View>:null}
     <View style={{flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between',rowGap:12,marginTop:16}}>
       <Pressable accessibilityRole="button" accessibilityLabel={lang==='fr'?'Samba : chanter':'Samba : woy'} onPress={()=>navigation.navigate('Bibliothèque')} style={{width:'48.3%',minHeight:142,borderRadius:23,backgroundColor:'#2F6FCF',padding:12,alignItems:'center',justifyContent:'center',gap:3,elevation:2}}>
-        <Image source={require('./assets/Samba_portrait_et_nom.png')} style={{width:76,height:76}} resizeMode="contain" accessibilityLabel="Samba"/>
-        <Text style={{fontSize:17,fontWeight:'900',color:'#FFFFFF'}}>Samba</Text><Text style={{fontSize:12,fontWeight:'700',color:'#FFFFFF'}}>{lang==='fr'?'Chanter':'Woy'}</Text>
+        <Image source={require('./assets/Samba_vues_corps_entier.png')} style={{width:76,height:76}} resizeMode="contain" accessibilityLabel="Samba"/>
+        <Text style={{fontSize:17,fontWeight:'900',color:'#FFFFFF'}}>Samba</Text><Text style={{fontSize:12,fontWeight:'700',color:'#FFFFFF'}}>{translations[lang].quickSing}</Text>
       </Pressable>
       <Pressable accessibilityRole="button" accessibilityLabel={lang==='fr'?'Awa : créer':'Awa : sos'} onPress={()=>navigation.navigate('Atelier')} style={{width:'48.3%',minHeight:142,borderRadius:23,backgroundColor:'#D94F79',padding:12,alignItems:'center',justifyContent:'center',gap:3,elevation:2}}>
-        <Image source={require('./assets/Awa_portrait_et_nom.png')} style={{width:76,height:76}} resizeMode="contain" accessibilityLabel="Awa"/>
-        <Text style={{fontSize:17,fontWeight:'900',color:'#FFFFFF'}}>Awa</Text><Text style={{fontSize:12,fontWeight:'700',color:'#FFFFFF'}}>{lang==='fr'?'Créer':'Sos'}</Text>
+        <Image source={require('./assets/Awa_vues_corps_entier.png')} style={{width:76,height:76}} resizeMode="contain" accessibilityLabel="Awa"/>
+        <Text style={{fontSize:17,fontWeight:'900',color:'#FFFFFF'}}>Awa</Text><Text style={{fontSize:12,fontWeight:'700',color:'#FFFFFF'}}>{translations[lang].quickCreate}</Text>
       </Pressable>
       <Pressable accessibilityRole="button" accessibilityLabel={lang==='fr'?'Bobo : jouer':'Bobo : fo'} onPress={()=>navigation.navigate('Jouer')} style={{width:'48.3%',minHeight:142,borderRadius:23,backgroundColor:'#D9382F',padding:12,alignItems:'center',justifyContent:'center',gap:3,elevation:2}}>
-        <Image source={require('./assets/Bobo_portrait_et_nom.png')} style={{width:76,height:76}} resizeMode="contain" accessibilityLabel="Bobo"/>
-        <Text style={{fontSize:17,fontWeight:'900',color:'#FFFFFF'}}>Bobo</Text><Text style={{fontSize:12,fontWeight:'700',color:'#FFFFFF'}}>{lang==='fr'?'Jouer':'Fo'}</Text>
+        <Image source={require('./assets/Bobo_vues_corps_entier.png')} style={{width:76,height:76}} resizeMode="contain" accessibilityLabel="Bobo"/>
+        <Text style={{fontSize:17,fontWeight:'900',color:'#FFFFFF'}}>Bobo</Text><Text style={{fontSize:12,fontWeight:'700',color:'#FFFFFF'}}>{translations[lang].quickLearn}</Text>
       </Pressable>
       <Pressable accessibilityRole="button" accessibilityLabel={lang==='fr'?'Baobab : découvrir des histoires':'Baobab : nettali'} onPress={()=>navigation.navigate('Explorer')} style={{width:'48.3%',minHeight:142,borderRadius:23,backgroundColor:'#2F8A5B',padding:12,alignItems:'center',justifyContent:'center',gap:3,elevation:2}}>
         <View style={{width:76,height:76,borderRadius:38,backgroundColor:'rgba(255,255,255,0.92)',alignItems:'center',justifyContent:'center'}}><Text style={{fontSize:48}}>🌳</Text></View>
-        <Text style={{fontSize:17,fontWeight:'900',color:'#FFFFFF'}}>Baobab</Text><Text style={{fontSize:12,fontWeight:'700',color:'#FFFFFF'}}>{lang==='fr'?'Découvrir':'Xam'}</Text>
+        <Text style={{fontSize:17,fontWeight:'900',color:'#FFFFFF'}}>Baobab</Text><Text style={{fontSize:12,fontWeight:'700',color:'#FFFFFF'}}>{translations[lang].quickDiscover}</Text>
       </Pressable>
     </View>
     <View accessibilityRole="summary" style={{marginTop:14,backgroundColor:'#FFFDF6',borderWidth:1,borderColor:'#F0E2BD',borderRadius:19,paddingVertical:11,paddingHorizontal:15,flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
