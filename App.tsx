@@ -338,6 +338,7 @@ function MoreScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
   </ScrollView></SafeAreaView>;
 }
 function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
+  const navigation=useNavigation<any>();
   const openInfo = (url:string) => Linking.openURL(url).catch(() => Alert.alert(lang==='fr'?'Lien indisponible':'Link bi amul',lang==='fr'?'Réessaie dans un instant.':'Jéemaat ci kanam.'));
   const label = lang==='fr';
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}>
