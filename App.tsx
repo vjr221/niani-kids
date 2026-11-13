@@ -171,6 +171,7 @@ function VideosScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void})
   const [videos,setVideos] = useState<VideoRecord[]>([]);
   const [loading,setLoading] = useState(true);
   const [loadError,setLoadError] = useState(false);
+  const [refreshKey,setRefreshKey] = useState(0);
   const t = translations[lang];
 
   useEffect(() => {
@@ -195,7 +196,7 @@ function VideosScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void})
       active = false;
       unsubscribe();
     };
-  }, [navigation]);
+  }, [navigation,refreshKey]);
 
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
     <View style={[s.parentCard,{backgroundColor:'#E4F5E7'}]}>
@@ -209,7 +210,7 @@ function VideosScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void})
       <Text style={s.quizTitle}>{t.videosEmptyTitle}</Text>
       <Text style={s.cardSubtitle}>{loadError ? (lang==='fr'?'La connexion au catalogue est momentanément indisponible. Réessaie dans un instant.':'Jokkoo ak katalog bi amul léegi. Jéemaat ci kanam.') : t.videosEmptyBody}</Text>
       <Text style={s.parentHint}>{t.videosParentHint}</Text>
-      <Pressable accessibilityRole="button" accessibilityLabel={lang==='fr'?'Actualiser les vidéos':'Yeesal wideo yi'} style={s.nextButton} onPress={()=>navigation.emit({type:'focus'})}><Text style={s.nextText}>{lang==='fr'?'Actualiser':'Yeesal'} ↻</Text></Pressable>
+      <Pressable accessibilityRole="button" accessibilityLabel={lang==='fr'?'Actualiser les vidéos':'Yeesal wideo yi'} style={s.nextButton} onPress={()=>setRefreshKey(value=>value+1)}><Text style={s.nextText}>{lang==='fr'?'Actualiser':'Yeesal'} ↻</Text></Pressable>
       <Pressable accessibilityRole="button" accessibilityLabel={t.videosOpenChannel} style={[s.nextButton,{backgroundColor:'#FFFFFF',marginTop:8}]} onPress={()=>openExternal(YOUTUBE)}><Text style={[s.nextText,{color:C.ink}]}>{t.videosOpenChannel} ↗</Text></Pressable>
     </View>:null}
     {videos.map(video=>{
