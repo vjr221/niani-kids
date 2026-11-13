@@ -252,18 +252,18 @@ function WorkshopsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>voi
     <View style={[s.parentCard,{backgroundColor:'#FBE8E3'}]}>
       <View style={{flexDirection:'row',alignItems:'center',gap:12}}>
         <Text style={{fontSize:40}}>🎨</Text>
-        <View style={{flex:1}}><Text style={s.cardCategory}>{lang==='fr'?'CRÉER EN FAMILLE':'SOS AK NJABOOT'}</Text><Text style={s.pageTitle}>{translations[lang].workshopTitle}</Text></View>
+        <View style={{flex:1}}><Text style={s.cardCategory}>{'CRÉER EN FAMILLE'}</Text><Text style={s.pageTitle}>{translations[lang].workshopTitle}</Text></View>
       </View>
       <Text style={s.cardSubtitle}>{translations[lang].workshopIntro}</Text>
       <View style={{marginTop:12,backgroundColor:'#FFFFFF',borderRadius:16,padding:12}}>
         <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-          <Text style={{fontSize:12,fontWeight:'900',color:C.ink}}>{lang==='fr'?'Activités réalisées':'Jëf yi ñu def'}</Text>
+          <Text style={{fontSize:12,fontWeight:'900',color:C.ink}}>{'Activités réalisées'}</Text>
           <Text style={{fontSize:13,fontWeight:'900',color:'#176B50'}}>{done.length}/{workshops.length}</Text>
         </View>
         <View style={{height:8,backgroundColor:'#EEE7DE',borderRadius:8,overflow:'hidden',marginTop:8}}>
           <View style={{height:8,width:`${done.length/workshops.length*100}%`,backgroundColor:'#25845F',borderRadius:8}}/>
         </View>
-        <Text style={{fontSize:11,color:C.muted,marginTop:7}}>{lang==='fr'?'Chaque activité se réalise avec un adulte, à son rythme.':'Jëf bu nekk ak mag, ci sa yoon.'}</Text>
+        <Text style={{fontSize:11,color:C.muted,marginTop:7}}>{'À réaliser avec un adulte, à son rythme.'}</Text>
       </View>
     </View>
     <View style={s.parentHint}>{translations[lang].workshopSafety}</View>
