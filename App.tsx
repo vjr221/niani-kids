@@ -10,8 +10,7 @@ import { contents as starterContents, ContentItem } from './src/content';
 import { officialSongs } from './src/officialSongCatalog';
 import { Language, translations } from './src/i18n';
 import AudioPlayerCard from './src/AudioPlayerCard';
-import AudioReviewPanel from './src/AudioReviewPanel';
-import { getAudioTrack, isAudioReady } from './src/audioCatalog';
+import { audioCatalog, getAudioTrack, isAudioReady } from './src/audioCatalog';
 import { learningThemes, workshopLibrary, eightWeekPath, activityGuides } from './src/program';
 import { siteResources } from './src/siteResources';
 import { getPublishedVideos, getYouTubeThumbnail, getYouTubeWatchUrl } from './src/videoCatalog';
@@ -319,15 +318,36 @@ function LibraryScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Lang
 function FavoritesScreen({lang,setLang,favorites,toggleFavorite,onOpen}:{lang:Language;setLang:(l:Language)=>void;favorites:string[];toggleFavorite:(id:string)=>void;onOpen:(item:ContentItem)=>void}) {
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}><Text style={s.pageTitle}>❤️ {translations[lang].favorites}</Text>{allKnownContents.filter(x=>favorites.includes(x.id)).map(item=><ContentCard key={item.id} item={item} lang={lang} favorite onFavorite={()=>toggleFavorite(item.id)} onOpen={()=>onOpen(item)}/>)}{!favorites.length&&<View style={s.empty}><Text style={{fontSize:45}}>⭐</Text><Text style={s.cardTitle}>{translations[lang].treasuresHere}</Text><Text style={s.cardSubtitle}>{translations[lang].favoriteHint}</Text></View>}</ScrollView></SafeAreaView>;
 }
+function MoreScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
+  const navigation=useNavigation<any>();
+  const french=lang==='fr';
+  const items=[
+    {route:'Explorer',icon:'🧭',title:french?'Explorer':'Seet',description:french?'Découvrir le Sénégal, la nature et les langues':'Xam Senegaal, àll ak làkk yi',background:'#E4F2FF'},
+    {route:'Atelier',icon:'🎨',title:french?'Atelier créatif':'Atelier',description:french?'Dessiner, bricoler et créer en famille':'Tëgg, jëf ak sos ci njaboot gi',background:'#FBE8E3'},
+    {route:'Parents',icon:'👨‍👩‍👧',title:french?'Espace Parents':'Njàngale yi',description:french?'Ressources, sécurité et informations familiales':'Jumtukaay, kaaraange ak xibaar',background:'#E6F2E6'},
+    {route:'Favoris',icon:'❤️',title:french?'Mes favoris':'Li ma bëgg',description:french?'Retrouver les chansons et histoires préférées':'Dellusi ci woy ak nettali yi nga bëgg',background:'#FFF0D4'},
+    {route:'Écouter',icon:'🌙',title:french?'Histoires et berceuses':'Nettali ak woy yu nelaw',description:french?'Un espace calme pour écouter':'Bérab bu dal ngir déglu',background:'#EEE9FF'}
+  ];
+  return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}>
+    <View style={[s.parentCard,{backgroundColor:'#E5F2E7'}]}><Text style={s.cardCategory}>{french?'TOUTES LES RUBRIQUES':'YÉPP CI BÉRAB'}</Text><Text style={s.pageTitle}>{french?'Plus à découvrir':'Yeneen lu bees'}</Text><Text style={s.cardSubtitle}>{french?'Retrouve ici les espaces pour apprendre, créer et partager avec ta famille.':'Fii nga fekk bérab yi ngir jàng, sos ak bokk ak sa njaboot.'}</Text></View>
+    {items.map(item=><Pressable key={item.route} accessibilityRole="button" onPress={()=>navigation.navigate(item.route)} style={[s.gameCard,{backgroundColor:item.background,minHeight:88}]}>
+      <View style={{width:48,height:48,borderRadius:16,backgroundColor:'#FFFFFF',alignItems:'center',justifyContent:'center'}}><Text style={{fontSize:27}}>{item.icon}</Text></View>
+      <View style={{flex:1,gap:3}}><Text style={s.cardTitle}>{item.title}</Text><Text style={s.cardSubtitle}>{item.description}</Text></View><Text style={{fontSize:23,color:C.orange}}>›</Text>
+    </Pressable>)}
+    <Text style={s.footer}>Niani Kids · Chanter · Rêver · Apprendre · Grandir</Text>
+  </ScrollView></SafeAreaView>;
+}
 function ParentsScreen({lang,setLang}:{lang:Language;setLang:(l:Language)=>void}) {
-  const showAudioReview = __DEV__ || process.env.EXPO_PUBLIC_AUDIO_REVIEW === 'true';
+  const navigation=useNavigation<any>();
   const openInfo = (url:string) => Linking.openURL(url).catch(() => Alert.alert(lang==='fr'?'Lien indisponible':'Link bi amul',lang==='fr'?'Réessaie dans un instant.':'Jéemaat ci kanam.'));
   const label = lang==='fr';
   return <SafeAreaView style={s.safe} edges={['top']}><Header lang={lang} setLang={setLang}/><ScrollView contentContainerStyle={s.scroll}>
     <Text style={s.pageTitle}>👨‍👩‍👧 {translations[lang].parentTitle}</Text>
     <View style={s.parentCard}><Text style={{fontSize:42}}>💚</Text><Text style={s.heroTitle}>{translations[lang].parentTogether}</Text><Text style={s.cardSubtitle}>{translations[lang].parentBody}</Text></View>
     <Section title={translations[lang].parentSpaceTitle}/>
-    {showAudioReview ? <AudioReviewPanel lang={lang}/> : null}
+    <Pressable accessibilityRole="button" onPress={()=>navigation.navigate('Bibliothèque')} style={[s.externalLink,{backgroundColor:'#E5F2E7'}]}>
+      <Text style={{fontSize:27}}>🎵</Text><View style={{flex:1}}><Text style={s.cardTitle}>{label?'Catalogue des chansons':'Woy yi'}</Text><Text style={s.cardSubtitle}>{label?`${audioCatalog.filter(track=>isAudioReady(track)).length} chansons validées, disponibles dans l’onglet Chansons.`:'Woy yu ñu nangu te féex ci Chansons.'}</Text></View><Text style={s.sectionAction}>{label?'Ouvrir':'Ubbi'} ›</Text>
+    </Pressable>
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(YOUTUBE)}><Text style={{fontSize:26}}>▶️</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].youtube}</Text><Text style={s.cardSubtitle}>{translations[lang].youtubeSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].opening} ↗</Text></Pressable>
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(TIKTOK)}><Text style={{fontSize:26}}>🎬</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].tiktok}</Text><Text style={s.cardSubtitle}>{translations[lang].tiktokSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
     <Pressable accessibilityRole="link" style={s.externalLink} onPress={()=>openExternal(FACEBOOK)}><Text style={{fontSize:26}}>📘</Text><View style={{flex:1}}><Text style={s.cardTitle}>{translations[lang].facebook}</Text><Text style={s.cardSubtitle}>{translations[lang].facebookSubtitle}</Text></View><Text style={s.sectionAction}>{translations[lang].openExternal} ↗</Text></Pressable>
@@ -380,17 +400,17 @@ export default function App() {
   };
   const setStars=(n:number)=>{setStarsState(n);AsyncStorage.setItem('niani-stars',String(n)).catch(()=>{})};
   const onOpen=(item:ContentItem)=>{setLastContentId(item.id);AsyncStorage.setItem('niani-last-content',item.id).catch(()=>{});setSelectedItem(item);};
-  return <NavigationContainer><StatusBar barStyle="dark-content" backgroundColor={C.cream}/><Tab.Navigator screenOptions={{headerShown:false,tabBarActiveTintColor:C.orange,tabBarInactiveTintColor:'#7C8982',tabBarStyle:{width:'100%',alignSelf:'stretch',minHeight:72,paddingTop:5,backgroundColor:'#FFFEFB',borderTopColor:'#EFE6D8',borderTopWidth:1,elevation:10,shadowColor:'#486657',shadowOffset:{width:0,height:-3},shadowOpacity:0.07,shadowRadius:9},tabBarItemStyle:{flex:1,flexBasis:0,minWidth:0,paddingHorizontal:0,alignItems:'center',justifyContent:'center'},tabBarLabelStyle:{fontWeight:'900',fontSize:9,letterSpacing:-0.1,marginTop:1,marginBottom:2,includeFontPadding:false},tabBarHideOnKeyboard:true,tabBarIconStyle:{marginTop:0}}}>
+  return <NavigationContainer><StatusBar barStyle="dark-content" backgroundColor={C.cream}/><Tab.Navigator screenOptions={{headerShown:false,tabBarActiveTintColor:C.orange,tabBarInactiveTintColor:'#7C8982',tabBarStyle:{width:'100%',alignSelf:'stretch',height:76,minHeight:76,paddingTop:5,paddingBottom:4,paddingHorizontal:3,backgroundColor:'#FFFEFB',borderTopColor:'#EFE6D8',borderTopWidth:1,elevation:10,shadowColor:'#486657',shadowOffset:{width:0,height:-3},shadowOpacity:0.07,shadowRadius:9},tabBarItemStyle:{flex:1,flexBasis:0,minWidth:0,paddingHorizontal:0,alignItems:'center',justifyContent:'center'},tabBarLabelStyle:{fontWeight:'900',fontSize:10,letterSpacing:0,marginTop:1,marginBottom:1,includeFontPadding:false},tabBarHideOnKeyboard:true,tabBarIconStyle:{marginTop:0}}}>
     <Tab.Screen name="Accueil" options={{tabBarLabel:translations[lang].home,tabBarAccessibilityLabel:translations[lang].home,tabBarIcon:({focused})=><View style={[s.tabIcon,focused&&{backgroundColor:'#E2F2E8'}]}><Text style={s.tabEmoji}>🏡</Text></View>}}>{()=> <HomeScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen} lastContent={lastContent} stars={stars}/>}</Tab.Screen>
     <Tab.Screen name="Vidéos" options={{tabBarLabel:lang==='fr'?'Vidéos':'Wideo',tabBarAccessibilityLabel:'Vidéos Niani Kids',tabBarIcon:({focused})=><View style={[s.tabIcon,focused&&{backgroundColor:'#E2F2E8'}]}><Text style={s.tabEmoji}>🎬</Text></View>}}>{()=> <VideosScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
-    <Tab.Screen name="Bibliothèque" options={{tabBarLabel:lang==='fr'?'Comptines':'Woy yi',tabBarAccessibilityLabel:translations[lang].library,tabBarIcon:({focused})=><View style={[s.tabIcon,focused&&{backgroundColor:'#E2F2E8'}]}><Text style={s.tabEmoji}>🎵</Text></View>}}>{()=> <LibraryScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen>
+    <Tab.Screen name="Bibliothèque" options={{tabBarLabel:lang==='fr'?'Chansons':'Woy yi',tabBarAccessibilityLabel:translations[lang].library,tabBarIcon:({focused})=><View style={[s.tabIcon,focused&&{backgroundColor:'#E2F2E8'}]}><Text style={s.tabEmoji}>🎵</Text></View>}}>{()=> <LibraryScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen>
     <Tab.Screen name="Jouer" options={{tabBarLabel:translations[lang].play,tabBarAccessibilityLabel:translations[lang].play,tabBarIcon:({focused})=><View style={[s.tabIcon,focused&&{backgroundColor:'#E2F2E8'}]}><Text style={s.tabEmoji}>🎮</Text></View>}}>{()=> <GamesScreen lang={lang} setLang={setLang} stars={stars} setStars={setStars}/>}</Tab.Screen>
-    <Tab.Screen name="Explorer" options={{tabBarLabel:lang==='fr'?'Explorer':'Seet',tabBarAccessibilityLabel:lang==='fr'?'Explorer les thèmes éducatifs':'Seet ci jàng',tabBarIcon:({focused})=><View style={[s.tabIcon,focused&&{backgroundColor:'#E2F2E8'}]}><Text style={s.tabEmoji}>🧭</Text></View>}}>{()=> <ExploreScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
-    <Tab.Screen name="Atelier" options={{tabBarLabel:translations[lang].workshop,tabBarAccessibilityLabel:translations[lang].workshop,tabBarIcon:({focused})=><View style={[s.tabIcon,focused&&{backgroundColor:'#E2F2E8'}]}><Text style={s.tabEmoji}>🎨</Text></View>}}>{()=> <WorkshopsScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
-    <Tab.Screen name="Parents" options={{tabBarLabel:translations[lang].parents,tabBarAccessibilityLabel:translations[lang].parents,tabBarIcon:({focused})=><View style={[s.tabIcon,focused&&{backgroundColor:'#E2F2E8'}]}><Text style={s.tabEmoji}>👨‍👩‍👧</Text></View>}}>{()=> <ParentsScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
+    <Tab.Screen name="Plus" options={{tabBarLabel:lang==='fr'?'Plus':'Yeneen',tabBarAccessibilityLabel:lang==='fr'?'Autres rubriques':'Yeneen yu am',tabBarIcon:({focused})=><View style={[s.tabIcon,focused&&{backgroundColor:'#E2F2E8'}]}><Text style={s.tabEmoji}>✨</Text></View>}}>{()=> <MoreScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
+    <Tab.Screen name="Explorer" options={{tabBarButton:()=>null}}>{()=> <ExploreScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
+    <Tab.Screen name="Atelier" options={{tabBarButton:()=>null}}>{()=> <WorkshopsScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
+    <Tab.Screen name="Parents" options={{tabBarButton:()=>null}}>{()=> <ParentsScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
     <Tab.Screen name="Écouter" options={{tabBarButton:()=>null}}>{()=> <ListenScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen>
-    <Tab.Screen name="Favoris" options={{tabBarButton:()=>null}}>{()=> <FavoritesScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen>
-  </Tab.Navigator>
+    <Tab.Screen name="Favoris" options={{tabBarButton:()=>null}}>{()=> <FavoritesScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen></Tab.Navigator>
     <Modal visible={!!selectedItem} animationType="slide" onRequestClose={()=>setSelectedItem(null)}>
       <SafeAreaView style={s.readerSafe} edges={['top','bottom']}>
         <View style={s.readerHeader}>
