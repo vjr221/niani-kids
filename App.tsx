@@ -468,11 +468,11 @@ function AppContent() {
     <Tab.Screen name="Bibliothèque" options={{tabBarLabel:lang==='fr'?'Chansons':'Woy yi',tabBarAccessibilityLabel:translations[lang].library,tabBarIcon:({focused})=><View style={[s.tabIcon,focused&&{backgroundColor:'#E2F2E8'}]}><Text style={s.tabEmoji}>🎵</Text></View>}}>{()=> <LibraryScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen>
     <Tab.Screen name="Jouer" options={{tabBarLabel:translations[lang].play,tabBarAccessibilityLabel:translations[lang].play,tabBarIcon:({focused})=><View style={[s.tabIcon,focused&&{backgroundColor:'#E2F2E8'}]}><Text style={s.tabEmoji}>🎮</Text></View>}}>{()=> <GamesScreen lang={lang} setLang={setLang} stars={stars} setStars={setStars}/>}</Tab.Screen>
     <Tab.Screen name="Plus" options={{tabBarLabel:lang==='fr'?'Plus':'Yeneen',tabBarAccessibilityLabel:lang==='fr'?'Autres rubriques':'Yeneen yu am',tabBarIcon:({focused})=><View style={[s.tabIcon,focused&&{backgroundColor:'#E2F2E8'}]}><Text style={s.tabEmoji}>✨</Text></View>}}>{()=> <MoreScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
-    <Tab.Screen name="Explorer" options={{tabBarButton:()=>null}}>{()=> <ExploreScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
-    <Tab.Screen name="Atelier" options={{tabBarButton:()=>null}}>{()=> <WorkshopsScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
-    <Tab.Screen name="Parents" options={{tabBarButton:()=>null}}>{()=> <ParentsScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
-    <Tab.Screen name="Écouter" options={{tabBarButton:()=>null}}>{()=> <ListenScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen>
-    <Tab.Screen name="Favoris" options={{tabBarButton:()=>null}}>{()=> <FavoritesScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen></Tab.Navigator>
+    <Tab.Screen name="Explorer" options={{tabBarButton:()=>null,tabBarItemStyle:{display:'none'}}}>{()=> <ExploreScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
+    <Tab.Screen name="Atelier" options={{tabBarButton:()=>null,tabBarItemStyle:{display:'none'}}}>{()=> <WorkshopsScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
+    <Tab.Screen name="Parents" options={{tabBarButton:()=>null,tabBarItemStyle:{display:'none'}}}>{()=> <ParentsScreen lang={lang} setLang={setLang}/>}</Tab.Screen>
+    <Tab.Screen name="Écouter" options={{tabBarButton:()=>null,tabBarItemStyle:{display:'none'}}}>{()=> <ListenScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen>
+    <Tab.Screen name="Favoris" options={{tabBarButton:()=>null,tabBarItemStyle:{display:'none'}}}>{()=> <FavoritesScreen lang={lang} setLang={setLang} favorites={favorites} toggleFavorite={toggleFavorite} onOpen={onOpen}/>}</Tab.Screen></Tab.Navigator>
     <Modal visible={!!selectedItem} animationType="slide" onRequestClose={()=>setSelectedItem(null)}>
       <SafeAreaView style={s.readerSafe} edges={['top','bottom']}>
         <View style={s.readerHeader}>
