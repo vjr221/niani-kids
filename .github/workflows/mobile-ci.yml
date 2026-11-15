@@ -36,6 +36,8 @@ jobs:
           node-version: 20.19.0
           cache: npm
       - run: npm ci
+      - name: Release metadata consistency
+        run: node scripts/validate-release-metadata.mjs
       - name: TypeScript
         run: npx tsc --noEmit
       - name: Validate content catalogue
