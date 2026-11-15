@@ -19,10 +19,15 @@ const feccRecord = audioSource.match(/contentId:\s*'song-nanu-fecc'[\s\S]*?\n\s*
 assert.match(feccRecord, /reviewStatus:\s*'approved'/, 'User-approved Nañu fecc must be available');
 assert.match(feccRecord, /languageReviewed:\s*true/, 'User-approved Nañu fecc must retain language approval');
 assert.match(feccRecord, /rightsConfirmed:\s*true/, 'Owner-confirmed rights must be preserved');
+const nelawalRecord = audioSource.match(/contentId:\s*'song-nelawal-sama-nene'[\s\S]*?\n\s*\}/)?.[0] ?? '';
+assert.match(nelawalRecord, /reviewStatus:\s*'approved'/, 'User-approved Nelawal must be available');
+assert.match(nelawalRecord, /languageReviewed:\s*true/, 'User-approved Nelawal must retain language approval');
+assert.match(nelawalRecord, /rightsConfirmed:\s*true/, 'Owner-confirmed Nelawal rights must be preserved');
 assert.match(audioSource, /Yaaye-Sama-Yaay-Version-Masculine\.mp3/, 'Yaaye masculine alternative must be present');
 assert.match(audioSource, /coverUrl:\s*`https:\/\/nianikids\.com\/wp-content\/uploads\/2026\/11\//, 'Approved audio records must expose official cover art');
 assert.equal((audioSource.match(/approved\('[^']+',\d+,'[^']+','[^']+\.jpg'\)/g) ?? []).length, 27, 'All helper-based approved tracks must have a 16:9 cover mapping');
 assert.match(audioSource, /coverUrl:\s*'https:\/\/nianikids\.com\/wp-content\/uploads\/2026\/11\/05_Nu_ngi_fii\.jpg'/, 'The Niani theme song must have its official cover');
-assert.equal((audioSource.match(/coverUrl:\s*'https:\/\/nianikids\.com\/wp-content\/uploads\/2026\/11\//g) ?? []).length, 2, 'All production explicit records must include their official covers');
+assert.equal((audioSource.match(/coverUrl:\s*'https:\/\/nianikids\.com\/wp-content\/uploads\/2026\/11\//g) ?? []).length, 3, 'All production explicit records must include their official covers');
 assert.match(audioSource, /coverUrl:\s*'https:\/\/nianikids\.com\/wp-content\/uploads\/2026\/11\/04_Nianu_fecc\.jpg'/, 'Nañu fecc must retain its published cover');
+assert.match(nelawalRecord, /03_Nelawal_Sama_Nene\.jpg/, 'Nelawal must retain its official cover');
 console.log('Production audio validation passed: 30 approved tracks, all with official covers; no pending review files.');
