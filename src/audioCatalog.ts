@@ -56,6 +56,14 @@ export const audioCatalog: AudioTrackRecord[] = [
   approved('song-yaaye-sama-yaay',770,'https://nianikids.com/wp-content/uploads/2026/11/Yaaye-Sama-Yaay.mp3','Yaaye_Sama_Yaay_Miniature_YouTube_16-9.jpg'),
   approved('song-nene-touti',767,'https://nianikids.com/wp-content/uploads/2026/11/Nene-Touti.mp3','01_Nene_Touti.jpg'),
   approved('song-dors-mon-petit-bebe',761,'https://nianikids.com/wp-content/uploads/2026/11/Dors-mon-petit-bebe.mp3','02_Dors_mon_petit_bebe.jpg'),
+  {
+    contentId: 'song-nelawal-sama-nene', attachmentId: 763,
+    sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/Nelawal-Sama-Nene.mp3',
+    assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/Nelawal-Sama-Nene.mp3',
+    coverUrl: 'https://nianikids.com/wp-content/uploads/2026/11/03_Nelawal_Sama_Nene.jpg',
+    reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
+    notes: 'Piste et paroles Wolof validées par le responsable du projet Niani Kids ; droits de diffusion confirmés.'
+  },
 ];
 const yaayeTrack = audioCatalog.find((track) => track.contentId === 'song-yaaye-sama-yaay');
 if (yaayeTrack) yaayeTrack.alternateSources = [{
