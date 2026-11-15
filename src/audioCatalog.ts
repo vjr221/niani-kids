@@ -73,12 +73,5 @@ if (yaayeTrack) yaayeTrack.alternateSources = [{
   languageReviewed: true,
   rightsConfirmed: true,
 }];
-    sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/Nelawal-Sama-Nene.mp3',
-    assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/Nelawal-Sama-Nene.mp3',
-    coverUrl: 'https://nianikids.com/wp-content/uploads/2026/11/03_Nelawal_Sama_Nene.jpg',
-    reviewStatus: 'needs-editorial-review', languageReviewed: false, rightsConfirmed: true,
-    notes: 'Master présent dans la médiathèque WordPress. La fiche source indique que la validation linguistique Wolof reste à finaliser : piste référencée mais lecture publique bloquée jusqu’à validation.'
-  },
-];
 export function getAudioTrack(contentId: ContentItem['id']): AudioTrackRecord | undefined { return audioCatalog.find((track) => track.contentId === contentId); }
 export function isAudioReady(track: AudioTrackRecord | undefined): track is AudioTrackRecord & { assetPath: string } { return Boolean(track?.assetPath && track.reviewStatus === 'approved' && track.languageReviewed && track.rightsConfirmed); }
