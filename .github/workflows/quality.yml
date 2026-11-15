@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20.19.4
       - run: npm ci
       - name: Rapport de sécurité des dépendances (informatif)
         run: |
@@ -28,6 +28,8 @@ jobs:
           npm audit --omit=dev --json > /tmp/niani-npm-audit-production.json || true
           node -e "const a=require('/tmp/niani-npm-audit-production.json'); console.log('PRODUCTION DEPENDENCIES ONLY'); console.log(JSON.stringify({summary:a.metadata?.vulnerabilities,packages:Object.entries(a.vulnerabilities||{}).map(([name,v])=>({name,severity:v.severity,direct:v.isDirect,range:v.range,fixAvailable:v.fixAvailable,via:(v.via||[]).map(x=>typeof x==='string'?x:x.title)}))},null,2))"
       - run: npx expo install --check
+      - name: Cohérence des métadonnées de version
+        run: node scripts/validate-release-metadata.mjs
       - run: npx tsc --noEmit
       - name: Tests de persistance des favoris
         run: npm run test:favorites

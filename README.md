@@ -48,3 +48,10 @@ Le catalogue mobile reprend les fiches chansons publiées sur WordPress. Les mas
 
 ## Build Android sans EAS
 Le workflow `.github/workflows/android-gradle-apk.yml` construit l'APK avec Expo Prebuild et Gradle, vérifie sa signature et publie l'APK ainsi que son SHA-256 dans une GitHub Release. La signature debug Gradle convient aux tests et à l'installation directe, mais pas à la publication Google Play.
+
+
+## Version 1.5.0 — préparation
+- Version Android : `1.5.0` (versionCode `6`).
+- Cette branche prépare les métadonnées de publication et ajoute un contrôle automatique de cohérence des versions.
+- Les paroles et fichiers audio ne sont pas remplacés sans correspondance éditoriale vérifiée avec la fiche WordPress et le master validé.
+- La sortie APK reste conditionnée au succès de la CI et à la disponibilité des secrets de signature Android privés.
