@@ -5,7 +5,7 @@ const app = JSON.parse(readFileSync(new URL('../app.json', import.meta.url), 'ut
 const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 const lock = JSON.parse(readFileSync(new URL('../package-lock.json', import.meta.url), 'utf8'));
 
-assert.ok(/^\\d+\\.\\d+\\.\\d+$/.test(app.version), 'Expo version must use semantic versioning');
+assert.ok(/^[0-9]+\.[0-9]+\.[0-9]+$/.test(app.version), 'Expo version must use semantic versioning');
 assert.equal(pkg.version, app.version, 'package.json version must match app.json');
 assert.equal(lock.version, app.version, 'package-lock root version must match app.json');
 assert.equal(lock.packages?.['']?.version, app.version, 'package-lock root package version must match app.json');
