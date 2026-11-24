@@ -39,17 +39,17 @@ export const audioCatalog: AudioTrackRecord[] = [
   approved('song-vegetables',171,'https://nianikids.com/wp-content/uploads/2026/10/niani-les-legumes-font-la-fete.mp3','06_Les_legumes_font_la_fete.jpg'),
   {
     contentId: 'song-theme', attachmentId: 855, durationSeconds: 152,
-    coverUrl: 'https://nianikids.com/wp-content/uploads/2026/11/05_Nu_ngi_fii-1024x576.jpg',
+    coverUrl: 'https://nianikids.com/wp-content/uploads/2026/11/05_Nu_ngi_fii.jpg',
     sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/NIANI-NIANI-%E2%80%94-NU-NGI-FII-1.mp3',
-    assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/NIANI-NIANI-—-NU-NGI-FII.mp3',
+    assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/NIANI-NIANI-%E2%80%94-NU-NGI-FII-1.mp3',
     reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
     notes: 'Droits de diffusion, paroles et prononciation wolof validés par le responsable du projet Niani Kids.'
   },
   {
     contentId: 'song-nanu-fecc', attachmentId: 853, durationSeconds: 180,
-    coverUrl: 'https://nianikids.com/wp-content/uploads/2026/11/04_Nianu_fecc-1024x576.jpg',
+    coverUrl: 'https://nianikids.com/wp-content/uploads/2026/11/04_Nianu_fecc.jpg',
     sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-%E2%80%93-Nanu-fecc-.mp3',
-    assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-–-Nanu-fecc-Dansons-.mp3',
+    assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-%E2%80%93-Nanu-fecc-.mp3',
     reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
     notes: 'Version Nañu fecc ! validée par le responsable du projet. Introduction corrigée : Niaaaani… Niaaaani… / Nuyoo, nuyoo! / Nañu fecc!.'
   },
