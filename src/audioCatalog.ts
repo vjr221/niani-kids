@@ -6,7 +6,7 @@
 import type { ContentItem } from './content';
 export type AudioReviewStatus = 'needs-identification' | 'needs-editorial-review' | 'approved';
 export type AudioAlternateRecord = { title: string; sourceUrl: string; reviewStatus: AudioReviewStatus; languageReviewed: boolean; rightsConfirmed: boolean };
-export type AudioTrackRecord = { contentId: ContentItem['id']; attachmentId?: number; sourceUrl?: string; assetPath?: string; coverUrl?: string; reviewStatus: AudioReviewStatus; languageReviewed: boolean; rightsConfirmed: boolean; notes: string; alternateSources?: AudioAlternateRecord[] };
+export type AudioTrackRecord = { durationSeconds?: number; contentId: ContentItem['id']; attachmentId?: number; sourceUrl?: string; assetPath?: string; coverUrl?: string; reviewStatus: AudioReviewStatus; languageReviewed: boolean; rightsConfirmed: boolean; notes: string; alternateSources?: AudioAlternateRecord[] };
 const approved = (contentId: ContentItem['id'], attachmentId: number, url: string, coverFile: string): AudioTrackRecord => ({
   contentId, attachmentId, sourceUrl: url, assetPath: url, coverUrl: `https://nianikids.com/wp-content/uploads/2026/11/${coverFile}`,
   reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
@@ -38,18 +38,18 @@ export const audioCatalog: AudioTrackRecord[] = [
   approved('song-meal',170,'https://nianikids.com/wp-content/uploads/2026/10/niani-a-table-bon-appetit.mp3','07_A_table_bon_appetit.jpg'),
   approved('song-vegetables',171,'https://nianikids.com/wp-content/uploads/2026/10/niani-les-legumes-font-la-fete.mp3','06_Les_legumes_font_la_fete.jpg'),
   {
-    contentId: 'song-theme', attachmentId: 250,
+    contentId: 'song-theme', attachmentId: 855, durationSeconds: 152,
     coverUrl: 'https://nianikids.com/wp-content/uploads/2026/11/05_Nu_ngi_fii.jpg',
-    sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/NIANI-NIANI-—-NU-NGI-FII.mp3',
-    assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/NIANI-NIANI-—-NU-NGI-FII.mp3',
+    sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/NIANI-NIANI-%E2%80%94-NU-NGI-FII-1.mp3',
+    assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/NIANI-NIANI-%E2%80%94-NU-NGI-FII-1.mp3',
     reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
     notes: 'Droits de diffusion, paroles et prononciation wolof validés par le responsable du projet Niani Kids.'
   },
   {
-    contentId: 'song-nanu-fecc', attachmentId: 286,
+    contentId: 'song-nanu-fecc', attachmentId: 853, durationSeconds: 180,
     coverUrl: 'https://nianikids.com/wp-content/uploads/2026/11/04_Nianu_fecc.jpg',
-    sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-–-Nanu-fecc-Dansons-.mp3',
-    assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-–-Nanu-fecc-Dansons-.mp3',
+    sourceUrl: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-%E2%80%93-Nanu-fecc-.mp3',
+    assetPath: 'https://nianikids.com/wp-content/uploads/2026/11/Niani-Kids-%E2%80%93-Nanu-fecc-.mp3',
     reviewStatus: 'approved', languageReviewed: true, rightsConfirmed: true,
     notes: 'Version Nañu fecc ! validée par le responsable du projet. Introduction corrigée : Niaaaani… Niaaaani… / Nuyoo, nuyoo! / Nañu fecc!.'
   },
