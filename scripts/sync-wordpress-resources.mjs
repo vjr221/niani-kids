@@ -1,8 +1,8 @@
 import { writeFileSync } from 'node:fs';
 
 const API = 'https://nianikids.com/wp-json/wp/v2/posts';
-const response = await fetch(`${API}?status=publish&per_page=20&page=1&orderby=date&order=desc&_fields=id,date,link,slug,title,excerpt`, {
-  headers: { 'User-Agent': 'NianiKids-ContentSync/1.0' },
+const response = await fetch(`${API}?status=publish&per_page=50&page=1&orderby=date&order=desc&_fields=id,date,link,slug,title,excerpt`, {
+  headers: { 'User-Agent': 'NianiKids-ContentSync/1.1' },
   signal: AbortSignal.timeout(20000),
 });
 if (!response.ok) throw new Error(`WordPress REST API returned HTTP ${response.status}`);
