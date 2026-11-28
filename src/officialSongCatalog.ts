@@ -1,5 +1,5 @@
 /**
- * Official lyrics for the 30 song pages currently published in the Niani Kids mobile catalogue.
+ * Official lyrics for the 32 song pages currently published in the Niani Kids mobile catalogue.
  * Lyrics are copied from the live WordPress records; durations remain to be checked.
  */
 import type { ContentItem } from './content';
@@ -341,5 +341,29 @@ export const officialSongs: ContentItem[] = [
     "lyrics": "[Intro]\n[soft kora, humming]\n\n[Chorus]\nNelawal, nelawal, sama néné\nNdank-ndank, la nuit est douce\nBobo veille, les étoiles aussi\nFanaan ak jamm, néné touti\n\n[Verse 1]\nLa lune se pose sur le baobab\nLe vent s'endort dans les feuilles\nSamba bâille, Awa sourit\nTout le village fait doucement dodo\n\n[Chorus]\nNelawal, nelawal, sama néné\nNdank-ndank, la nuit est douce\nBobo veille, les étoiles aussi\nFanaan ak jamm, néné touti\n\n[Verse 2]\nLes petites étoiles clignent des yeux\nUne, deux, trois, elles s'éteignent\nFerme tes yeux, ferme tes mains\nNdey est là, tout près de toi\n\n[Bridge - whispered]\nSama xol, sama néné\nJamm ak jamm, nelawal\nBeg naa la, néné touti\n\n[Verse 3]\nLes rêves arrivent sur le dos du vent\nIls portent des fleurs de baobab\nTu voles au-dessus du fleuve\nEt le matin te sourit déjà\n\n[Final Chorus - very soft, whispered]\nNelawal, nelawal, sama néné\nNdank-ndank… ndank-ndank…\nFanaan ak jamm\n\n[Outro]\n[instrumental, kora fades out]",
     "imageUrl": "https://nianikids.com/wp-content/uploads/2026/11/file_0000000009bc8210a6dda9ea89fcfcc5-1024x576.png",
     "wolofLyrics": "Nelawal, nelawal, sama néné\nFanaan ak jamm, néné touti\nSama xol, sama néné\nJamm ak jamm, nelawal\nBeg naa la, néné touti"
+  },
+  {
+    "id": "song-niani-kids-chantons-ensemble",
+    "title": "Niani Kids, chantons ensemble !",
+    "subtitle": "La première chanson d’accueil de Niani Kids : une invitation joyeuse à chanter ensemble avec Samba, Awa, Bobo et le Baobab.",
+    "category": "Comptines",
+    "emoji": "🎉",
+    "duration": "À confirmer",
+    "language": "FR",
+    "featured": true,
+    "lyrics": "Paroles – Niani Kids, chantons ensemble !\n\nIntro — parlé, avec un sourire\n\nBonjour les amis ! Bonjour les petits !\n\nVous êtes prêts ?\n\nAlors, on chante tous ensemble !\n\nCouplet 1\n\nLe soleil se lève, le baobab sourit,\n\nSamba tape des mains, Awa chante aussi.\n\nBobo nous appelle : « Venez avec nous ! »\n\nIl y a des chansons et de la joie partout !\n\nRefrain\n\nNiani Kids, chantons ensemble !\n\nNiani Kids, faisons danser le monde !\n\nOn chante, on rit, on découvre la vie,\n\nBienvenue, bienvenue chez Niani Kids !\n\nCouplet 2 — avec des gestes\n\nUn, deux, trois, tape dans tes mains !\n\nUn, deux, trois, bouge comme un petit malin !\n\nTourne doucement, puis saute sur place,\n\nAvec nos amis, la joie prend sa place !\n\nRefrain\n\nNiani Kids, chantons ensemble !\n\nNiani Kids, faisons danser le monde !\n\nOn chante, on rit, on découvre la vie,\n\nBienvenue, bienvenue chez Niani Kids !\n\nPont — plus doux, puis crescendo\n\nBonjour les amis, bonjour la famille,\n\nDes chansons pour les garçons, des chansons pour les filles.\n\nPour rêver, pour apprendre et grandir,\n\nChaque jour, une nouvelle histoire à découvrir !\n\nSignature finale — tous ensemble\n\nNiani Kids ! Chantons ensemble !\n\nNiani Kids ! Rêvons ensemble !\n\nLes petites mélodies d’Afrique…\n\nNiani Kids, c’est parti !",
+    "imageUrl": "https://nianikids.com/wp-content/uploads/2026/11/file_0000000008d081f4a76a32af11728810-1024x576.png"
+  },
+  {
+    "id": "song-tous-les-amis-on-va-s-amuser",
+    "title": "Tous les amis, on va s’amuser !",
+    "subtitle": "Une chanson festive pour chanter, danser et s’amuser tous ensemble avec les amis de Niani Kids.",
+    "category": "Comptines",
+    "emoji": "💃🏽",
+    "duration": "À confirmer",
+    "language": "FR",
+    "featured": true,
+    "lyrics": "Paroles originales\n\nINTRO – Voix joyeuse\n\nEh eh eh !\n\nLes enfants, vous êtes prêts ?\n\nOn va chanter, on va danser !\n\nNiani Kids, c’est parti !\n\nREFRAIN – Tous les enfants\n\nBobo, Bobo, viens danser !\n\nAminata, viens chanter !\n\nSaliou, Mohamed, tape dans tes mains !\n\nAbdou, Papou, ça fait du bien !\n\nMaman, Maman, viens avec nous !\n\nSophie, Fallou, on danse partout !\n\nMoussa, Fatou, tournez, tournez !\n\nTous les amis, on va s’amuser !\n\nCOUPLET 1\n\nBobo saute : boum, boum, boum !\n\nAminata danse : zoum, zoum, zoum !\n\nSaliou tape dans ses deux mains !\n\nMohamed danse avec les copains !\n\nAbdou tourne à gauche, à gauche !\n\nPapou rigole et s’approche !\n\nSophie chante : la, la, la !\n\nTout le monde chante avec moi !\n\nREFRAIN – Tous les enfants\n\nBobo, Bobo, viens danser !\n\nAminata, viens chanter !\n\nSaliou, Mohamed, tape dans tes mains !\n\nAbdou, Papou, ça fait du bien !\n\nMaman, Maman, viens avec nous !\n\nSophie, Fallou, on danse partout !\n\nMoussa, Fatou, tournez, tournez !\n\nTous les amis, on va s’amuser !\n\nCOUPLET 2\n\nFallou saute très haut, très haut !\n\nMoussa danse comme un petit oiseau !\n\nFatou sourit, elle frappe des mains !\n\nMaman nous rejoint sur le refrain !\n\nUn pas devant, un pas derrière !\n\nOn danse ensemble, c’est extraordinaire !\n\nOn rit, on chante, on est heureux !\n\nTous les enfants sont merveilleux !\n\nPONT – Jeu de questions-réponses\n\nVoix principale : Qui veut danser ?\n\nLes enfants : Bobo !\n\nVoix principale : Qui veut chanter ?\n\nLes enfants : Aminata !\n\nVoix principale : Qui vient jouer ?\n\nLes enfants : Saliou, Mohamed !\n\nVoix principale : Et tous les autres ?\n\nLes enfants : Abdou, Papou, Sophie, Fallou, Moussa, Fatou !\n\nTous ensemble : Et Maman aussi ! Youpi !\n\nDERNIER REFRAIN – Très festif\n\nBobo, Bobo, viens danser !\n\nAminata, viens chanter !\n\nSaliou, Mohamed, tape dans tes mains !\n\nAbdou, Papou, ça fait du bien !\n\nMaman, Maman, viens avec nous !\n\nSophie, Fallou, on danse partout !\n\nMoussa, Fatou, on est réunis !\n\nTous les enfants, youpi, youpi !\n\nOUTRO – Chœurs d’enfants\n\nBobo ! Aminata !\n\nSaliou ! Mohamed !\n\nAbdou ! Papou !\n\nSophie ! Fallou !\n\nMoussa ! Fatou !\n\nEt Maman !\n\nOn chante, on danse, on est amis !\n\nNiani Kids ! Youpi, youpi !",
+    "imageUrl": "https://nianikids.com/wp-content/uploads/2026/11/file_00000000e10c8210ae65289bdc293d00-1024x576.png"
   }
 ];
